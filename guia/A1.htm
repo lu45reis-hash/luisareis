@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Elementos Estruturais e Comentários</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 15px 0 25px;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin-top: 35px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 12px 16px;
+            border-left: 5px solid #007bff;
+            margin: 15px 0;
+            font-family: Consolas, 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tag {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Elementos Estruturais e Comentários</h1>
+    </header>
+
+    <main>
+
+        <h2>Estrutura geral</h2>
+        <pre class="tree"><a href="A1.htm#doctype">!doctype</a>
+<a href="A1.htm#html">html</a>
+  |__ <a href="A1.htm#head">head</a>
+  |__ <a href="A1.htm#body">body</a> (ou <a href="A9.htm#frameset">frameset</a>)
+<a href="A1.htm#comentarios">comentários</a></pre>
+
+        <h2 id="doctype">&lt;!DOCTYPE html&gt;</h2>
+        <p>Este descritor não faz parte do HTML propriamente dito. Deve aparecer apenas uma vez, no início do documento, para indicar a versão do HTML utilizada.</p>
+        <p>A maioria dos navegadores não reclama da sua ausência, mas o seu uso é fortemente recomendado, pois facilita a validação e garante uma renderização mais correcta.</p>
+
+        <h2 id="html">&lt;html&gt; ... &lt;/html&gt;</h2>
+        <p>É o elemento raiz do documento HTML. Deve envolver todo o conteúdo da página.</p>
+        <p><strong>Deve conter:</strong> <code>&lt;head&gt;</code> e <code>&lt;body&gt;</code> (ou <code>&lt;head&gt;</code>, <code>&lt;frameset&gt;</code> e <code>&lt;noframes&gt;</code> no caso de quadros).</p>
+
+        <div class="example">&lt;html lang="pt-PT"&gt;
+  &lt;head&gt;...&lt;/head&gt;
+  &lt;body&gt;...&lt;/body&gt;
+&lt;/html&gt;</div>
+
+        <h2 id="head">&lt;head&gt; ... &lt;/head&gt;</h2>
+        <p>Contém informações sobre o documento (metadados) que não são exibidas diretamente na página.</p>
+        <p><strong>Pode conter:</strong> <code>&lt;title&gt;</code>, <code>&lt;meta&gt;</code>, <code>&lt;link&gt;</code>, <code>&lt;style&gt;</code>, <code>&lt;script&gt;</code>, etc.</p>
+
+        <h2 id="body">&lt;body&gt; ... &lt;/body&gt;</h2>
+        <p>Contém todo o conteúdo visível da página (texto, imagens, tabelas, formulários, etc.).</p>
+
+        <p><strong>Atributos principais (atualmente recomendados usar CSS):</strong></p>
+        <ul>
+            <li><code>background</code> – imagem de fundo</li>
+            <li><code>bgcolor</code> – cor de fundo</li>
+            <li><code>text</code>, <code>link</code>, <code>vlink</code>, <code>alink</code> – cores do texto e links</li>
+        </ul>
+
+        <div class="example">&lt;body style="background-color: #f8f9fa; color: #222;"&gt;</div>
+
+        <h2 id="comentarios">Comentários</h2>
+        <p>Os comentários não são exibidos pelo navegador e servem para documentar o código ou temporariamente desativar partes do HTML.</p>
+
+        <div class="example">&lt;!-- Este é um comentário --&gt;</div>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

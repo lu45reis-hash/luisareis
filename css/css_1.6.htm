@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Como definir estilos CSS: externo, interno e inline. Boas práticas atuais." />
+  <title>CSS · Definindo estilos</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.7);
+      --line:rgba(15,23,42,.12);
+      --shadow:0 16px 34px rgba(2,6,23,.08);
+      --radius:16px;
+      --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      padding:24px 16px 34px;
+    }
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+      margin-bottom:16px;
+    }
+    .kicker{ margin:0; color:var(--muted); font-size:13px; }
+    h1{
+      margin:6px 0 0;
+      font-size:clamp(26px,3vw,38px);
+      letter-spacing:-0.02em;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    h2{ margin:18px 0 8px; font-size:18px; }
+    ul{ margin:10px 0 0; padding-left:18px; }
+    li{ margin:10px 0; }
+    .grid{
+      display:grid;
+      gap:14px;
+      grid-template-columns: 1fr 1fr;
+      align-items:start;
+      margin-top:10px;
+    }
+    @media (max-width: 860px){
+      .grid{ grid-template-columns:1fr; }
+    }
+    pre{
+      margin:0;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(2,6,23,.04);
+      overflow:auto;
+      font-family:var(--mono);
+      font-size:14px;
+      line-height:1.5;
+    }
+    code{ font-family:var(--mono); }
+    .demo{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      padding:14px;
+    }
+    .pill{
+      display:inline-block;
+      font-size:12px;
+      color:rgba(15,23,42,.75);
+      background:rgba(2,6,23,.05);
+      border:1px solid rgba(2,6,23,.08);
+      padding:4px 10px;
+      border-radius:999px;
+      margin-bottom:10px;
+    }
+
+    /* estilos só para a DEMO (para veres o resultado) */
+    .demo .title{ color:#ef4444; font-style:italic; margin:0 0 8px; }
+    .demo blockquote{
+      margin:0;
+      padding:10px 12px;
+      border-left:4px solid rgba(59,130,246,.55);
+      background:rgba(59,130,246,.10);
+      text-transform:uppercase; /* (corrigido: era font-transform) */
+      border-radius:10px;
+    }
+
+    .note{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(34,197,94,.28);
+      background:rgba(34,197,94,.10);
+    }
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:16px;
+      flex-wrap:wrap;
+      padding-top:14px;
+      border-top:1px solid var(--line);
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+    }
+    .btn.secondary{ font-weight:600; }
+    footer{
+      margin-top:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <p class="kicker">Capítulo 2 · HTML e CSS na prática</p>
+        <h1>Definindo estilos</h1>
+      </div>
+      <p class="kicker">Externo · Interno · Inline</p>
+    </header>
+
+    <main class="card">
+      <p>
+        Hoje em dia, definimos estilos de três formas: <strong>CSS externo</strong> (ficheiro .css),
+        <strong>CSS interno</strong> (tag <code>&lt;style&gt;</code>) e <strong>CSS inline</strong>
+        (atributo <code>style=""</code>). Em sites com várias páginas, a melhor opção quase sempre é
+        o <strong>CSS externo</strong>, porque facilita a manutenção e mantém consistência visual.
+      </p>
+
+      <h2>1) CSS externo (recomendado)</h2>
+      <p>
+        Criamos um ficheiro <code>.css</code> e ligamo-lo no <code>&lt;head&gt;</code>:
+      </p>
+      <pre><code>&lt;link rel="stylesheet" href="estilos/cursos.css"&gt;</code></pre>
+
+      <div class="note">
+        - Ideal para sites: reutilizas o mesmo CSS em várias páginas e alteras tudo num só ficheiro.
+      </div>
+
+      <h2>2) CSS interno (para páginas isoladas ou testes)</h2>
+      <p>
+        Coloca-se dentro de <code>&lt;style&gt;</code> no <code>&lt;head&gt;</code>. Útil quando o estilo é
+        específico daquela página.
+      </p>
+
+      <div class="grid" aria-label="Exemplo de CSS interno: código e resultado">
+        <pre><code>&lt;head&gt;
+  &lt;style&gt;
+    h1 { color: red; font-style: italic; }
+    blockquote { text-transform: uppercase; }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;Título do exemplo&lt;/h1&gt;
+  &lt;blockquote&gt;Citação de exemplo&lt;/blockquote&gt;
+&lt;/body&gt;</code></pre>
+
+        <div class="demo">
+          <div class="pill">Resultado (exemplo)</div>
+          <h3 class="title">Título do exemplo</h3>
+          <blockquote>Citação de exemplo</blockquote>
+        </div>
+      </div>
+
+      <h2>3) CSS inline (evitar na maioria dos casos)</h2>
+      <p>
+        O estilo é aplicado diretamente no elemento. É prático, mas torna o código difícil de manter.
+        Usa apenas em casos pontuais.
+      </p>
+
+      <pre><code>&lt;p style="color:#0ea5e9; font-weight:700;"&gt;
+  Texto com estilo inline
+&lt;/p&gt;</code></pre>
+
+      <h2>Boas práticas atuais</h2>
+      <ul>
+        <li><strong>Preferir CSS externo</strong> para projetos com várias páginas.</li>
+        <li>Usar <strong>classes</strong> para reutilizar estilos (ex.: <code>.card</code>, <code>.btn</code>).</li>
+        <li>Evitar repetir o mesmo estilo inline muitas vezes.</li>
+      </ul>
+
+      <nav class="nav" aria-label="Navegação">
+        <a class="btn secondary" href="css_1.5.htm">← Anterior</a>
+        <a class="btn secondary" href="index.html">Índice</a>
+        <a class="btn" href="css_1.7.htm">Seguinte →</a>
+      </nav>
+    </main>
+
+    <footer>
+      <p>CSS · Aula 1.6 · Definindo estilos</p>
+    </footer>
+  </div>
+</body>
+</html>
+

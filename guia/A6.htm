@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Formulários</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 22px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 20px 0 35px;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 16px 20px;
+            border-left: 5px solid #007bff;
+            margin: 20px 0;
+            font-family: Consolas, 'Courier New', monospace;
+            white-space: pre-wrap;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Formulários</h1>
+    </header>
+
+    <main>
+
+        <pre class="tree"><a href="A6.htm#form">form</a>
+  |__ <a href="A6.htm#input">input</a>
+  |__ <a href="A6.htm#select">select</a>
+  |      |__ <a href="A6.htm#option">option</a>
+  |__ <a href="A6.htm#textarea">textarea</a></pre>
+
+        <h2 id="form">&lt;form&gt; ... &lt;/form&gt;</h2>
+        <p>Define um formulário interativo. Todos os campos de entrada devem estar dentro dele.</p>
+
+        <div class="example">&lt;form action="processar.php" method="POST"&gt;
+    ... campos do formulário ...
+&lt;/form&gt;</div>
+
+        <p><strong>Atributos principais:</strong></p>
+        <ul>
+            <li><code>action</code> – URL onde os dados serão enviados (obrigatório)</li>
+            <li><code>method</code> – <code>GET</code> ou <code>POST</code> (recomenda-se <code>POST</code> para a maioria dos casos)</li>
+            <li><code>enctype</code> – forma de codificação dos dados (útil para upload de ficheiros)</li>
+        </ul>
+
+        <h2 id="input">&lt;input&gt;</h2>
+        <p>Elemento mais versátil dos formulários. O seu comportamento muda conforme o atributo <code>type</code>.</p>
+
+        <h3>Tipos mais comuns de <code>&lt;input&gt;</code></h3>
+
+        <h4>type="text" e type="password"</h4>
+        <div class="example">&lt;input type="text" name="nome" size="30" maxlength="100"&gt;
+&lt;input type="password" name="senha" size="20"&gt;</div>
+
+        <h4>type="radio" (botões de rádio)</h4>
+        <div class="example">&lt;input type="radio" name="genero" value="masculino" checked&gt; Masculino
+&lt;input type="radio" name="genero" value="feminino"&gt; Feminino</div>
+
+        <h4>type="checkbox" (caixas de seleção)</h4>
+        <div class="example">&lt;input type="checkbox" name="interesses" value="html"&gt; HTML
+&lt;input type="checkbox" name="interesses" value="css"&gt; CSS</div>
+
+        <h4>type="submit" e type="reset"</h4>
+        <div class="example">&lt;input type="submit" value="Enviar formulário"&gt;
+&lt;input type="reset" value="Limpar campos"&gt;</div>
+
+        <h4>type="hidden"</h4>
+        <div class="example">&lt;input type="hidden" name="userid" value="12345"&gt;</div>
+
+        <h2 id="select">&lt;select&gt; ... &lt;/select&gt;</h2>
+        <p>Cria um menu de opções (caixa de seleção).</p>
+
+        <div class="example">&lt;select name="pais"&gt;
+    &lt;option value="pt"&gt;Portugal&lt;/option&gt;
+    &lt;option value="br" selected&gt;Brasil&lt;/option&gt;
+    &lt;option value="ao"&gt;Angola&lt;/option&gt;
+&lt;/select&gt;</div>
+
+        <h2 id="option">&lt;option&gt; ... &lt;/option&gt;</h2>
+        <p>Define cada opção dentro de um <code>&lt;select&gt;</code>. O atributo <code>selected</code> marca a opção pré-selecionada.</p>
+
+        <h2 id="textarea">&lt;textarea&gt; ... &lt;/textarea&gt;</h2>
+        <p>Campo de texto multilinha (área de texto).</p>
+
+        <div class="example">&lt;textarea name="mensagem" rows="8" cols="50"&gt;
+Escreva aqui a sua mensagem...
+&lt;/textarea&gt;</div>
+
+        <p><strong>Nota atual:</strong> Muitos atributos antigos de apresentação foram substituídos por CSS ou por novos tipos de <code>&lt;input&gt;</code> (email, url, number, date, etc.).</p>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

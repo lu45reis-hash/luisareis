@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Formatação de Caracteres</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 22px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 20px 0 35px;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 18px 22px;
+            border-left: 6px solid #007bff;
+            margin: 25px 0;
+            font-family: Consolas, 'Courier New', monospace;
+            white-space: pre-wrap;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .demo {
+            font-size: 1.15rem;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .recommendation {
+            background-color: #e3f2fd;
+            border-left: 6px solid #007bff;
+            padding: 18px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        footer {
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Formatação de Caracteres</h1>
+    </header>
+
+    <main>
+
+        <pre class="tree"><a href="A3.htm">bloco</a>
+  |__ <a href="A7.htm#semanticos">Semânticos (recomendados)</a>: 
+      <a href="A7.htm#strong">strong</a>, <a href="A7.htm#em">em</a>, 
+      <a href="A7.htm#cite">cite</a>, <a href="A7.htm#code">code</a>, 
+      <a href="A7.htm#samp">samp</a>, <a href="A7.htm#kbd">kbd</a>, 
+      <a href="A7.htm#var">var</a>, <a href="A7.htm#dfn">dfn</a>
+  |__ <a href="A7.htm#apresentacao">Apenas apresentação</a>: 
+      <a href="A7.htm#b">b</a>, <a href="A7.htm#i">i</a>, 
+      <a href="A7.htm#u">u</a>, <a href="A7.htm#s">s</a>, 
+      <a href="A7.htm#sub">sub</a>, <a href="A7.htm#sup">sup</a>
+  |__ <a href="A7.htm#span">span</a> (genérico)</pre>
+
+        <p>Em HTML5, a formatação de caracteres deve priorizar o <strong>significado</strong> em vez da aparência visual. 
+        Por isso, os elementos semânticos são fortemente recomendados.</p>
+
+        <div class="recommendation">
+            <strong>Regra atual:</strong> Use sempre que possível os elementos semânticos (<code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;code&gt;</code>, etc.). 
+            Eles transmitem significado aos leitores de ecrã, motores de busca e ferramentas de acessibilidade.
+        </div>
+
+        <h2 id="semanticos">Elementos Semânticos (Recomendados)</h2>
+
+        <div class="example">
+&lt;strong&gt;Texto com forte importância&lt;/strong&gt;<br>
+&lt;em&gt;Texto enfatizado&lt;/em&gt;<br>
+&lt;cite&gt;Referência a uma obra ou citação&lt;/cite&gt;<br>
+&lt;code&gt;Código fonte&lt;/code&gt;<br>
+&lt;samp&gt;Saída de um programa&lt;/samp&gt;<br>
+&lt;kbd&gt;Entrada do utilizador/teclado&lt;/kbd&gt;<br>
+&lt;var&gt;Nome de variável&lt;/var&gt;<br>
+&lt;dfn&gt;Definição de um termo&lt;/dfn&gt;
+        </div>
+
+        <p class="demo">
+            <strong>Este texto tem forte importância</strong><br>
+            <em>Este texto está enfatizado</em><br>
+            <cite>Referência bibliográfica</cite><br>
+            <code>console.log("Olá Mundo");</code><br>
+            <samp>Saída do programa</samp><br>
+            <kbd>Ctrl + C</kbd><br>
+            <var>x</var> = 42
+        </p>
+
+        <h2 id="apresentacao">Elementos de Apresentação (Apenas visual)</h2>
+
+        <div class="example">
+&lt;b&gt;Negrito visual&lt;/b&gt;<br>
+&lt;i&gt;Itálico visual&lt;/i&gt;<br>
+&lt;u&gt;Sublinhado visual&lt;/u&gt;<br>
+&lt;s&gt;Texto riscado&lt;/s&gt;<br>
+&lt;sub&gt;Subscrito&lt;/sub&gt;<br>
+&lt;sup&gt;Sobrescrito&lt;/sup&gt;
+        </div>
+
+        <p class="demo">
+            <b>Texto em negrito (apenas visual)</b><br>
+            <i>Texto em itálico (apenas visual)</i><br>
+            <u>Texto sublinhado (apenas visual)</u><br>
+            <s>Texto riscado</s><br>
+            H<sub>₂</sub>O  E = mc<sup>²</sup>
+        </p>
+
+        <h2 id="span">&lt;span&gt; ... &lt;/span&gt;</h2>
+        <p>Elemento genérico inline sem significado semântico. Deve ser usado apenas quando nenhum outro elemento semântico se adequa, combinado com CSS.</p>
+
+        <div class="example">&lt;span style="color: #e74c3c; font-weight: 700; background-color: #fff3cd;"&gt;Trecho destacado&lt;/span&gt;</div>
+
+        <div class="recommendation">
+            <strong>Resumo atual (HTML5):</strong><br>
+            • Prefira <code>&lt;strong&gt;</code> em vez de <code>&lt;b&gt;</code><br>
+            • Prefira <code>&lt;em&gt;</code> em vez de <code>&lt;i&gt;</code><br>
+            • Use <code>&lt;code&gt;</code>, <code>&lt;kbd&gt;</code>, <code>&lt;samp&gt;</code> para código e entradas<br>
+            • <code>&lt;span&gt;</code> só quando realmente necessário + CSS
+        </div>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

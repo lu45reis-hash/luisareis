@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Tabelas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 22px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 20px 0 35px;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 16px 20px;
+            border-left: 5px solid #007bff;
+            margin: 20px 0;
+            font-family: Consolas, 'Courier New', monospace;
+            white-space: pre-wrap;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        table.demo {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        table.demo th,
+        table.demo td {
+            border: 1px solid #999;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Tabelas</h1>
+    </header>
+
+    <main>
+
+        <pre class="tree"><a href="A5.htm#table">table</a>
+  |__<a href="A5.htm#tr">tr</a>
+  |   |__ <a href="A5.htm#th">th</a>
+  |   |__ <a href="A5.htm#td">td</a>
+  |__ <a href="A5.htm#caption">caption</a></pre>
+
+        <h2 id="table">&lt;table&gt; ... &lt;/table&gt;</h2>
+        <p>Elemento principal que define uma tabela. Todas as linhas e células devem estar dentro dele.</p>
+
+        <div class="example">&lt;table&gt;
+    &lt;caption&gt;Legenda da tabela&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Cabeçalho 1&lt;/th&gt;
+        &lt;th&gt;Cabeçalho 2&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Dados 1&lt;/td&gt;
+        &lt;td&gt;Dados 2&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</div>
+
+        <h2 id="caption">&lt;caption&gt; ... &lt;/caption&gt;</h2>
+        <p>Legenda da tabela. Deve ser o primeiro elemento filho da tabela. Pode ser posicionada no topo ou no fundo (com CSS).</p>
+
+        <h2 id="tr">&lt;tr&gt; ... &lt;/tr&gt;</h2>
+        <p>Define uma linha da tabela. Contém as células (<code>&lt;td&gt;</code> ou <code>&lt;th&gt;</code>).</p>
+
+        <h2 id="th">&lt;th&gt; ... &lt;/th&gt;</h2>
+        <p>Célula de cabeçalho. Normalmente aparece em negrito e centralizada. Usada na primeira linha ou coluna.</p>
+
+        <h2 id="td">&lt;td&gt; ... &lt;/td&gt;</h2>
+        <p>Célula normal de dados.</p>
+
+        <h3>Atributos mais usados (atualmente recomendados com CSS)</h3>
+        <ul>
+            <li><code>rowspan="n"</code> – faz a célula ocupar várias linhas</li>
+            <li><code>colspan="n"</code> – faz a célula ocupar várias colunas</li>
+        </ul>
+
+        <div class="example">&lt;table class="demo"&gt;
+    &lt;tr&gt;
+        &lt;th colspan="2"&gt;Cabeçalho que ocupa duas colunas&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td rowspan="2"&gt;Célula que ocupa duas linhas&lt;/td&gt;
+        &lt;td&gt;Dados A&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Dados B&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</div>
+
+        <p><strong>Nota importante:</strong> Em HTML5, os atributos de apresentação como <code>border</code>, <code>width</code>, <code>bgcolor</code>, <code>cellspacing</code>, <code>cellpadding</code>, <code>align</code>, <code>valign</code>, etc., estão obsoletos. Deve-se usar CSS para controlar o aspeto das tabelas.</p>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

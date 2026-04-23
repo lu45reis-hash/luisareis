@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Introdução ao CSS: o que é, para que serve e como funciona a ideia de estilos em cascata." />
+  <title>CSS – Introdução</title>
+
+  <!-- Se quiseres manter o teu curso.css -->
+  <!-- <link rel="stylesheet" href="curso.css"> -->
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.7);
+      --line:rgba(15,23,42,.12);
+      --shadow:0 16px 34px rgba(2,6,23,.08);
+      --radius:16px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 16px;
+    }
+
+    header{
+      background:rgba(255,255,255,.85);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(10px);
+    }
+
+    .top{
+      padding:18px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+    }
+
+    .kicker{
+      font-size:13px;
+      color:var(--muted);
+      margin:0;
+    }
+
+    h1{
+      margin:4px 0 0;
+      font-size:clamp(24px,3vw,32px);
+      letter-spacing:-0.02em;
+    }
+
+    main{ padding:24px 0 28px; }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    p{ margin:10px 0; }
+
+    .note{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:rgba(59,130,246,.1);
+      border:1px solid rgba(59,130,246,.3);
+    }
+
+    pre{
+      margin:14px 0 0;
+      padding:14px;
+      border-radius:14px;
+      background:#0b1220;
+      color:#e5e7eb;
+      border:1px solid rgba(255,255,255,.08);
+      font-family:var(--mono);
+      font-size:13px;
+      line-height:1.55;
+      overflow:auto;
+    }
+
+    nav{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    nav a{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:600;
+    }
+
+    nav img{ width:22px; height:22px; }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:18px 0;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    code{ font-family:var(--mono); }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container">
+    <div class="top">
+      <div>
+        <p class="kicker">Capítulo 1 · Introdução</p>
+        <h1>O que é CSS</h1>
+      </div>
+      <p class="kicker">CSS (Cascading Style Sheets)</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <section class="card">
+      <p>
+        <strong>CSS</strong> (Cascading Style Sheets) é a linguagem usada para definir o
+        <strong>aspeto visual</strong> das páginas web: cores, fontes, espaçamento, layout e até animações.
+        Enquanto o <strong>HTML</strong> organiza o conteúdo, o <strong>CSS</strong> trata da apresentação.
+      </p>
+
+      <p>
+        A ideia de <em>“cascata”</em> significa que podem existir várias regras para o mesmo elemento
+        e o browser decide qual aplicar com base em prioridades (origem da regra, especificidade e ordem).
+      </p>
+
+      <div class="note">
+        - Hoje em dia normalmente dizemos apenas “CSS”. O “CSS1” foi a primeira especificação,
+        mas o CSS evoluiu por módulos (ex.: cores, layout, flexbox, grid, etc.).
+      </div>
+
+      <pre><code>/* Exemplo simples de CSS */
+body {
+  font-family: system-ui, Arial, sans-serif;
+  color: #0f172a;
+}
+
+h1 {
+  color: #1d4ed8;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+}</code></pre>
+    </section>
+
+    <nav aria-label="Navegação">
+      <a href="index.htm">
+         Índice
+      </a>
+
+      <a href="css_1.2.htm" title="Seguinte">
+        Seguinte 
+      </a>
+    </nav>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Manual/Apontamentos · CSS · Capítulo 1</p>
+  </div>
+</footer>
+</body>
+</html>

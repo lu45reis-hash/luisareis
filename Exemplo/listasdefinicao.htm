@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Exemplo de lista de definição (dl, dt, dd) em HTML5." />
+  <title>Exemplo – Lista de definição</title>
+
+  <!-- opcional: liga ao teu CSS principal -->
+  <!-- <link rel="stylesheet" href="../curso.css" /> -->
+
+  <!-- CSS simples só para o exemplo ficar legível (podes apagar se usares o curso.css) -->
+  <style>
+    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.5; margin: 24px; }
+    main{ max-width: 800px; margin: 0 auto; }
+    dl{ margin: 0; }
+    dt{ font-weight: 700; margin-top: 12px; }
+    dd{ margin: 4px 0 0 18px; color: rgba(0,0,0,.85); }
+    .hint{ opacity: .8; margin-top: 12px; }
+    code{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Lista de definição</h1>
+    <p class="hint">
+      Exemplo de <code>&lt;dl&gt;</code> (lista), <code>&lt;dt&gt;</code> (termo) e <code>&lt;dd&gt;</code> (definição).
+    </p>
+
+    <dl>
+      <dt>Termo a ser definido</dt>
+      <dd>Definição (descrição do termo).</dd>
+
+      <dt>Listas de definição</dt>
+      <dd>
+        Uma lista de definição é útil para apresentar pares “termo → explicação”, como num glossário.
+        Não serve para “tabular à direita”; alinhamentos e layout fazem-se com CSS.
+      </dd>
+    </dl>
+  </main>
+</body>
+</html>
+

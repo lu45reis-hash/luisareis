@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 1.1rem;
+            margin-top: 8px;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            text-align: justify;
+            font-size: 1.05rem;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            padding: 0 15px;
+        }
+
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .reference-table td {
+            padding: 18px 15px;
+            vertical-align: top;
+            border-bottom: 1px solid #eee;
+        }
+
+        .reference-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .category {
+            width: 220px;
+            background-color: #f1f3f5;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            padding: 16px;
+            border-radius: 6px;
+            white-space: pre;
+            border: 1px solid #e0e0e0;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 20px;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #007bff;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">← Manual HTML</a>
+    </nav>
+
+    <header>
+        <h1>Guia de Referência HTML</h1>
+        <p class="subtitle">Referência completa e atualizada dos elementos HTML</p>
+    </header>
+
+    <main>
+        <p class="intro">
+            Este guia contém uma referência geral dos elementos que fazem parte da especificação HTML, 
+            incluindo quadros (frames), alguns elementos proprietários e folhas de estilo.
+        </p>
+
+        <table class="reference-table">
+            <tr>
+                <td class="category"><h3><a href="A1.htm">Elementos Estruturais e Comentários</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A1.htm#doctype">!doctype</a>
+<a href="A1.htm#html">html</a>
+ |
+ |__<a href="A1.htm#head">head</a>
+ |__<a href="A1.htm#body">body</a> (ou <a href="A9.htm#frameset">frameset</a>)
+<a href="A1.htm#comentarios">comentários</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="category"><h3><a href="A2.htm">Elementos do Cabeçalho</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A1.htm#head">head</a>
+  |__ <a href="A2.htm#title">title</a>
+  |__ <a href="A2.htm#meta">meta</a>
+  |__ <a href="A2.htm#link">link</a>
+  |__ <a href="A2.htm#isindex">isindex</a>
+  |__ <a href="A2.htm#base">base</a>
+  |__ <a href="A2.htm#style">style</a>
+  |__ <a href="A2.htm#script">script</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="category"><h3><a href="A3.htm">Cabeçalhos, Blocos e Separadores</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A1.htm#body">body</a>
+  |__ <a href="A3.htm#h1">h1</a> (ou h2, h3, h4, h5, h6)
+  |__ <a href="A3.htm#h2">p</a>
+  |__ <a href="A3.htm#h3">address</a>
+  |__ <a href="A3.htm#h4">blockquote</a>
+  |__ <a href="A3.htm#h5">pre</a>
+  |__ <a href="A3.htm#h6">div</a>
+  |__ <a href="A3.htm#h7">center</a>
+  |__ <a href="A3.htm#h8">hr</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="category"><h3><a href="A4.htm">Listas</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A4.htm#ul">ul</a>, <a href="A4.htm#ol">ol</a>
+   |____ <a href="A4.htm#li">li</a>
+<a href="A4.htm#dl">dl</a>
+ |__<a href="A4.htm#dt">dt</a>
+     |__ <a href="A4.htm#dd">dd</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="category"><h3><a href="A5.htm">Tabelas</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A5.htm#table">table</a>
+  |__<a href="A5.htm#tr">tr</a>
+  |   |__ <a href="A5.htm#th">th</a>
+  |   |__ <a href="A5.htm#td">td</a>
+  |__ <a href="A5.htm#caption">caption</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="category"><h3><a href="A6.htm">Formulários</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A6.htm#form">form</a>
+  |__ <a href="A6.htm#input">input</a>
+  |__ <a href="A6.htm#select">select</a>
+  |      |__ <a href="A6.htm#option">option</a>
+  |__ <a href="A6.htm#textarea">textarea</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="category"><h3><a href="A7.htm">Formatação de Caracteres</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A3.htm">bloco</a>
+  |__ <a href="A7.htm#physic">tt, i, b, u, strike, big, small, sub, sup</a>
+  |__ <a href="A7.htm#logic">em, strong, dfn, code, samp, kbd, var, cite</a>
+  |__ <a href="A7.htm#span">span</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="category"><h3><a href="A8.htm">Elementos Especiais</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A8.htm#a">a</a>
+<a href="A8.htm#img">img</a>
+<a href="A8.htm#applet">applet</a>
+  |__ <a href="A8.htm#param">param</a>
+<a href="A8.htm#font">font</a>
+<a href="A8.htm#br">br</a>
+<a href="A8.htm#map">map</a>
+  |__ <a href="A8.htm#area">area</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td class="category"><h3><a href="A9.htm">Quadros (Frames)</a></h3></td>
+                <td>
+                    <pre class="tree"><a href="A1.htm#html">html</a>
+  |__ <a href="A1.htm#head">head</a>
+  |__ <a href="A9.htm#frameset">frameset</a>
+          |__ <a href="A9.htm#frame">frame</a>
+          |__ <a href="A9.htm#noframes">noframes</a></pre>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding: 25px 15px; background-color: #f8f9fa;">
+                    <h3><a href="A10.htm">Folhas de Estilo</a></h3>
+                    <h3><a href="A11.htm">Sequências de Escape</a></h3>
+                    <h3><a href="A12.htm">Tabela de Cores</a></h3>
+                    <h3><a href="A13.htm">Glossário</a></h3>
+                </td>
+            </tr>
+        </table>
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">← Voltar ao Manual HTML</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Sequências de Escape</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f1f3f5;
+            color: #333;
+            font-weight: 600;
+        }
+
+        td {
+            font-family: Consolas, 'Courier New', monospace;
+        }
+
+        .symbol {
+            font-size: 1.4rem;
+            background-color: #f8f9fa;
+        }
+
+        .note {
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Sequências de Escape</h1>
+    </header>
+
+    <main>
+
+        <p>As sequências de escape (ou entidades HTML) permitem inserir caracteres especiais que têm significado no HTML ou que são difíceis de digitar diretamente.</p>
+        <p>Todas as sequências começam com <code>&amp;</code> e terminam com <code>;</code>.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Nome</th>
+                    <th>Símbolo</th>
+                    <th>Número</th>
+                    <th>Nome</th>
+                    <th>Símbolo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>&amp;#034;</td>
+                    <td>&amp;quot;</td>
+                    <td class="symbol">"</td>
+                    <td>&amp;#206;</td>
+                    <td>&amp;Icirc;</td>
+                    <td class="symbol">Î</td>
+                </tr>
+                <tr>
+                    <td>&amp;#038;</td>
+                    <td>&amp;amp;</td>
+                    <td class="symbol">&amp;</td>
+                    <td>&amp;#207;</td>
+                    <td>&amp;Iuml;</td>
+                    <td class="symbol">Ï</td>
+                </tr>
+                <tr>
+                    <td>&amp;#060;</td>
+                    <td>&amp;lt;</td>
+                    <td class="symbol">&lt;</td>
+                    <td>&amp;#208;</td>
+                    <td>&amp;ETH;</td>
+                    <td class="symbol">Ð</td>
+                </tr>
+                <tr>
+                    <td>&amp;#062;</td>
+                    <td>&amp;gt;</td>
+                    <td class="symbol">&gt;</td>
+                    <td>&amp;#209;</td>
+                    <td>&amp;Ntilde;</td>
+                    <td class="symbol">Ñ</td>
+                </tr>
+                <tr>
+                    <td>&amp;#160;</td>
+                    <td>&amp;nbsp;</td>
+                    <td class="symbol"> </td>
+                    <td>&amp;#210;</td>
+                    <td>&amp;Ograve;</td>
+                    <td class="symbol">Ò</td>
+                </tr>
+                <tr>
+                    <td>&amp;#161;</td>
+                    <td>&amp;iexcl;</td>
+                    <td class="symbol">¡</td>
+                    <td>&amp;#211;</td>
+                    <td>&amp;Oacute;</td>
+                    <td class="symbol">Ó</td>
+                </tr>
+                <tr>
+                    <td>&amp;#162;</td>
+                    <td>&amp;cent;</td>
+                    <td class="symbol">¢</td>
+                    <td>&amp;#212;</td>
+                    <td>&amp;Ocirc;</td>
+                    <td class="symbol">Ô</td>
+                </tr>
+                <tr>
+                    <td>&amp;#163;</td>
+                    <td>&amp;pound;</td>
+                    <td class="symbol">£</td>
+                    <td>&amp;#213;</td>
+                    <td>&amp;Otilde;</td>
+                    <td class="symbol">Õ</td>
+                </tr>
+                <tr>
+                    <td>&amp;#164;</td>
+                    <td>&amp;curren;</td>
+                    <td class="symbol">¤</td>
+                    <td>&amp;#214;</td>
+                    <td>&amp;Ouml;</td>
+                    <td class="symbol">Ö</td>
+                </tr>
+                <tr>
+                    <td>&amp;#165;</td>
+                    <td>&amp;yen;</td>
+                    <td class="symbol">¥</td>
+                    <td>&amp;#215;</td>
+                    <td>&amp;times;</td>
+                    <td class="symbol">×</td>
+                </tr>
+                <tr>
+                    <td>&amp;#166;</td>
+                    <td>&amp;brvbar;</td>
+                    <td class="symbol">¦</td>
+                    <td>&amp;#216;</td>
+                    <td>&amp;Oslash;</td>
+                    <td class="symbol">Ø</td>
+                </tr>
+                <tr>
+                    <td>&amp;#167;</td>
+                    <td>&amp;sect;</td>
+                    <td class="symbol">§</td>
+                    <td>&amp;#217;</td>
+                    <td>&amp;Ugrave;</td>
+                    <td class="symbol">Ù</td>
+                </tr>
+                <tr>
+                    <td>&amp;#168;</td>
+                    <td>&amp;uml;</td>
+                    <td class="symbol">¨</td>
+                    <td>&amp;#218;</td>
+                    <td>&amp;Uacute;</td>
+                    <td class="symbol">Ú</td>
+                </tr>
+                <tr>
+                    <td>&amp;#169;</td>
+                    <td>&amp;copy;</td>
+                    <td class="symbol">©</td>
+                    <td>&amp;#219;</td>
+                    <td>&amp;Ucirc;</td>
+                    <td class="symbol">Û</td>
+                </tr>
+                <tr>
+                    <td>&amp;#170;</td>
+                    <td>&amp;ordf;</td>
+                    <td class="symbol">ª</td>
+                    <td>&amp;#220;</td>
+                    <td>&amp;Uuml;</td>
+                    <td class="symbol">Ü</td>
+                </tr>
+                <tr>
+                    <td>&amp;#171;</td>
+                    <td>&amp;laquo;</td>
+                    <td class="symbol">«</td>
+                    <td>&amp;#221;</td>
+                    <td>&amp;Yacute;</td>
+                    <td class="symbol">Ý</td>
+                </tr>
+                <tr>
+                    <td>&amp;#172;</td>
+                    <td>&amp;not;</td>
+                    <td class="symbol">¬</td>
+                    <td>&amp;#222;</td>
+                    <td>&amp;THORN;</td>
+                    <td class="symbol">Þ</td>
+                </tr>
+                <tr>
+                    <td>&amp;#173;</td>
+                    <td>&amp;shy;</td>
+                    <td class="symbol">­</td>
+                    <td>&amp;#223;</td>
+                    <td>&amp;szlig;</td>
+                    <td class="symbol">ß</td>
+                </tr>
+                <tr>
+                    <td>&amp;#174;</td>
+                    <td>&amp;reg;</td>
+                    <td class="symbol">®</td>
+                    <td>&amp;#224;</td>
+                    <td>&amp;agrave;</td>
+                    <td class="symbol">à</td>
+                </tr>
+                <tr>
+                    <td>&amp;#175;</td>
+                    <td>&amp;macr;</td>
+                    <td class="symbol">¯</td>
+                    <td>&amp;#225;</td>
+                    <td>&amp;aacute;</td>
+                    <td class="symbol">á</td>
+                </tr>
+                <!-- Continuação da tabela com os restantes caracteres mais usados -->
+                <tr>
+                    <td>&amp;#176;</td>
+                    <td>&amp;deg;</td>
+                    <td class="symbol">°</td>
+                    <td>&amp;#233;</td>
+                    <td>&amp;eacute;</td>
+                    <td class="symbol">é</td>
+                </tr>
+                <tr>
+                    <td>&amp;#181;</td>
+                    <td>&amp;micro;</td>
+                    <td class="symbol">µ</td>
+                    <td>&amp;#241;</td>
+                    <td>&amp;ntilde;</td>
+                    <td class="symbol">ñ</td>
+                </tr>
+                <tr>
+                    <td>&amp;#215;</td>
+                    <td>&amp;times;</td>
+                    <td class="symbol">×</td>
+                    <td>&amp;#247;</td>
+                    <td>&amp;divide;</td>
+                    <td class="symbol">÷</td>
+                </tr>
+                <tr>
+                    <td>&amp;#8211;</td>
+                    <td>&amp;ndash;</td>
+                    <td class="symbol">–</td>
+                    <td>&amp;#8212;</td>
+                    <td>&amp;mdash;</td>
+                    <td class="symbol">—</td>
+                </tr>
+                <tr>
+                    <td>&amp;#8230;</td>
+                    <td>&amp;hellip;</td>
+                    <td class="symbol">…</td>
+                    <td>&amp;#8364;</td>
+                    <td>&amp;euro;</td>
+                    <td class="symbol">€</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="note">
+            <strong>Nota:</strong> O espaço inquebrável <code>&amp;nbsp;</code> (&#160;) impede que o navegador quebre a linha entre duas palavras.
+        </p>
+
+        <p><strong>Dica atual:</strong> Para a maioria dos casos, basta usar as entidades mais comuns:</p>
+        <ul>
+            <li><code>&amp;lt;</code> → <code>&lt;</code></li>
+            <li><code>&amp;gt;</code> → <code>&gt;</code></li>
+            <li><code>&amp;amp;</code> → <code>&amp;</code></li>
+            <li><code>&amp;quot;</code> → <code>"</code></li>
+            <li><code>&amp;nbsp;</code> → espaço inquebrável</li>
+            <li><code>&amp;eacute;</code> → é, <code>&amp;ccedil;</code> → ç, etc.</li>
+        </ul>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

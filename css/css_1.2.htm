@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Como o CSS se relaciona com o HTML e as formas modernas de aplicar estilos." />
+  <title>CSS · Estilos e HTML</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.7);
+      --line:rgba(15,23,42,.12);
+      --shadow:0 16px 34px rgba(2,6,23,.08);
+      --radius:16px;
+      --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      padding:24px 16px 34px;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+      margin-bottom:16px;
+    }
+
+    .kicker{ margin:0; color:var(--muted); font-size:13px; }
+    h1{
+      margin:6px 0 0;
+      font-size:clamp(26px,3vw,38px);
+      letter-spacing:-0.02em;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    h2{
+      margin:18px 0 8px;
+      font-size:18px;
+    }
+
+    p{ margin:10px 0; }
+
+    .note{
+      margin:14px 0;
+      padding:12px 14px;
+      border-radius:14px;
+      background:rgba(59,130,246,.10);
+      border:1px solid rgba(59,130,246,.28);
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+    }
+    @media (min-width:900px){
+      .grid{ grid-template-columns:1fr 1fr; }
+    }
+
+    pre{
+      margin:0;
+      padding:14px;
+      border-radius:14px;
+      background:#0b1220;
+      color:#e5e7eb;
+      border:1px solid rgba(255,255,255,.08);
+      font-family:var(--mono);
+      font-size:13px;
+      line-height:1.55;
+      overflow:auto;
+    }
+
+    code{ font-family:var(--mono); }
+
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+    }
+
+    .btn.secondary{ font-weight:600; }
+
+    footer{
+      margin-top:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <p class="kicker">Capítulo 1 · Introdução</p>
+        <h1>Estilos e HTML</h1>
+      </div>
+      <p class="kicker">CSS (Cascading Style Sheets)</p>
+    </header>
+
+    <main class="card">
+      <p>
+        O <strong>HTML</strong> define a <strong>estrutura</strong> e o significado do conteúdo
+        (títulos, parágrafos, listas, imagens). O <strong>CSS</strong> define a
+        <strong>apresentação</strong> (cores, tipografia, espaçamentos, layout e responsividade).
+      </p>
+
+      <div class="note">
+        - Boas práticas atuais: mantém o HTML “limpo” (sem estilos no meio do conteúdo) e usa CSS
+        para controlar o visual. Isso facilita manutenção, acessibilidade e consistência do site.
+      </div>
+
+      <h2>3 formas de aplicar CSS</h2>
+      <div class="grid">
+        <section>
+          <p><strong>1) CSS externo (recomendado)</strong></p>
+          <pre><code>&lt;!-- no &lt;head&gt; --&gt;
+&lt;link rel="stylesheet" href="estilos.css"&gt;</code></pre>
+          <p class="kicker">Ideal para sites com várias páginas (reutilização e organização).</p>
+        </section>
+
+        <section>
+          <p><strong>2) CSS interno</strong> (no próprio ficheiro)</p>
+          <pre><code>&lt;style&gt;
+  body { font-family: system-ui; }
+  h1 { color: #1d4ed8; }
+&lt;/style&gt;</code></pre>
+          <p class="kicker">Útil para exemplos rápidos ou páginas muito pequenas.</p>
+        </section>
+
+        <section>
+          <p><strong>3) CSS inline</strong> (evitar, regra geral)</p>
+          <pre><code>&lt;p style="color:#ef4444; font-weight:700;"&gt;
+  Texto a vermelho
+&lt;/p&gt;</code></pre>
+          <p class="kicker">Dificulta manutenção. Usa apenas em casos pontuais.</p>
+        </section>
+
+        <section>
+          <p><strong>Separação de responsabilidades</strong></p>
+          <pre><code>&lt;!-- HTML: estrutura --&gt;
+&lt;button class="btn"&gt;Enviar&lt;/button&gt;
+
+/* CSS: visual */
+.btn { padding: 10px 14px; border-radius: 12px; }</code></pre>
+          <p class="kicker">HTML com classes + CSS a definir estilos (padrão moderno).</p>
+        </section>
+      </div>
+
+      <h2>O que significa “cascata”</h2>
+      <p>
+        Se existirem várias regras para o mesmo elemento, o browser resolve conflitos por:
+        <strong>origem da regra</strong> (user-agent, autor), <strong>especificidade</strong>
+        (id &gt; class &gt; tag) e <strong>ordem</strong> (a última regra pode prevalecer).
+      </p>
+
+      <div class="note">
+        Dica rápida: evita abusar de <code>!important</code>. Em vez disso, melhora a estrutura
+        do CSS e usa classes de forma consistente.
+      </div>
+
+      <nav class="nav" aria-label="Navegação">
+        <a class="btn secondary" href="css_1.htm">← Anterior</a>
+        <a class="btn secondary" href="../index.html">Índice</a>
+        <a class="btn" href="css_1.3.htm">Seguinte →</a>
+      </nav>
+    </main>
+
+    <footer>
+      <p>CSS · Aula 1.2 · Estilos e HTML</p>
+    </footer>
+  </div>
+</body>
+</html>
+

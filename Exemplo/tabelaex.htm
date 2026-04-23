@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabela HTML — Código, Resultado e Explicação</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --line:rgba(15,23,42,.12);
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.7);
+      --shadow:0 14px 32px rgba(0,0,0,.08);
+      --radius:16px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      background:var(--bg);
+      font-family:var(--sans);
+      color:var(--text);
+      padding:24px;
+    }
+
+    .wrapper{
+      max-width:1000px;
+      width:100%;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    h1{
+      margin:0 0 18px;
+      font-size:clamp(22px,4vw,28px);
+      text-align:center;
+      letter-spacing:-0.02em;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+
+    @media (min-width:900px){
+      .grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      background:#fff;
+    }
+
+    .panel h2{
+      margin:0 0 10px;
+      font-size:16px;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    pre{
+      margin:0;
+      padding:14px;
+      border-radius:12px;
+      background:#0b1220;
+      color:#e5e7eb;
+      font-family:var(--mono);
+      font-size:14px;
+      line-height:1.5;
+      overflow:auto;
+    }
+
+    table{
+      border-collapse:collapse;
+      margin:auto;
+      min-width:280px;
+    }
+
+    th, td{
+      border:1px solid var(--line);
+      padding:12px 16px;
+      text-align:center;
+    }
+
+    th{
+      background:rgba(15,23,42,.08);
+      font-weight:700;
+    }
+
+    caption{
+      caption-side:bottom;
+      padding:8px;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .explain{
+      margin-top:20px;
+      border-top:1px solid var(--line);
+      padding-top:18px;
+    }
+
+    .explain h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+
+    .explain ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .explain li{
+      margin:8px 0;
+      line-height:1.5;
+    }
+
+    .explain code{
+      font-family:var(--mono);
+      background:rgba(15,23,42,.05);
+      padding:2px 6px;
+      border-radius:6px;
+      font-size:.95em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Tabela HTML — código, resultado e explicação</h1>
+
+    <div class="grid">
+      <!-- Código -->
+      <section class="panel">
+        <h2>Código HTML</h2>
+        <pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Linha 1 · Coluna 1&lt;/th&gt;
+    &lt;th&gt;Linha 1 · Coluna 2&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Linha 2 · Coluna 1&lt;/td&gt;
+    &lt;td&gt;Linha 2 · Coluna 2&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+      </section>
+
+      <!-- Resultado -->
+      <section class="panel">
+        <h2>Resultado</h2>
+        <table>
+          <tr>
+            <th>Linha 1 · Coluna 1</th>
+            <th>Linha 1 · Coluna 2</th>
+          </tr>
+          <tr>
+            <td>Linha 2 · Coluna 1</td>
+            <td>Linha 2 · Coluna 2</td>
+          </tr>
+          <caption>Exemplo simples de uma tabela HTML</caption>
+        </table>
+      </section>
+    </div>
+
+    <!-- Explicação -->
+    <section class="explain">
+      <h3>Explicação das tags principais</h3>
+      <ul>
+        <li>
+          <code>&lt;table&gt;</code> — cria a tabela. Todo o conteúdo tabular deve estar dentro desta tag.
+        </li>
+        <li>
+          <code>&lt;tr&gt;</code> (<em>Table Row</em>) — define uma linha da tabela.
+        </li>
+        <li>
+          <code>&lt;th&gt;</code> (<em>Table Header</em>) — define uma célula de cabeçalho.
+          O texto aparece, por defeito, <strong>a negrito e centrado</strong>.
+        </li>
+        <li>
+          <code>&lt;td&gt;</code> (<em>Table Data</em>) — define uma célula de dados “normal”.
+        </li>
+        <li>
+          <code>&lt;caption&gt;</code> — legenda da tabela (opcional), usada para descrever o conteúdo da tabela.
+        </li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
+
+
+

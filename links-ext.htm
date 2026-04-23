@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Links externos em HTML: a, href, URL, target, mailto e boas práticas." />
+
+  <title>HTML – Links externos</title>
+  <link rel="stylesheet" href="curso.css" />
+  
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">L</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Links externos</span>
+        <span aria-hidden="true">• Links externos</span>
+        <span aria-hidden="true">• Links externos</span>
+        <span aria-hidden="true">• Links externos</span>
+        <span aria-hidden="true">• Links externos</span>
+        <span aria-hidden="true">• Links externos</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card prose">
+
+      <h2 class="section-title">Links externos</h2>
+
+      <p>
+        Uma das grandes vantagens da Web é o <strong>hipertexto</strong>: a possibilidade de ligar páginas
+        entre si através de <strong>hiperligações</strong> (links).
+      </p>
+
+      <p>
+        Em HTML, os links são criados com a tag <code>&lt;a&gt;</code> e o atributo <code>href</code>.
+      </p>
+
+      <h3>Sintaxe básica</h3>
+      <div class="codeblock" aria-label="Sintaxe de um link externo">
+        <code>&lt;a href="https://exemplo.com"&gt;Texto do link&lt;/a&gt;</code>
+      </div>
+
+      <h3>O que é um URL?</h3>
+      <p>
+        <strong>URL</strong> significa <em>Uniform Resource Locator</em> e é o “endereço” de um recurso na Internet
+        (uma página, uma imagem, um ficheiro, etc.).
+      </p>
+
+      <p>Exemplo de um URL:</p>
+      <div class="codeblock" aria-label="Exemplo de URL">
+        <code>https://www.exemplo.com/pasta/pagina.html</code>
+      </div>
+
+      <ul>
+        <li><strong>https</strong> → protocolo (forma de acesso; hoje em dia usa-se quase sempre HTTPS)</li>
+        <li><strong>www.exemplo.com</strong> → domínio/servidor</li>
+        <li><strong>/pasta/pagina.html</strong> → caminho (path) do recurso</li>
+      </ul>
+
+      <h3>Abrir o link numa nova aba</h3>
+      <p>
+        Para abrir um link noutra aba do navegador, usa <code>target="_blank"</code>.<br>
+        Por segurança, recomenda-se sempre adicionar <code>rel="noopener noreferrer"</code>.
+      </p>
+
+      <div class="codeblock" aria-label="Exemplo de link externo interessante">
+        <code>
+&lt;a href="https://github.com" target="_blank" rel="noopener noreferrer"&gt;
+  Descobrir projetos incríveis no GitHub
+&lt;/a&gt;
+        </code>
+      </div>
+
+      <p>Resultado:</p>
+      <p>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" style="color: #24292f; font-weight: bold; text-decoration: none;">
+          Descobrir projetos incríveis no GitHub →
+        </a>
+      </p>
+
+      <h3>Link numa imagem</h3>
+      <p>
+        Também podes usar uma imagem como link: basta colocar a tag <code>&lt;img&gt;</code> dentro do <code>&lt;a&gt;</code>.
+      </p>
+
+      <div class="codeblock" aria-label="Imagem como link">
+        <code>
+&lt;a href="https://unsplash.com" target="_blank" rel="noopener noreferrer"&gt;
+  &lt;img src="imagens/foto-paisagem.jpg" alt="Paisagem incrível do Parque Nacional de Peneda-Gerês" 
+       width="300" height="200"&gt;
+&lt;/a&gt;
+        </code>
+      </div>
+
+      <p>Resultado:</p>
+      <p>
+        <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://picsum.photos/id/1015/300/200" 
+               alt="Paisagem incrível do Parque Nacional de Peneda-Gerês" 
+               width="300" 
+               height="200"
+               style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        </a>
+      </p>
+
+      <p class="hint">
+        Dica: quando usas uma imagem como link, é muito importante ter um texto alternativo (<code>alt</code>) descritivo. 
+        Controla a aparência (borda, sombra, cantos arredondados...) com CSS.
+      </p>
+
+      <h3>Enviar e-mail com <code>mailto:</code></h3>
+      <p>
+        Em vez de abrir um site, podes criar um link que abre diretamente o cliente de e-mail:
+      </p>
+
+      <div class="codeblock" aria-label="Exemplo de mailto">
+        <code>&lt;a href="mailto:exemplo@dominio.pt"&gt;Enviar e-mail&lt;/a&gt;</code>
+      </div>
+
+      <p>
+        Podes ainda sugerir assunto e corpo da mensagem:
+      </p>
+
+      <div class="codeblock" aria-label="Mailto com assunto e corpo">
+        <code>
+&lt;a href="mailto:exemplo@dominio.pt?subject=Dúvida%20HTML&amp;body=Olá!%20Tenho%20uma%20dúvida..."&gt;
+  Contactar
+&lt;/a&gt;
+        </code>
+      </div>
+
+      <p>
+        Se ainda tiveres os ficheiros antigos, podes ver o 
+        <a href="exemplo/links-externos.htm">exemplo prático</a>.
+      </p>
+
+      <hr class="sep" />
+
+      <!-- NAVEGAÇÃO -->
+      
+
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="imagens.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="links-int.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

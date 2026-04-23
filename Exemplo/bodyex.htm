@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Exemplo do elemento body</title>
+  <meta name="author" content="Luísa Reis" />
+
+  <style>
+    /* Estilos globais (equivalente moderno aos atributos do BODY antigo) */
+    body{
+      margin: 0;
+      min-height: 100svh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background-color: #ff8080;   /* antigo bgcolor */
+      color: #004080;              /* antigo text */
+      display: grid;
+      place-items: center;
+    }
+
+    /* Estados dos links (substituem link, vlink e alink) */
+    a:link{ color: #00ff80; }
+    a:visited{ color: #008000; }
+    a:hover{ color: #00c070; }
+    a:active{ color: #ff8000; }
+
+    main{
+      background: rgba(255,255,255,.85);
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.25);
+      text-align: center;
+      max-width: 520px;
+    }
+
+    h1{
+      margin: 0 0 12px;
+      font-size: clamp(22px, 4vw, 28px);
+      letter-spacing: -0.02em;
+    }
+
+    p{
+      margin: 12px 0 0;
+      font-size: 18px;
+    }
+
+    .back{
+      display: inline-block;
+      margin-top: 18px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.05);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Exemplo do elemento <code>&lt;body&gt;</code></h1>
+
+    <p>
+      Esta página demonstra como definir <strong>cores de fundo, texto e links</strong>
+      usando <strong>CSS</strong>.
+    </p>
+
+    <a class="back" href="../body.htm">⬅️ Voltar</a>
+  </main>
+</body>
+</html>

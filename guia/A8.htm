@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Elementos Especiais</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 22px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 20px 0 35px;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 18px 22px;
+            border-left: 6px solid #007bff;
+            margin: 25px 0;
+            font-family: Consolas, 'Courier New', monospace;
+            white-space: pre-wrap;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-left: 6px solid #ffc107;
+            padding: 18px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        footer {
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Elementos Especiais</h1>
+    </header>
+
+    <main>
+
+        <pre class="tree"><a href="A8.htm#a">a</a>
+<a href="A8.htm#img">img</a>
+<a href="A8.htm#br">br</a>
+<a href="A8.htm#map">map</a>
+  |__ <a href="A8.htm#area">area</a></pre>
+
+        <h2 id="a">&lt;a&gt; ... &lt;/a&gt;</h2>
+        <p>O elemento mais importante do HTML. Cria hiperligações (links) para outras páginas, secções ou recursos.</p>
+
+        <div class="example">&lt;a href="https://www.exemplo.pt"&gt;Visitar o site&lt;/a&gt;
+
+&lt;a href="#secção1"&gt;Ir para a secção 1&lt;/a&gt;
+
+&lt;a href="documento.pdf" target="_blank" rel="noopener"&gt;Abrir PDF em nova aba&lt;/a&gt;</div>
+
+        <h2 id="img">&lt;img&gt;</h2>
+        <p>Insere uma imagem na página.</p>
+
+        <div class="example">&lt;img src="foto.jpg" 
+     alt="Descrição detalhada da imagem para acessibilidade" 
+     width="800" 
+     height="600" 
+     loading="lazy"&gt;</div>
+
+        <p><strong>Atributos obrigatórios/recomendados:</strong></p>
+        <ul>
+            <li><code>src</code> — caminho ou URL da imagem (obrigatório)</li>
+            <li><code>alt</code> — texto alternativo (essencial para acessibilidade e SEO)</li>
+            <li><code>width</code> e <code>height</code> — dimensões (evita saltos de layout)</li>
+            <li><code>loading="lazy"</code> — carregamento diferido (melhor performance)</li>
+        </ul>
+
+        <h2 id="br">&lt;br&gt;</h2>
+        <p>Quebra de linha simples. Não possui etiqueta de fecho.</p>
+
+        <div class="example">Primeira linha.&lt;br&gt;
+Segunda linha.</div>
+
+        <h2 id="map">Imagens mapeadas (Image Maps)</h2>
+        <p>Permitem criar áreas clicáveis sobre uma imagem.</p>
+
+        <div class="example">&lt;img src="mapa.jpg" alt="Mapa interativo" usemap="#meumapa"&gt;
+
+&lt;map name="meumapa"&gt;
+    &lt;area shape="rect" coords="10,10,200,150" href="pagina1.html" alt="Região Norte"&gt;
+    &lt;area shape="circle" coords="300,100,60" href="pagina2.html" alt="Região Central"&gt;
+&lt;/map&gt;</div>
+
+        <div class="warning">
+            <strong>Elementos obsoletos — não usar:</strong><br>
+            • &lt;font&gt;<br>
+            • &lt;applet&gt; e &lt;param&gt;<br>
+            • Atributos de apresentação como align, border, hspace, vspace (substituídos por CSS)
+        </div>
+
+        <p><strong>Recomendação atual (2026):</strong></p>
+        <ul>
+            <li>Sempre use o atributo <code>alt</code> descritivo nas imagens</li>
+            <li>Prefira SVG ou ícones CSS quando possível</li>
+            <li>Use <code>loading="lazy"</code> para melhorar a performance</li>
+            <li>Evite image maps sempre que possível — são pouco acessíveis e difíceis de manter</li>
+        </ul>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <title>CSS — Tipos de Seletores</title>
+
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px rgba(15, 23, 42, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body{
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+    }
+
+    header .chapter{
+      margin: 0 0 8px;
+      font-size: .95rem;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+
+    header h1{
+      margin: 0 0 18px;
+      font-size: clamp(1.6rem, 2.2vw, 2rem);
+      line-height: 1.2;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .grid{
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 820px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .block{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .block h2{
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+
+    .block p{
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: .98rem;
+    }
+
+    pre{
+      margin: 0;
+      padding: 12px;
+      border-radius: 12px;
+      background: #0b1220;
+      color: #e5e7eb;
+      overflow: auto;
+      font-size: .95rem;
+      line-height: 1.5;
+    }
+
+    .note{
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    nav{
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a{
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 10px 12px;
+      border-radius: 12px;
+      transition: transform .06s ease, background .2s ease;
+      min-width: 160px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    nav a:hover{
+      background: #f1f5f9;
+      transform: translateY(-1px);
+    }
+
+    footer{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <header>
+      <p class="chapter">Capítulo 2 — CSS no HTML</p>
+      <h1>Tipos de seletores</h1>
+    </header>
+
+    <section class="card">
+      <div class="grid">
+
+        <article class="block">
+          <h2>1) Seletor simples (tipo)</h2>
+          <p>Aplica estilo a <strong>todas</strong> as tags de um tipo (ex.: todos os <code>p</code>).</p>
+          <pre><code>p {
+  color: green;
+}</code></pre>
+        </article>
+
+        <article class="block">
+          <h2>2) Seletor contextual (descendente)</h2>
+          <p>Aplica estilo apenas quando um elemento está <strong>dentro</strong> de outro (ex.: <code>b</code> dentro de <code>p</code>).</p>
+          <pre><code>p b {
+  color: blue;
+}</code></pre>
+        </article>
+
+        <article class="block">
+          <h2>3) Seletor por classe</h2>
+          <p>Aplica estilo a qualquer elemento com <code>class="exemplo"</code>. Reutilizável em vários elementos.</p>
+          <pre><code>.exemplo {
+  color: red;
+}</code></pre>
+        </article>
+
+        <article class="block">
+          <h2>4) Seletor por ID</h2>
+          <p>Aplica estilo a um elemento específico com <code>id="chumbo"</code>. Deve ser único na página.</p>
+          <pre><code>#chumbo {
+  color: gray;
+}</code></pre>
+        </article>
+
+      </div>
+
+      <p class="note">
+        Dica atual: em projetos modernos usa-se muito <strong>classes</strong> (mais flexíveis) e evita-se abusar de <strong>IDs</strong> para styling.
+      </p>
+
+      <nav aria-label="Navegação">
+        <a href="css_1.8.htm">← Anterior</a>
+        <a href="index.htm">Índice</a>
+       <!--<a href="css_1.10.htm">Próximo →</a>-->
+      </nav>
+    </section>
+
+    <footer>
+      Conteúdo atualizado para HTML5 • CSS moderno e layout responsivo
+    </footer>
+  </main>
+</body>
+</html>

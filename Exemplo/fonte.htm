@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exemplo de fontes (CSS)</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.7);
+      --line:rgba(15,23,42,.12);
+      --shadow:0 16px 34px rgba(2,6,23,.08);
+      --radius:16px;
+    }
+
+    body{
+      margin:0;
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      background:var(--bg);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--text);
+    }
+
+    main{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px 32px;
+      max-width:560px;
+      text-align:center;
+    }
+
+    h1{
+      margin:0 0 16px;
+      font-size:clamp(22px, 4vw, 28px);
+      letter-spacing:-0.02em;
+    }
+
+    p{
+      margin:12px 0;
+      font-size:18px;
+      line-height:1.6;
+      color:rgba(15,23,42,.9);
+    }
+
+    .sizes span{
+      display:inline-block;
+      margin:0 2px;
+      font-weight:600;
+    }
+
+   .sizes .lg{ font-size:3rem; }   /* ta */
+.sizes .md{ font-size:2.2rem; } /* ma */
+.sizes .sm{ font-size:1.5rem; } /* nho */
+
+/* cores mais destacadas */
+.colors span{
+  font-weight:800;
+  font-size:2.2rem;
+    }
+    .colors .red{ color:#dc2626; }
+    .colors .teal{ color:#0d9488; }
+
+    .fonts{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin-top:10px;
+    }
+
+    .fonts span{
+      padding:6px 10px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:15px;
+    }
+
+    .note{
+      margin-top:16px;
+      font-size:14px;
+      color:var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Exemplo de tipografia com CSS</h1>
+
+    <p>
+      Com <strong>CSS</strong> é possível alterar o
+      <strong>tamanho</strong>,
+      <strong>cor</strong> e
+      <strong>tipo</strong> de letra,
+      substituir o antigo comando <code>&lt;font&gt;</code>.
+    </p>
+
+    <p class="sizes">
+      <span class="lg">ta</span>
+      <span class="md">ma</span>
+      <span class="sm">nho</span>
+    </p>
+
+    <p class="colors">
+      <span class="red">c</span>o<span class="teal">r</span>
+    </p>
+
+    <div class="fonts">
+      <span style="font-family: system-ui;">system-ui</span>
+      <span style="font-family: Arial, sans-serif;">Arial</span>
+      <span style="font-family: 'Courier New', monospace;">Courier</span>
+      <span style="font-family: Georgia, serif;">Georgia</span>
+    </div>
+
+    <p class="note">
+      Hoje em dia recomenda-se usar fontes padrão do sistema
+      (<code>system-ui</code>) ou fontes web via CSS.
+    </p>
+  </main>
+</body>
+</html>
+

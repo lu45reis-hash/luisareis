@@ -1,0 +1,114 @@
+A:link {
+	FONT-SIZE: 11pt; COLOR: blue; FONT-FAMILY: "EngraversGothic BT", Arial, sans-serif; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: red; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #00ff00
+}
+H1 {
+	FONT-FAMILY: "Garamond",  "Time New Roman"
+}
+H2 {
+	FONT-FAMILY: "Garamond",  "Time New Roman"
+}
+H3 {
+	FONT-FAMILY: "Garamond",  "Time New Roman"
+}
+H4 {
+	FONT-FAMILY: "Garamond",  "Time New Roman"
+}
+DIV.centrado {
+	TEXT-ALIGN: center
+}
+DIV.esquerda {
+	TEXT-ALIGN: right
+}
+DIV.head {
+	BORDER-RIGHT: darkblue solid; PADDING-RIGHT: 0px; BORDER-TOP: darkblue solid; PADDING-LEFT: 0px; BACKGROUND: rgb(255,204,0); PADDING-BOTTOM: 0px; MARGIN: 20pt auto auto; BORDER-LEFT: darkblue solid; WIDTH: 480px; COLOR: black; PADDING-TOP: 0px; BORDER-BOTTOM: darkblue solid; TEXT-ALIGN: center
+}
+DIV.head H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 40pt; MARGIN-BOTTOM: 2%; PADDING-BOTTOM: 0px; TEXT-TRANSFORM: none; COLOR: darkblue; PADDING-TOP: 0px; TEXT-ALIGN: center
+}
+DIV.head H2.logotipo {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 14pt; MARGIN-BOTTOM: 0px; PADDING-BOTTOM: 0px; TEXT-TRANSFORM: uppercase; COLOR: red; PADDING-TOP: 0px; FONT-STYLE: italic; TEXT-ALIGN: center
+}
+DIV.head H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 18pt; MARGIN-BOTTOM: 0px; PADDING-BOTTOM: 0px; TEXT-TRANSFORM: none; COLOR: black; PADDING-TOP: 0px; TEXT-ALIGN: center
+}
+DIV.head H4 {
+	PADDING-RIGHT: 2%; MARGIN-TOP: 0px; PADDING-LEFT: 2%; FONT-SIZE: 12pt; MARGIN-BOTTOM: 0px; PADDING-BOTTOM: 2%; TEXT-TRANSFORM: none; PADDING-TOP: 2%; TEXT-ALIGN: center
+}
+DIV.second {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 11pt; PADDING-BOTTOM: 0px; MARGIN: auto; COLOR: black; PADDING-TOP: 0px; FONT-FAMILY: arial, sans-serif; TEXT-ALIGN: justify
+}
+DIV.second H1 {
+	MARGIN-TOP: 5%; FONT-WEIGHT: bold; FONT-SIZE: 32pt; MARGIN-BOTTOM: 0px; TEXT-TRANSFORM: none; FONT-FAMILY: Garamond, Time New Roman; TEXT-ALIGN: left
+}
+DIV.second H1.titulo {
+	MARGIN-TOP: 2%; FONT-SIZE: 28pt; MARGIN-BOTTOM: 2%; TEXT-TRANSFORM: none; COLOR: #22a; FONT-FAMILY: Garamond, Time New Roman; TEXT-ALIGN: left
+}
+DIV.second P {
+	FONT-SIZE: 11pt; MARGIN-LEFT: 5%; TEXT-TRANSFORM: none; MARGIN-RIGHT: 5%; FONT-FAMILY: arial; TEXT-ALIGN: justify
+}
+DIV.second P.especial {
+	BORDER-RIGHT: gray 2px solid; PADDING-RIGHT: 5%; BORDER-TOP: gray 2px solid; PADDING-LEFT: 5%; FONT-SIZE: 11pt; PADDING-BOTTOM: 5%; BORDER-LEFT: gray 2px solid; COLOR: green; PADDING-TOP: 5%; BORDER-BOTTOM: gray 2px solid; FONT-FAMILY: arial; TEXT-ALIGN: justify
+}
+DIV.second P.exemplo {
+	BORDER-RIGHT: #f73 5px groove; PADDING-RIGHT: 5%; BORDER-TOP: #f73 5px groove; PADDING-LEFT: 5%; FONT-SIZE: 11pt; PADDING-BOTTOM: 5%; BORDER-LEFT: #f73 5px groove; COLOR: black; PADDING-TOP: 5%; BORDER-BOTTOM: #f73 5px groove; FONT-FAMILY: arial; TEXT-ALIGN: justify
+}
+.fonte {
+	MARGIN-TOP: 2%; MARGIN-BOTTOM: 2%; MARGIN-LEFT: 2%; FONT-FAMILY: courier; TEXT-ALIGN: left
+}
+.fonti {
+	FONT-FAMILY: courier
+}
+DIV.second #A1 {
+	COLOR: green
+}
+DIV.second H2 {
+	MARGIN-TOP: 1%; FONT-WEIGHT: bold; FONT-SIZE: 16pt; MARGIN-BOTTOM: 1%; MARGIN-LEFT: 3%
+}
+DIV.second H4.logotipo {
+	MARGIN-TOP: 0px; FONT-WEIGHT: bold; FONT-SIZE: 9pt; MARGIN-LEFT: 45px; TEXT-TRANSFORM: uppercase; COLOR: #900000; TEXT-ALIGN: right
+}
+DIV.second H5 {
+	MARGIN-TOP: 2%; FONT-SIZE: 11pt; MARGIN-BOTTOM: 2%; COLOR: gray; FONT-FAMILY: courier new; TEXT-ALIGN: right; TEXT-DECORATION: underline
+}
+.SQUAREDISC {
+	COLOR: green; LIST-STYLE-TYPE: square
+}
+DIV.fim DIV.fim H1 {
+	MARGIN-LEFT: -6%; COLOR: #900
+}
+.hide {
+	DISPLAY: none; COLOR: white
+}
+#s4 {
+	FONT: 40px Verdana, sans-serif; COLOR: #900
+}
+#p4 {
+	MARGIN-LEFT: -1%; TEXT-ALIGN: left
+}
+#s1 {
+	FONT: 70px Impact, sans-serif; COLOR: #444
+}
+#p1 {
+	MARGIN-TOP: -4%; TEXT-ALIGN: right
+}
+#s3 {
+	FONT: 150px Verdana, sans-serif; COLOR: #080
+}
+#p3 {
+	MARGIN-TOP: 30px; TEXT-ALIGN: center
+}
+#s7 {
+	FONT: italic 20px Verdana, sans-serif; COLOR: #088
+}
+#p7 {
+	MARGIN-TOP: 10px; TEXT-ALIGN: right
+}
+BODY {
+	MARGIN-TOP: 0px; BACKGROUND-IMAGE: url(../fundo.jpg); MARGIN-LEFT: 45px
+}

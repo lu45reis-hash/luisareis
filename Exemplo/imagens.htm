@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <title>Alinhamento de Imagens</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .exemplo-inline img {
+      width: 80px;
+      height: auto;
+      vertical-align: top;
+    }
+
+    .middle img {
+      vertical-align: middle;
+    }
+
+    .bottom img {
+      vertical-align: bottom;
+    }
+
+    .center {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .left {
+      float: left;
+      margin: 0 15px 15px 0;
+    }
+
+    .right {
+      float: right;
+      margin: 0 0 15px 15px;
+    }
+
+    .clear {
+      clear: both;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Alinhamento de Imagens</h1>
+
+  <h2>Alinhamento vertical (inline)</h2>
+
+  <p class="exemplo-inline">
+    <img src="../imagens/duke.png" alt="Duke" style="vertical-align: top;">
+    Alinhar a imagem por cima
+  </p>
+
+  <p class="exemplo-inline middle">
+    <img src="../imagens/duke.png" alt="Duke">
+    Alinhar a imagem pelo meio
+  </p>
+
+  <p class="exemplo-inline bottom">
+    <img src="../imagens/duke.png" alt="Duke">
+    Alinhar a imagem por baixo
+  </p>
+
+  <hr>
+
+  <h2>Imagem centrada</h2>
+
+  <div class="center">
+    <img src="../imagens/duke.png" alt="Duke">
+    <p>Imagem centrada usando <code>text-align: center</code></p>
+  </div>
+
+  <hr>
+
+  <h2>Texto a contornar imagens</h2>
+
+  <img src="../imagens/duke.png" alt="Duke" class="left">
+  <p>
+    Esta imagem está alinhada à esquerda usando <code>float: left</code>.
+    O texto contorna a imagem, criando um efeito visual interessante.
+  </p>
+
+  <div class="clear"></div>
+
+  <img src="../imagens/duke.png" alt="Duke" class="right">
+  <p>
+    Esta imagem está alinhada à direita usando <code>float: right</code>.
+    Tal como no exemplo anterior, o texto contorna a imagem automaticamente.
+  </p>
+
+  <div class="clear"></div>
+
+</body>
+</html>

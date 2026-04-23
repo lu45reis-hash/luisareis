@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luisa Reis" />
+  <title>Curso Interactivo de HTML</title>
+
+  <style>
+    :root{
+      --bg1: #0b1220;
+      --bg2: #0f1c34;
+      --card: rgba(255,255,255,.08);
+      --card2: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --line: rgba(255,255,255,.14);
+      --accent: #33d1c6; /* teal moderno */
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      line-height: 1.6;
+
+      /* Fundo moderno (usa a tua imagem como “camada”, se existir) */
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(51,209,198,.28), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(99,102,241,.22), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2)),
+        url("Curso Interactivo de HTML_files/NEW-2.jpe");
+      background-size: cover, cover, cover, cover;
+      background-position: center, center, center, center;
+      background-attachment: fixed;
+    }
+
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 18px 28px;
+    }
+
+    header{
+      text-align:center;
+      padding: 26px 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:.5rem;
+      align-items:center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+      letter-spacing: .2px;
+    }
+
+    h1 .accent{ color: var(--accent); }
+
+    .subtitle{
+      margin: 0 auto;
+      max-width: 70ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    main{
+      margin-top: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    section{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 22px 18px;
+    }
+
+    section h2{
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+      letter-spacing: .2px;
+    }
+
+    section p{
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .modules{
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      padding: 0;
+      list-style: none;
+    }
+
+    .modules a{
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+
+    .modules a:hover{
+      transform: translateY(-2px);
+      border-color: rgba(51,209,198,.35);
+      background: linear-gradient(180deg, rgba(51,209,198,.16), rgba(255,255,255,.06));
+    }
+
+    .modules .meta{
+      display:block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .divider{
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 18px 0;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.55rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      text-decoration:none;
+      transition: border-color .12s ease, transform .12s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(51,209,198,.35);
+    }
+
+    footer{
+      margin-top: 14px;
+      text-align:center;
+      color: var(--muted);
+      font-size: .95rem;
+      padding-bottom: 22px;
+    }
+
+    footer a{ color: var(--accent); text-decoration: none; }
+    footer a:hover{ text-decoration: underline; }
+
+    /* Acessibilidade: respeitar utilizadores que preferem menos animações */
+    @media (prefers-reduced-motion: reduce){
+      .modules a, .btn{ transition: none; }
+      .modules a:hover, .btn:hover{ transform:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">📘 Curso Interactivo</span>
+      <h1><span class="accent">CURSO INTERACTIVO</span> DE HTML</h1>
+      <p class="subtitle">
+        Este curso destina-se a utilizadores da Internet que pretendam adquirir conhecimentos básicos sobre a criação de páginas Web,
+        recorrendo à linguagem de marcação HTML. Está estruturado em módulos, focando cada um deles um assunto específico.
+      </p>
+    </header>
+
+    <main>
+      <section id="indice" aria-labelledby="conteudos">
+        <h2 id="conteudos">Conteúdos</h2>
+
+        <ul class="modules">
+          <li><a href="MODULO 1.html">MÓDULO 1 <span class="meta">Introdução ao HTML</span></a></li>
+          <li><a href="Modulo 2.HTMl">MÓDULO 2 <span class="meta">Títulos ou cabeçalhos</span></a></li>
+          <li><a href="Modulo 3.HTMl">MÓDULO 3 <span class="meta">Formatação de caracteres</span></a></li>
+          <li><a href="Modulo 4.HTMl">MÓDULO 4 <span class="meta">Parágrafos e quebras de linha</span></a></li>
+          <li><a href="Modulo 5.HTMl">MÓDULO 5 <span class="meta">Barras horizontais</span></a></li>
+          <li><a href="Modulo 6.HTMl">MÓDULO 6 <span class="meta">Marcadores e listas numeradas</span></a></li>
+          <li><a href="Modulo 7.HTMl">MÓDULO 7 <span class="meta">Texto pré-formatado</span></a></li>
+          <li><a href="Modulo 8.HTMl">MÓDULO 8 <span class="meta">Tabelas</span></a></li>
+          <li><a href="Modulo 9.HTMl">MÓDULO 9 <span class="meta">Hiperlinks</span></a></li>
+          <li><a href="Modulo 10.HTMl">MÓDULO 10 <span class="meta">Imagens</span></a></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="exercicios">
+        <h2 id="exercicios">Exercícios práticos</h2>
+        <p>
+          No final de cada módulo, o utilizador terá a possibilidade de resolver exercícios propostos e visualizar os respetivos resultados no browser.
+          Também é possível alterar o texto entre os descritores de HTML, para proporcionar maior variedade de exercícios.
+        </p>
+
+        <hr class="divider" />
+
+        <div class="actions">
+          <a class="btn" href="../index.html" aria-label="Voltar para o sumário">← Voltar para Sumário</a>
+
+          <!-- Se quiseres manter o GIF antigo, descomenta:
+          <img src="hthmline.gif" alt="Volta para Sumário" width="169" height="14" />
+          -->
+          <a class="btn" href="#indice">↑ Ir para Conteúdos</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <hr class="divider" />
+      Comentários e sugestões: <a href="lu45.reis@gmail.com">lu45.reis@gmail.com</a>
+      <hr class="divider" />
+    </footer>
+  </div>
+</body>
+</html>

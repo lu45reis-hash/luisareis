@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabela – atributos antigos vs abordagem moderna</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.7);
+      --line:rgba(15,23,42,.12);
+      --shadow:0 16px 34px rgba(2,6,23,.08);
+      --radius:16px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      background:var(--bg);
+      font-family:var(--sans);
+      color:var(--text);
+      padding:24px;
+      line-height:1.6;
+    }
+
+    .wrapper{
+      max-width:1000px;
+      width:100%;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    h1{
+      margin:0 0 18px;
+      font-size:clamp(22px,4vw,28px);
+      text-align:center;
+      letter-spacing:-0.02em;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+    @media (min-width:900px){
+      .grid{grid-template-columns:1fr 1fr}
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      background:#fff;
+    }
+
+    .panel h2{
+      margin:0 0 10px;
+      font-size:16px;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    pre{
+      margin:0;
+      padding:14px;
+      border-radius:12px;
+      background:#0b1220;
+      color:#e5e7eb;
+      font-family:var(--mono);
+      font-size:13px;
+      line-height:1.5;
+      overflow:auto;
+    }
+
+    /* tabela moderna */
+    .example-table{
+      width:100%;
+      border-collapse:collapse;
+      margin:auto;
+      background:#fff;
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 10px 22px rgba(2,6,23,.08);
+    }
+
+    .example-table th,
+    .example-table td{
+      padding:12px 16px;
+      border:1px solid var(--line);
+      text-align:left;
+    }
+
+    .example-table thead th{
+      background:rgba(15,23,42,.08);
+      font-weight:700;
+    }
+
+    .example-table caption{
+      caption-side:bottom;
+      padding:10px;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .explain{
+      margin-top:20px;
+      border-top:1px solid var(--line);
+      padding-top:18px;
+    }
+
+    .explain h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+
+    .explain ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .explain li{
+      margin:8px 0;
+    }
+
+    .explain code{
+      font-family:var(--mono);
+      background:rgba(15,23,42,.05);
+      padding:2px 6px;
+      border-radius:6px;
+    }
+
+    .note{
+      margin-top:14px;
+      border:1px solid rgba(239,68,68,.25);
+      background:rgba(239,68,68,.08);
+      border-radius:14px;
+      padding:12px 14px;
+      color:rgba(15,23,42,.9);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Tabela HTML — código, resultado e explicação</h1>
+
+    <div class="grid">
+      <!-- Código antigo -->
+      <section class="panel">
+        <h2>Código antigo (não recomendado)</h2>
+        <pre><code>&lt;table align="right"
+       width="50%"
+       height="50%"
+       border="5"
+       bgcolor="#FF8080"&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;Linha 1 Coluna 1&lt;/th&gt;
+    &lt;th&gt;Linha 1 Coluna 2&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Linha 2 Coluna 1&lt;/td&gt;
+    &lt;td&gt;Linha 2 Coluna 2&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+      </section>
+
+      <!-- Resultado moderno -->
+      <section class="panel">
+        <h2>Resultado (forma moderna)</h2>
+
+        <table class="example-table">
+          <thead>
+            <tr>
+              <th>Linha 1 · Coluna 1</th>
+              <th>Linha 1 · Coluna 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Linha 2 · Coluna 1</td>
+              <td>Linha 2 · Coluna 2</td>
+            </tr>
+          </tbody>
+          <caption>Exemplo de tabela formatada com CSS</caption>
+        </table>
+      </section>
+    </div>
+
+    <!-- Explicação -->
+    <section class="explain">
+      <h3>Explicação</h3>
+      <ul>
+        <li>
+          O elemento <code>&lt;table&gt;</code> cria a tabela e deve conter apenas dados tabulares.
+        </li>
+        <li>
+          A tag <code>&lt;tr&gt;</code> define uma linha da tabela.
+        </li>
+        <li>
+          <code>&lt;th&gt;</code> define uma célula de cabeçalho (texto em destaque).
+        </li>
+        <li>
+          <code>&lt;td&gt;</code> define uma célula de dados.
+        </li>
+        <li>
+          Atributos como <code>align</code>, <code>bgcolor</code>, <code>border</code> e
+          <code>height</code> são hoje considerados <strong>obsoletos</strong>.
+        </li>
+        <li>
+          Em HTML5, o alinhamento, cores, tamanhos e bordas devem ser definidos com
+          <strong>CSS</strong>.
+        </li>
+      </ul>
+
+      <div class="note">
+        <strong>Nota importante:</strong>  
+        Tabelas devem ser usadas apenas para dados.  
+        O layout das páginas deve ser feito com CSS (Flexbox ou Grid).
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+
+

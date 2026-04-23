@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luisa Reis" />
+  <meta name="description" content="Suporte de CSS nos navegadores modernos e cuidados de compatibilidade." />
+  <title>CSS · Navegadores que suportam CSS</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.7);
+      --line:rgba(15,23,42,.12);
+      --shadow:0 16px 34px rgba(2,6,23,.08);
+      --radius:16px;
+      --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      padding:24px 16px 34px;
+    }
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+      margin-bottom:16px;
+    }
+    .kicker{ margin:0; color:var(--muted); font-size:13px; }
+    h1{
+      margin:6px 0 0;
+      font-size:clamp(26px,3vw,38px);
+      letter-spacing:-0.02em;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    h2{ margin:18px 0 8px; font-size:18px; }
+    ul{ margin:10px 0 0; padding-left:18px; }
+    li{ margin:10px 0; }
+    code{
+      font-family:var(--mono);
+      font-size:.95em;
+      background:rgba(2,6,23,.06);
+      padding:2px 6px;
+      border-radius:8px;
+      border:1px solid rgba(2,6,23,.08);
+    }
+    .note{
+      margin:14px 0;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(59,130,246,.28);
+      background:rgba(59,130,246,.10);
+      color:rgba(15,23,42,.9);
+    }
+    .warn{
+      margin:14px 0;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(245,158,11,.35);
+      background:rgba(245,158,11,.12);
+    }
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:16px;
+      flex-wrap:wrap;
+      padding-top:14px;
+      border-top:1px solid var(--line);
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+    }
+    .btn.secondary{ font-weight:600; }
+    footer{
+      margin-top:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <p class="kicker">Capítulo 1 · Introdução</p>
+        <h1>Navegadores que suportam CSS</h1>
+      </div>
+      <p class="kicker">Compatibilidade · Web moderna</p>
+    </header>
+
+    <main class="card">
+      <p>
+        Hoje em dia, o suporte a CSS é muito bom nos principais navegadores:
+        <strong>Chrome</strong>, <strong>Edge</strong>, <strong>Firefox</strong> e <strong>Safari</strong>.
+        A maior parte das propriedades comuns (tipografia, cores, Flexbox, Grid, animações, etc.)
+        funciona de forma consistente.
+      </p>
+
+      <div class="note">
+        - Regra prática atual: se testares em <strong>Chrome/Edge + Firefox + Safari</strong>,
+        já cobres praticamente todos os utilizadores.
+      </div>
+
+      <h2>O que ainda pode variar</h2>
+      <ul>
+        <li>
+          <strong>Funcionalidades muito recentes</strong> podem demorar a chegar a todos os navegadores.
+          Nestes casos usa “fallbacks” (uma alternativa simples) ou verifica suporte antes de usar.
+        </li>
+        <li>
+          <strong>Diferenças no Safari (iOS)</strong> acontecem mais frequentemente em features novas,
+          por isso convém testar em telemóvel.
+        </li>
+        <li>
+          <strong>Prefixos antigos</strong> (ex.: <code>-webkit-</code>) hoje são raros, mas ainda aparecem
+          em algumas propriedades específicas.
+        </li>
+      </ul>
+
+      <div class="warn">
+        <strong>Boa prática:</strong> escreve CSS com “progressive enhancement”.
+        Ou seja: começa por um layout simples que funciona sempre e adiciona melhorias
+        quando houver suporte.
+      </div>
+
+      <h2>Dica rápida de compatibilidade</h2>
+      <p>
+        Quando tiveres dúvidas sobre uma propriedade, procura sempre:
+        suporte do browser + alternativa (“fallback”).
+        Exemplos: usar <code>display: flex</code> com uma estrutura que ainda funciona em bloco,
+        ou definir uma cor de fundo antes de um gradiente.
+      </p>
+
+      <nav class="nav" aria-label="Navegação">
+        <a class="btn secondary" href="css_1.3.htm">← Anterior</a>
+        <a class="btn secondary" href="index.html">Índice</a>
+        <a class="btn" href="css_1.5.htm">Seguinte →</a>
+      </nav>
+    </main>
+
+    <footer>
+      <p>CSS · Aula 1.4 · Navegadores e suporte a CSS</p>
+    </footer>
+  </div>
+</body>
+</html>

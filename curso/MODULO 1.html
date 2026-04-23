@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luisa Reis" />
+  <title>Curso Interactivo de HTML — Módulo 1</title>
+
+  <style>
+    :root{
+      --bg1:#0b1220; --bg2:#0f1c34;
+      --card:rgba(255,255,255,.08);
+      --card2:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --line:rgba(255,255,255,.14);
+      --accent:#33d1c6;
+      --shadow:0 12px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --navH:64px;
+      --maxW:1040px;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      line-height:1.6;
+
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(51,209,198,.28), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(99,102,241,.22), transparent 55%),
+        linear-gradient(180deg,var(--bg1),var(--bg2)),
+        url("NEW-2.JPG");
+      background-size: cover, cover, cover, cover;
+      background-position: center, center, center, center;
+      background-attachment: fixed;
+    }
+
+    /* NAV */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--navH);
+      display:flex;
+      align-items:center;
+      border-bottom: 1px solid var(--line);
+      background: rgba(10,16,28,.55);
+      backdrop-filter: blur(12px);
+    }
+    .nav__inner{
+      width: min(var(--maxW), calc(100% - 32px));
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+      min-width: 220px;
+    }
+    .brand__dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(51,209,198,.12);
+    }
+    .brand__title{
+      font-weight:700;
+      letter-spacing:.2px;
+      font-size: 1.02rem;
+      line-height:1.2;
+    }
+    .brand__sub{
+      display:block;
+      font-weight:500;
+      color:var(--muted);
+      font-size:.85rem;
+      margin-top:2px;
+    }
+    .nav__links{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      gap: 8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      text-decoration:none;
+      white-space:nowrap;
+      font-size:.95rem;
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(51,209,198,.35); }
+    .pill--accent{
+      border-color: rgba(51,209,198,.35);
+      background: linear-gradient(180deg, rgba(51,209,198,.18), rgba(0,0,0,.14));
+    }
+
+    /* LAYOUT */
+    .container{
+      width: min(var(--maxW), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 28px;
+    }
+
+    header.hero{
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 22px 18px;
+    }
+    .badge{
+      display:inline-flex;
+      gap:.5rem;
+      align-items:center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(1.7rem, 3.0vw, 2.3rem);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin: 0;
+      max-width: 85ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    main{
+      margin-top: 16px;
+      display:grid;
+      gap: 14px;
+    }
+    section.card{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 20px 18px;
+    }
+    section.card h2{
+      margin:0 0 10px;
+      font-size: 1.2rem;
+      letter-spacing:.2px;
+    }
+    section.card p, section.card li{ color: var(--muted); }
+
+    .divider{
+      border:0;
+      height:1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 16px 0;
+    }
+
+    /* Código */
+    code, pre, textarea{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    pre{
+      margin: 0;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      overflow:auto;
+      color: rgba(255,255,255,.88);
+    }
+    .grid-2{
+      display:grid;
+      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      align-items:start;
+    }
+    @media (max-width: 860px){
+      .grid-2{ grid-template-columns: 1fr; }
+    }
+
+    /* Exercício */
+    textarea{
+      width:100%;
+      min-height: 170px;
+      resize: vertical;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      padding: 12px 12px;
+      outline: none;
+    }
+    textarea:focus{ border-color: rgba(51,209,198,.45); }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 10px;
+      align-items:center;
+      justify-content: flex-start;
+    }
+    button{
+      cursor:pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    button:hover{ transform: translateY(-1px); border-color: rgba(51,209,198,.35); }
+
+    .hint{
+      color: var(--muted);
+      font-size: .95rem;
+      margin-top: 8px;
+    }
+
+    .preview{
+      width: 100%;
+      height: 320px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      overflow:hidden;
+    }
+
+    /* Footer nav */
+    .mini-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      justify-content:center;
+      margin-top: 10px;
+    }
+
+    footer{
+      margin-top: 10px;
+      text-align:center;
+      color: var(--muted);
+      font-size: .95rem;
+      padding-bottom: 16px;
+    }
+    footer a{ color: var(--accent); text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
+
+    @media (max-width: 640px){
+      .brand{ min-width: 0; }
+      .brand__sub{ display:none; }
+      .nav__links{ gap: 6px; }
+      .pill{ padding: 8px 10px; font-size: .93rem; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .pill, button{ transition:none; }
+      .pill:hover, button:hover{ transform:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR FIXA -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a class="brand" href="curso.HTM">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <span>
+          <span class="brand__title">Curso Interactivo de HTML</span>
+          <span class="brand__sub">Módulo 1 — Introdução</span>
+        </span>
+      </a>
+
+      <div class="nav__links">
+        <a class="pill" href="#intro">Introdução</a>
+        <a class="pill" href="#regras">Regras</a>
+        <a class="pill" href="#estrutura">Estrutura</a>
+        <a class="pill pill--accent" href="#exercicio">Exercício</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="hero">
+      <span class="badge">📘 Módulo 1</span>
+      <h1>Introdução ao HTML</h1>
+      <p class="subtitle">
+        HTML (HyperText Markup Language) é a linguagem usada para estruturar conteúdo na Web.
+        Neste módulo vais perceber a lógica dos “elementos” (tags), regras básicas e a estrutura mínima de um documento.
+      </p>
+    </header>
+
+    <main>
+      <!-- INTRO -->
+      <section class="card" id="intro">
+        <h2>O que é HTML?</h2>
+        <p>
+          O HTML é uma linguagem de marcação (não é linguagem de programação) composta por texto e
+          <strong>elementos</strong> que descrevem a estrutura da página: títulos, parágrafos, listas, ligações, imagens, etc.
+          O browser interpreta esse “marcado” e apresenta o resultado ao utilizador.
+        </p>
+        <p class="hint">
+          Nota atual (boas práticas): hoje usa-se <strong>UTF-8</strong> e HTML5 com elementos semânticos (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>…).
+        </p>
+      </section>
+
+      <!-- REGRAS -->
+      <section class="card" id="regras">
+        <h2>Regras básicas</h2>
+        <ul>
+          <li>
+            O browser normalmente ignora espaços extra e quebras de linha no HTML (exceto em <code>&lt;pre&gt;</code> ou com CSS).
+          </li>
+          <li>
+            Muitos elementos têm <strong>abertura</strong> e <strong>fecho</strong>:
+            <code>&lt;tag&gt;...&lt;/tag&gt;</code>. (Alguns são “vazios”, como <code>&lt;img&gt;</code>.)
+          </li>
+          <li>
+            Em HTML, maiúsculas/minúsculas não costuma ser problema, mas é recomendado escrever de forma consistente.
+            Em ficheiros e links, porém, <strong>o nome do ficheiro conta</strong> em muitos servidores (Linux).
+          </li>
+          <li>
+            Em HTML5 com UTF-8, podes escrever acentos diretamente (ex.: “introdução”).
+            Entidades como <code>&amp;uacute;</code> continuam válidas quando precisares.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ESTRUTURA -->
+      <section class="card" id="estrutura">
+        <h2>Estrutura básica de um documento HTML</h2>
+
+        <div class="grid-2" role="group" aria-label="Exemplo e explicação da estrutura">
+          <div>
+            <p class="hint" style="margin:0 0 10px;">
+              Exemplo mínimo (HTML5):
+            </p>
+            <pre><code>&lt;!doctype html&gt;
+&lt;html lang="pt-PT"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;title&gt;Curso de HTML&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Conteúdo do documento
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <div>
+            <p class="hint" style="margin:0 0 10px;">
+              O que significa cada parte:
+            </p>
+            <ul>
+              <li><code>&lt;!doctype html&gt;</code>: indica HTML5 ao browser.</li>
+              <li><code>&lt;html&gt;</code>: raiz do documento; usa <code>lang</code> para acessibilidade e SEO.</li>
+              <li><code>&lt;head&gt;</code>: metadados (charset, título, estilos, scripts).</li>
+              <li><code>&lt;title&gt;</code>: título mostrado no separador do browser.</li>
+              <li><code>&lt;body&gt;</code>: conteúdo visível da página.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCÍCIO -->
+      <section class="card" id="exercicio">
+        <h2>Exercício prático</h2>
+        <p>
+          Escreve (ou altera) o HTML na caixa abaixo e clica em <strong>Processar</strong> para ver o resultado no preview.
+          Se quiseres voltar ao texto inicial, usa <strong>Repor exemplo</strong>.
+        </p>
+
+        <div class="grid-2" style="margin-top:12px;">
+          <div>
+            <label for="editor" class="hint" style="display:block; margin:0 0 8px;">Editor</label>
+            <textarea id="editor" spellcheck="false"></textarea>
+
+            <div class="actions">
+              <button type="button" id="btnRun">Processar</button>
+              <button type="button" id="btnClear">Limpar texto</button>
+              <button type="button" id="btnReset">Repor exemplo</button>
+            </div>
+
+            <p class="hint">
+              Dica: se não incluíres <code>&lt;html&gt;</code>/<code>&lt;body&gt;</code>, o preview completa automaticamente.
+            </p>
+          </div>
+
+          <div>
+            <label class="hint" style="display:block; margin:0 0 8px;">Preview</label>
+            <iframe class="preview" id="preview" title="Pré-visualização do exercício"></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <hr class="divider" />
+      Comentários e sugestões: <a href="luisa.reis@aebatalha.ccems.pt">luisa.reis@aebatalha.ccems.pt</a>
+      <div class="mini-nav" aria-label="Navegação por módulos">
+        <a class="pill" href="Curso.HTM">INTRO</a>
+        <a class="pill pill--accent" href="MODULO 1.HTMl">MÓDULO 1</a>
+        <a class="pill" href="MODULO 2.HTMl">MÓDULO 2</a>
+        <a class="pill" href="MODULO 3.HTMl">MÓDULO 3</a>
+        <a class="pill" href="MODULO 4.HTMl">MÓDULO 4</a>
+        <a class="pill" href="MODULO 5.HTMl">MÓDULO 5</a>
+        <a class="pill" href="MODULO 6.HTMl">MÓDULO 6</a>
+        <a class="pill" href="MODULO 7.HTMl">MÓDULO 7</a>
+        <a class="pill" href="MODULO 8.HTM">MÓDULO 8</a>
+        <a class="pill" href="MODULO 9.HTMl">MÓDULO 9</a>
+        <a class="pill" href="MODULO 10.HTMl">MÓDULO 10</a>
+      </div>
+      <hr class="divider" />
+    </footer>
+  </div>
+
+  <script>
+    const example = `<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <title>Introdução ao HTML</title>
+</head>
+<body>
+  <h1>Olá, HTML!</h1>
+  <p>Este é o corpo do documento.</p>
+</body>
+</html>`;
+
+    const editor = document.getElementById("editor");
+    const preview = document.getElementById("preview");
+
+    function wrapIfNeeded(html) {
+      const hasHtml = /<\s*html[\s>]/i.test(html);
+      const hasBody = /<\s*body[\s>]/i.test(html);
+      if (hasHtml && hasBody) return html;
+
+      // Se o utilizador só escrever fragmentos, criamos um documento completo
+      return `<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preview</title>
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; padding:16px;}</style>
+</head>
+<body>
+${html}
+</body>
+</html>`;
+    }
+
+    function run() {
+      const html = wrapIfNeeded(editor.value.trim());
+      // Atualiza o iframe com segurança (isolado do resto da página)
+      preview.srcdoc = html;
+    }
+
+    function clearEditor() {
+      editor.value = "";
+      preview.srcdoc = "";
+      editor.focus();
+    }
+
+    function resetExample() {
+      editor.value = example;
+      run();
+    }
+
+    document.getElementById("btnRun").addEventListener("click", run);
+    document.getElementById("btnClear").addEventListener("click", clearEditor);
+    document.getElementById("btnReset").addEventListener("click", resetExample);
+
+    // Inicializa com o exemplo
+    resetExample();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

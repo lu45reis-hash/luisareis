@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Elementos do Cabeçalho</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 20px 0 30px;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 14px 18px;
+            border-left: 5px solid #007bff;
+            margin: 18px 0;
+            font-family: Consolas, 'Courier New', monospace;
+            white-space: pre-wrap;
+            border-radius: 4px;
+        }
+
+        p {
+            margin-bottom: 16px;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Elementos do Cabeçalho</h1>
+    </header>
+
+    <main>
+
+        <pre class="tree"><a href="A1.htm#head">head</a>
+  |__ <a href="A2.htm#title">title</a>
+  |__ <a href="A2.htm#meta">meta</a>
+  |__ <a href="A2.htm#link">link</a>
+  |__ <a href="A2.htm#isindex">isindex</a>
+  |__ <a href="A2.htm#base">base</a>
+  |__ <a href="A2.htm#style">style</a>
+  |__ <a href="A2.htm#script">script</a></pre>
+
+        <h2 id="title">&lt;title&gt; ... &lt;/title&gt;</h2>
+        <p>Define o título da página, que aparece na aba do navegador e é muito importante para motores de busca (SEO) e indexação.</p>
+        <p><strong>Deve conter:</strong> apenas texto simples (não pode conter outras etiquetas HTML).</p>
+
+        <div class="example">&lt;title&gt;Guia de Referência HTML: Elementos do Cabeçalho&lt;/title&gt;</div>
+
+        <h2 id="meta">&lt;meta&gt;</h2>
+        <p>Utilizado para fornecer metadados sobre o documento (informações para navegadores, motores de busca e servidores HTTP).</p>
+        <p>Atributos principais:</p>
+        <ul>
+            <li><code>name</code> + <code>content</code> — metadados gerais (ex: descrição, autor, palavras-chave)</li>
+            <li><code>http-equiv</code> + <code>content</code> — simula cabeçalhos HTTP (ex: charset, refresh, etc.)</li>
+        </ul>
+
+        <div class="example">&lt;meta charset="UTF-8"&gt;
+&lt;meta name="description" content="Guia completo de referência HTML"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</div>
+
+        <h2 id="link">&lt;link&gt;</h2>
+        <p>Estabelece relações entre o documento atual e outros recursos (folhas de estilo, ícones, feeds, etc.).</p>
+        <p>É o elemento mais usado para ligar uma folha de estilos externa:</p>
+        <div class="example">&lt;link rel="stylesheet" href="estilos.css"&gt;</div>
+
+        <h2 id="base">&lt;base&gt;</h2>
+        <p>Define a URL base para todos os links relativos da página. Também pode definir o destino padrão dos links.</p>
+
+        <div class="example">&lt;base href="https://www.exemplo.pt/"&gt;
+&lt;base target="_blank"&gt;</div>
+
+        <h2 id="isindex">&lt;isindex&gt;</h2>
+        <p><strong>Elemento obsoleto</strong> (deprecated). Criava uma caixa de pesquisa simples no topo da página. Hoje em dia deve ser substituído por formulários HTML modernos.</p>
+
+        <h2 id="style">&lt;style&gt; ... &lt;/style&gt;</h2>
+        <p>Permite inserir regras de CSS diretamente na página.</p>
+
+        <div class="example">&lt;style&gt;
+    body { font-family: Arial, sans-serif; }
+    h1 { color: #007bff; }
+&lt;/style&gt;</div>
+
+        <h2 id="script">&lt;script&gt; ... &lt;/script&gt;</h2>
+        <p>Utilizado para incluir código JavaScript (ou outras linguagens de scripting) na página.</p>
+
+        <div class="example">&lt;script src="script.js"&gt;&lt;/script&gt;</div>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

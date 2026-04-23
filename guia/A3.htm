@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Cabeçalhos, Blocos e Separadores</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 22px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 20px 0 35px;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 15px 18px;
+            border-left: 5px solid #007bff;
+            margin: 20px 0;
+            font-family: Consolas, 'Courier New', monospace;
+            white-space: pre-wrap;
+            border-radius: 4px;
+        }
+
+        ul {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Cabeçalhos, Blocos e Separadores</h1>
+    </header>
+
+    <main>
+
+        <pre class="tree"><a href="A1.htm#body">body</a>
+  |__ <a href="A3.htm#h1">h1</a> (ou h2, h3, h4, h5, h6)
+  |__ <a href="A3.htm#h2">p</a>
+  |__ <a href="A3.htm#h3">address</a>
+  |__ <a href="A3.htm#h4">blockquote</a>
+  |__ <a href="A3.htm#h5">pre</a>
+  |__ <a href="A3.htm#h6">div</a>
+  |__ <a href="A3.htm#h7">center</a>
+  |__ <a href="A3.htm#h8">hr</a></pre>
+
+        <h2 id="h1">&lt;h1&gt; a &lt;h6&gt;</h2>
+        <p>Os cabeçalhos definem a hierarquia de títulos da página. Existem seis níveis, do mais importante (<code>&lt;h1&gt;</code>) ao menos importante (<code>&lt;h6&gt;</code>).</p>
+        <p>Os navegadores exibem os cabeçalhos com tamanhos decrescentes e geralmente em negrito.</p>
+
+        <div class="example">&lt;h1&gt;Título Principal&lt;/h1&gt;
+&lt;h2&gt;Subtítulo&lt;/h2&gt;
+&lt;h3&gt;Secção&lt;/h3&gt;</div>
+
+        <h2 id="h2">&lt;p&gt; ... &lt;/p&gt;</h2>
+        <p>Define um parágrafo de texto. O fecho <code>&lt;/p&gt;</code> é opcional em HTML5, mas recomendado para maior clareza.</p>
+
+        <div class="example">&lt;p&gt;Este é um parágrafo normal de texto.&lt;/p&gt;</div>
+
+        <h2 id="h8">&lt;hr&gt;</h2>
+        <p>Cria uma linha horizontal de separação (regra horizontal).</p>
+        <p>Em HTML5 os atributos de apresentação (<code>size</code>, <code>width</code>, <code>align</code>, <code>noshade</code>) foram descontinuados. Deve-se usar CSS.</p>
+
+        <div class="example">&lt;hr style="border: 2px solid #007bff; margin: 30px 0;"&gt;</div>
+
+        <h2 id="h5">&lt;pre&gt; ... &lt;/pre&gt;</h2>
+        <p>Texto pré-formatado. Preserva espaços, tabulações e quebras de linha exatamente como estão no código. É exibido numa fonte mono-espaçada (geralmente Courier).</p>
+
+        <div class="example">&lt;pre&gt;
+function ola() {
+    console.log("Olá Mundo!");
+}
+&lt;/pre&gt;</div>
+
+        <h2 id="h4">&lt;blockquote&gt; ... &lt;/blockquote&gt;</h2>
+        <p>Usado para citar um bloco de texto (geralmente indentado à direita e à esquerda). Ideal para citações longas.</p>
+
+        <div class="example">&lt;blockquote&gt;
+    &lt;p&gt;O importante não é vencer todos os dias, mas lutar sempre.&lt;/p&gt;
+    &lt;cite&gt;— Desconhecido&lt;/cite&gt;
+&lt;/blockquote&gt;</div>
+
+        <h2 id="h6">&lt;address&gt; ... &lt;/address&gt;</h2>
+        <p>Define informações de contacto ou assinatura do autor. Normalmente é exibido em itálico.</p>
+
+        <div class="example">&lt;address&gt;
+    Escrito por João Silva<br>
+    &lt;a href="mailto:joao@exemplo.pt"&gt;joao@exemplo.pt&lt;/a&gt;
+&lt;/address&gt;</div>
+
+        <h2 id="h7">&lt;div&gt; ... &lt;/div&gt;</h2>
+        <p>Elemento genérico de bloco. Usado para agrupar conteúdo quando não existe um elemento semântico mais adequado. É o elemento mais usado em conjunto com CSS.</p>
+
+        <div class="example">&lt;div class="caixa"&gt;
+    &lt;p&gt;Conteúdo agrupado...&lt;/p&gt;
+&lt;/div&gt;</div>
+
+        <h2 id="h3">&lt;center&gt;</h2>
+        <p><strong>Elemento obsoleto</strong> (deprecated). Centrava o conteúdo. Hoje em dia deve ser substituído por CSS:</p>
+        <div class="example">&lt;div style="text-align: center;"&gt;...&lt;/div&gt;</div>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

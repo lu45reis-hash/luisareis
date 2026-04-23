@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <title>Formatação de Texto – Exemplos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      line-height: 1.6;
+    }
+
+    .exemplo {
+      margin-bottom: 1rem;
+    }
+
+    .codigo {
+      background: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #333;
+      font-family: monospace;
+    }
+
+    .destaque {
+      color: darkred;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Formatação de Texto em HTML</h1>
+
+  <p class="exemplo">
+    Este texto está em <strong>negrito</strong>
+  </p>
+
+  <p class="exemplo">
+    Este texto está em <em>itálico</em>
+  </p>
+
+  <p class="exemplo">
+    Este texto está <u>sublinhado</u>
+  </p>
+
+  <p class="exemplo">
+    Este texto está <strong><em><u>sublinhado, em negrito e itálico</u></em></strong>
+  </p>
+
+  <p class="exemplo">
+    Este texto usa <strong>&lt;strong&gt;</strong>, que indica importância semântica
+    (não apenas aparência).
+  </p>
+
+  <p class="exemplo">
+    Este texto usa <code>&lt;code&gt;</code> para indicar código:
+    <code>console.log("Olá mundo");</code>
+  </p>
+
+  <p class="exemplo">
+    Texto <span style="font-size: 1.3em;">maior</span> e texto
+    <span style="font-size: 0.8em;">menor</span> (feito com CSS).
+  </p>
+
+  <p class="exemplo">
+    Texto <sub>subscrito</sub> e texto <sup>sobrescrito</sup>
+  </p>
+
+  <p class="exemplo destaque">
+    Atenção: a tag &lt;blink&gt; não é suportada em HTML5 ❌
+  </p>
+
+  <div class="codigo">
+    &lt;strong&gt;Texto importante&lt;/strong&gt;<br>
+    &lt;em&gt;Texto enfatizado&lt;/em&gt;<br>
+    &lt;sub&gt;Subscrito&lt;/sub&gt; &lt;sup&gt;Sobrescrito&lt;/sup&gt;
+  </div>
+
+</body>
+</html>

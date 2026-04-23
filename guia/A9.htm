@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Referência HTML: Quadros (Frames)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 4px solid #007bff;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin: 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        nav {
+            background-color: #eeeeee;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .tree {
+            background-color: #f8f9fa;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 22px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 20px 0 35px;
+        }
+
+        .tree a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .tree a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 16px 20px;
+            border-left: 5px solid #007bff;
+            margin: 20px 0;
+            font-family: Consolas, 'Courier New', monospace;
+            white-space: pre-wrap;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        footer nav {
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Tutorial HTML</a>
+        <a href="A.htm">Índice</a>
+    </nav>
+
+    <header>
+        <h1>Quadros (Frames)</h1>
+    </header>
+
+    <main>
+
+        <pre class="tree"><a href="A1.htm#html">html</a>
+  |__ <a href="A1.htm#head">head</a>
+  |__ <a href="A9.htm#frameset">frameset</a>
+          |__ <a href="A9.htm#frame">frame</a>
+          |__ <a href="A9.htm#noframes">noframes</a></pre>
+
+        <div class="warning">
+            <strong>⚠️ Nota importante:</strong> A tecnologia de quadros (frames) foi descontinuada e é considerada obsoleta em HTML5. 
+            Hoje em dia recomenda-se fortemente o uso de <strong>CSS Flexbox/Grid</strong> ou <strong>iframe</strong> quando necessário. 
+            Esta página é mantida apenas para referência histórica.
+        </div>
+
+        <h2 id="frameset">&lt;frameset&gt; ... &lt;/frameset&gt;</h2>
+        <p>Define a estrutura de divisão da janela do navegador em vários quadros. Substitui o elemento <code>&lt;body&gt;</code>.</p>
+
+        <div class="example">&lt;frameset cols="25%, 75%"&gt;
+    &lt;frame src="menu.html"&gt;
+    &lt;frame src="conteudo.html"&gt;
+&lt;/frameset&gt;</div>
+
+        <p><strong>Atributos principais:</strong></p>
+        <ul>
+            <li><code>cols</code> – divide a página em colunas (larguras)</li>
+            <li><code>rows</code> – divide a página em linhas (alturas)</li>
+            <li><code>frameborder</code> – define se as bordas são visíveis (0 = sem bordas)</li>
+        </ul>
+
+        <h2 id="frame">&lt;frame&gt;</h2>
+        <p>Define cada quadro individual dentro de um <code>&lt;frameset&gt;</code>.</p>
+
+        <div class="example">&lt;frame src="pagina.html" name="conteudo" scrolling="auto" noresize&gt;</div>
+
+        <p><strong>Atributos mais usados:</strong></p>
+        <ul>
+            <li><code>src</code> – URL do documento a carregar no quadro</li>
+            <li><code>name</code> – nome do quadro (para usar com o atributo <code>target</code> dos links)</li>
+            <li><code>scrolling</code> – <code>yes</code>, <code>no</code> ou <code>auto</code></li>
+            <li><code>noresize</code> – impede que o utilizador redimensione o quadro</li>
+        </ul>
+
+        <h2 id="noframes">&lt;noframes&gt; ... &lt;/noframes&gt;</h2>
+        <p>Conteúdo alternativo que será exibido por navegadores que não suportam frames.</p>
+
+        <div class="example">&lt;noframes&gt;
+    &lt;body&gt;
+        &lt;p&gt;O seu navegador não suporta frames.&lt;/p&gt;
+        &lt;a href="conteudo.html"&gt;Ir para a versão sem frames&lt;/a&gt;
+    &lt;/body&gt;
+&lt;/noframes&gt;</div>
+
+    </main>
+
+    <footer>
+        <hr>
+        <nav>
+            <a href="../index.html">Tutorial HTML</a>
+            <a href="A.htm">Índice</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

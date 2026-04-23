@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luisa Reis" />
+  <title>Curso Interactivo de HTML — Módulo 8</title>
+
+  <style>
+    :root{
+      --bg1:#0b1220; --bg2:#0f1c34;
+      --card:rgba(255,255,255,.08);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --line:rgba(255,255,255,.14);
+      --accent:#33d1c6;
+      --shadow:0 12px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --navH:64px;
+      --maxW:1040px;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      line-height:1.6;
+
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(51,209,198,.28), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(99,102,241,.22), transparent 55%),
+        linear-gradient(180deg,var(--bg1),var(--bg2)),
+        url("NEW-2.JPG");
+      background-size: cover, cover, cover, cover;
+      background-position: center, center, center, center;
+      background-attachment: fixed;
+    }
+
+    /* NAV */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--navH);
+      display:flex;
+      align-items:center;
+      border-bottom: 1px solid var(--line);
+      background: rgba(10,16,28,.55);
+      backdrop-filter: blur(12px);
+    }
+    .nav__inner{
+      width: min(var(--maxW), calc(100% - 32px));
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+      min-width: 220px;
+    }
+    .brand__dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(51,209,198,.12);
+    }
+    .brand__title{
+      font-weight:700;
+      letter-spacing:.2px;
+      font-size: 1.02rem;
+      line-height:1.2;
+    }
+    .brand__sub{
+      display:block;
+      font-weight:500;
+      color:var(--muted);
+      font-size:.85rem;
+      margin-top:2px;
+    }
+    .nav__links{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      gap: 8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      text-decoration:none;
+      white-space:nowrap;
+      font-size:.95rem;
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(51,209,198,.35); }
+    .pill--accent{
+      border-color: rgba(51,209,198,.35);
+      background: linear-gradient(180deg, rgba(51,209,198,.18), rgba(0,0,0,.14));
+    }
+
+    /* LAYOUT */
+    .container{
+      width: min(var(--maxW), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 28px;
+    }
+
+    header.hero{
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 22px 18px;
+    }
+    .badge{
+      display:inline-flex;
+      gap:.5rem;
+      align-items:center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(1.7rem, 3.0vw, 2.3rem);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin: 0;
+      max-width: 95ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    main{
+      margin-top: 16px;
+      display:grid;
+      gap: 14px;
+    }
+    section.card{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 20px 18px;
+    }
+    section.card h2{
+      margin:0 0 10px;
+      font-size: 1.2rem;
+      letter-spacing:.2px;
+    }
+    section.card p, section.card li{ color: var(--muted); }
+
+    .divider{
+      border:0;
+      height:1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 16px 0;
+    }
+
+    /* Código e painéis */
+    code, pre, textarea{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    pre{
+      margin: 0;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      overflow:auto;
+      color: rgba(255,255,255,.88);
+    }
+    .demo{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .demo{ grid-template-columns: 1fr; }
+    }
+    .panel{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0,0,0,.14);
+      padding: 14px;
+    }
+    .panel h3{
+      margin:0 0 10px;
+      font-size: 1rem;
+      color: rgba(255,255,255,.85);
+      letter-spacing:.2px;
+    }
+    .panel--light{
+      background: rgba(255,255,255,.92);
+      color: #0b1220;
+    }
+    .panel--light *{ color: #0b1220; }
+    .panel--light .muted{ color: rgba(0,0,0,.65); }
+
+    .hint{
+      color: var(--muted);
+      font-size: .95rem;
+      margin-top: 8px;
+    }
+
+    /* TABELAS DEMO */
+    .table-wrap{ overflow:auto; border-radius: 14px; border:1px solid rgba(0,0,0,.12); }
+    .t{
+      width:100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,.98);
+      color:#0b1220;
+      min-width: 520px;
+    }
+    .t caption{
+      caption-side: top;
+      text-align:left;
+      padding: 10px 12px;
+      font-weight:700;
+      color: rgba(0,0,0,.75);
+    }
+    .t th, .t td{
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(0,0,0,.12);
+      border-right: 1px solid rgba(0,0,0,.08);
+      vertical-align: top;
+    }
+    .t th:last-child, .t td:last-child{ border-right:0; }
+    .t thead th{
+      background: rgba(0,0,0,.04);
+      font-weight: 800;
+    }
+    .t tbody tr:nth-child(even) td{ background: rgba(0,0,0,.02); }
+    .t small{ color: rgba(0,0,0,.6); }
+
+    /* Exercício */
+    textarea{
+      width:100%;
+      min-height: 260px;
+      resize: vertical;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      padding: 12px 12px;
+      outline: none;
+    }
+    textarea:focus{ border-color: rgba(51,209,198,.45); }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 10px;
+      align-items:center;
+      justify-content: flex-start;
+    }
+    button{
+      cursor:pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    button:hover{ transform: translateY(-1px); border-color: rgba(51,209,198,.35); }
+
+    .preview{
+      width: 100%;
+      height: 420px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      overflow:hidden;
+    }
+
+    /* Footer */
+    .mini-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      justify-content:center;
+      margin-top: 10px;
+    }
+    footer{
+      margin-top: 10px;
+      text-align:center;
+      color: var(--muted);
+      font-size: .95rem;
+      padding-bottom: 16px;
+    }
+    footer a{ color: var(--accent); text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
+
+    @media (max-width: 640px){
+      .brand{ min-width: 0; }
+      .brand__sub{ display:none; }
+      .nav__links{ gap: 6px; }
+      .pill{ padding: 8px 10px; font-size: .93rem; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .pill, button{ transition:none; }
+      .pill:hover, button:hover{ transform:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR FIXA -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a class="brand" href="curso.HTM">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <span>
+          <span class="brand__title">Curso Interactivo de HTML</span>
+          <span class="brand__sub">Módulo 8 — Tabelas</span>
+        </span>
+      </a>
+
+      <div class="nav__links">
+        <a class="pill" href="#basico">Básico</a>
+        <a class="pill" href="#cabecalhos">Cabeçalhos</a>
+        <a class="pill" href="#span">Row/Col span</a>
+        <a class="pill pill--accent" href="#exercicio">Exercício</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="hero">
+      <span class="badge">📘 Módulo 8</span>
+      <h1>Tabelas</h1>
+      <p class="subtitle">
+        As tabelas servem para apresentar <strong>dados</strong> em linhas e colunas.
+        Em HTML moderno, usa <code>&lt;table&gt;</code> com <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> e, quando faz sentido, <code>&lt;caption&gt;</code>.
+      </p>
+    </header>
+
+    <main>
+      <section class="card" id="basico">
+        <h2>Estrutura básica</h2>
+        <p>
+          Uma tabela tem linhas (<code>&lt;tr&gt;</code>) e células (<code>&lt;td&gt;</code>).
+          Atributos como <code>border</code>, <code>cellpadding</code> e <code>cellspacing</code> eram comuns antigamente;
+          hoje, o estilo é controlado preferencialmente por CSS.
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div class="panel panel--light">
+            <h3 class="muted">Texto formatado (resultado)</h3>
+            <div class="table-wrap">
+              <table class="t">
+                <caption>Exemplo 1: 1 linha × 1 célula</caption>
+                <tbody>
+                  <tr><td>CÉLULA 1</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="height:10px;"></div>
+
+            <div class="table-wrap">
+              <table class="t">
+                <caption>Exemplo 2: 1 linha × 2 células</caption>
+                <tbody>
+                  <tr><td>CÉLULA 1</td><td>CÉLULA 2</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="height:10px;"></div>
+
+            <div class="table-wrap">
+              <table class="t">
+                <caption>Exemplo 3: 2 linhas × 2 células</caption>
+                <tbody>
+                  <tr><td>CÉLULA 1</td><td>CÉLULA 2</td></tr>
+                  <tr><td>CÉLULA 3</td><td>CÉLULA 4</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>HTML (básico)</h3>
+            <pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;CÉLULA 1&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;CÉLULA 1&lt;/td&gt;
+    &lt;td&gt;CÉLULA 2&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;CÉLULA 1&lt;/td&gt;
+    &lt;td&gt;CÉLULA 2&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;CÉLULA 3&lt;/td&gt;
+    &lt;td&gt;CÉLULA 4&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+
+            <p class="hint" style="margin:10px 0 0;">
+              Antigo (legado): <code>&lt;table border cellpadding="2"&gt;</code>. Hoje: CSS.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="cabecalhos">
+        <h2>Tabelas com cabeçalhos</h2>
+        <p>
+          Para cabeçalhos usa-se <code>&lt;th&gt;</code>. Em HTML moderno, organiza-se com <code>&lt;thead&gt;</code> e <code>&lt;tbody&gt;</code>.
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div class="panel panel--light">
+            <h3 class="muted">Texto formatado (resultado)</h3>
+            <div class="table-wrap">
+              <table class="t">
+                <caption>Exemplo: cabeçalhos</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">TÍTULO 1</th>
+                    <th scope="col">TÍTULO 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CÉLULA 1</td>
+                    <td>CÉLULA 2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>HTML</h3>
+            <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;TÍTULO 1&lt;/th&gt;
+      &lt;th scope="col"&gt;TÍTULO 2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CÉLULA 1&lt;/td&gt;
+      &lt;td&gt;CÉLULA 2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="span">
+        <h2>Unir células: <code>colspan</code> e <code>rowspan</code></h2>
+        <p>
+          Às vezes precisas que uma célula ocupe mais do que uma coluna (<code>colspan</code>) ou mais do que uma linha (<code>rowspan</code>).
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div class="panel panel--light">
+            <h3 class="muted">Texto formatado (resultado)</h3>
+            <div class="table-wrap">
+              <table class="t">
+                <caption>Exemplo: colspan + rowspan</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">TÍTULO 1</th>
+                    <th scope="col" colspan="2">TÍTULO 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CÉLULA 1</td>
+                    <td rowspan="2">CÉLULA 3</td>
+                    <td>CÉLULA 4</td>
+                  </tr>
+                  <tr>
+                    <td>CÉLULA 2</td>
+                    <td>CÉLULA 5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>HTML</h3>
+            <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;TÍTULO 1&lt;/th&gt;
+      &lt;th colspan="2"&gt;TÍTULO 2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CÉLULA 1&lt;/td&gt;
+      &lt;td rowspan="2"&gt;CÉLULA 3&lt;/td&gt;
+      &lt;td&gt;CÉLULA 4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CÉLULA 2&lt;/td&gt;
+      &lt;td&gt;CÉLULA 5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </div>
+
+        <p class="hint">
+          Dica: usa tabelas para dados. Para layout/páginas, prefere CSS (flexbox/grid).
+        </p>
+      </section>
+
+      <section class="card" id="exercicio">
+        <h2>Exercício prático</h2>
+        <p>
+          Edita o HTML e clica em <strong>Processar</strong> para veres o resultado no preview.
+          Experimenta adicionar <code>&lt;thead&gt;</code> e unir células com <code>rowspan</code>/<code>colspan</code>.
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div>
+            <label for="editor" class="hint" style="display:block; margin:0 0 8px;">Editor</label>
+            <textarea id="editor" spellcheck="false"></textarea>
+
+            <div class="actions">
+              <button type="button" id="btnRun">Processar</button>
+              <button type="button" id="btnClear">Limpar texto</button>
+              <button type="button" id="btnReset">Repor exemplo</button>
+            </div>
+
+            <p class="hint">
+              Dica: no preview, tenta ajustar o estilo da tabela com CSS (<code>border-collapse</code>, <code>padding</code>, etc.).
+            </p>
+          </div>
+
+          <div>
+            <label class="hint" style="display:block; margin:0 0 8px;">Preview</label>
+            <iframe class="preview" id="preview" title="Pré-visualização do exercício"></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <hr class="divider" />
+      Comentários e sugestões: <a href="mailto:luisa.reis@aebatalha.ccems.pt">luisa.reis@aebatalha.ccems.pt</a>
+
+      <div class="mini-nav" aria-label="Navegação por módulos">
+        <a class="pill" href="curso.HTM">INTRO</a>
+        <a class="pill" href="MODULO 1.HTMl">MÓDULO 1</a>
+        <a class="pill" href="MODULO 2.HTMl">MÓDULO 2</a>
+        <a class="pill" href="MODULO 3.HTMl">MÓDULO 3</a>
+        <a class="pill" href="MODULO 4.HTMl">MÓDULO 4</a>
+        <a class="pill" href="MODULO 5.HTMl">MÓDULO 5</a>
+        <a class="pill" href="MODULO 6.HTMl">MÓDULO 6</a>
+        <a class="pill" href="MODULO 7.HTMl">MÓDULO 7</a>
+        <a class="pill pill--accent" href="MODULO 8.HTMl">MÓDULO 8</a>
+        <a class="pill" href="MODULO 9.HTMl">MÓDULO 9</a>
+        <a class="pill" href="MODULO 10.HTMl">MÓDULO 10</a>
+      </div>
+      <hr class="divider" />
+    </footer>
+  </div>
+
+  <script>
+    const example = `<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <title>Tabelas</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; padding:16px;}
+    h1{margin:18px 0 10px; text-align:center; font-family:Impact, system-ui; color:#ef4444; letter-spacing:.5px;}
+    table{border-collapse:collapse; margin: 0 auto; min-width: 520px;}
+    caption{caption-side: top; text-align:left; font-weight:700; margin-bottom:8px;}
+    th, td{border:1px solid #cbd5e1; padding:10px 12px;}
+    thead th{background:#f1f5f9;}
+    tbody tr:nth-child(even) td{background:#f8fafc;}
+  </style>
+</head>
+<body>
+  <h1>TABELAS</h1>
+
+  <table>
+    <caption>Exemplo com 2×2</caption>
+    <thead>
+      <tr>
+        <th scope="col">TÍTULO 1</th>
+        <th scope="col">TÍTULO 2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CÉLULA 1</td>
+        <td>CÉLULA 2</td>
+      </tr>
+      <tr>
+        <td>CÉLULA 3</td>
+        <td>CÉLULA 4</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="text-align:center; color:#64748b; margin-top:12px;">
+    Experimenta agora: adiciona <code>colspan</code> e <code>rowspan</code> :)
+  </p>
+</body>
+</html>`;
+
+    const editor = document.getElementById("editor");
+    const preview = document.getElementById("preview");
+
+    function wrapIfNeeded(html) {
+      const hasHtml = /<\s*html[\s>]/i.test(html);
+      const hasBody = /<\s*body[\s>]/i.test(html);
+      if (hasHtml && hasBody) return html;
+
+      return `<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preview</title>
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; padding:16px;}</style>
+</head>
+<body>
+${html}
+</body>
+</html>`;
+    }
+
+    function run() {
+      const html = wrapIfNeeded(editor.value.trim());
+      preview.srcdoc = html;
+    }
+
+    function clearEditor() {
+      editor.value = "";
+      preview.srcdoc = "";
+      editor.focus();
+    }
+
+    function resetExample() {
+      editor.value = example;
+      run();
+    }
+
+    document.getElementById("btnRun").addEventListener("click", run);
+    document.getElementById("btnClear").addEventListener("click", clearEditor);
+    document.getElementById("btnReset").addEventListener("click", resetExample);
+
+    resetExample();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luisa Reis" />
+  <title>Curso Interactivo de HTML — Módulo 6</title>
+
+  <style>
+    :root{
+      --bg1:#0b1220; --bg2:#0f1c34;
+      --card:rgba(255,255,255,.08);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --line:rgba(255,255,255,.14);
+      --accent:#33d1c6;
+      --shadow:0 12px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --navH:64px;
+      --maxW:1040px;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      line-height:1.6;
+
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(51,209,198,.28), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(99,102,241,.22), transparent 55%),
+        linear-gradient(180deg,var(--bg1),var(--bg2)),
+        url("NEW-2.JPG");
+      background-size: cover, cover, cover, cover;
+      background-position: center, center, center, center;
+      background-attachment: fixed;
+    }
+
+    /* NAV */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--navH);
+      display:flex;
+      align-items:center;
+      border-bottom: 1px solid var(--line);
+      background: rgba(10,16,28,.55);
+      backdrop-filter: blur(12px);
+    }
+    .nav__inner{
+      width: min(var(--maxW), calc(100% - 32px));
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+      min-width: 220px;
+    }
+    .brand__dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(51,209,198,.12);
+    }
+    .brand__title{
+      font-weight:700;
+      letter-spacing:.2px;
+      font-size: 1.02rem;
+      line-height:1.2;
+    }
+    .brand__sub{
+      display:block;
+      font-weight:500;
+      color:var(--muted);
+      font-size:.85rem;
+      margin-top:2px;
+    }
+    .nav__links{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      gap: 8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      text-decoration:none;
+      white-space:nowrap;
+      font-size:.95rem;
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(51,209,198,.35); }
+    .pill--accent{
+      border-color: rgba(51,209,198,.35);
+      background: linear-gradient(180deg, rgba(51,209,198,.18), rgba(0,0,0,.14));
+    }
+
+    /* LAYOUT */
+    .container{
+      width: min(var(--maxW), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 28px;
+    }
+
+    header.hero{
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      padding: 22px 18px;
+    }
+    .badge{
+      display:inline-flex;
+      gap:.5rem;
+      align-items:center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(1.7rem, 3.0vw, 2.3rem);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin: 0;
+      max-width: 95ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    main{
+      margin-top: 16px;
+      display:grid;
+      gap: 14px;
+    }
+    section.card{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 20px 18px;
+    }
+    section.card h2{
+      margin:0 0 10px;
+      font-size: 1.2rem;
+      letter-spacing:.2px;
+    }
+    section.card p, section.card li{ color: var(--muted); }
+
+    .divider{
+      border:0;
+      height:1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 16px 0;
+    }
+
+    /* Código e painéis */
+    code, pre, textarea{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    pre{
+      margin: 0;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      overflow:auto;
+      color: rgba(255,255,255,.88);
+    }
+    .demo{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .demo{ grid-template-columns: 1fr; }
+    }
+    .panel{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0,0,0,.14);
+      padding: 14px;
+    }
+    .panel h3{
+      margin:0 0 10px;
+      font-size: 1rem;
+      color: rgba(255,255,255,.85);
+      letter-spacing:.2px;
+    }
+    .panel--light{
+      background: rgba(255,255,255,.92);
+      color: #0b1220;
+    }
+    .panel--light *{ color: #0b1220; }
+    .panel--light .muted{ color: rgba(0,0,0,.65); }
+
+    .hint{
+      color: var(--muted);
+      font-size: .95rem;
+      margin-top: 8px;
+    }
+
+    /* Exercício */
+    textarea{
+      width:100%;
+      min-height: 240px;
+      resize: vertical;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      padding: 12px 12px;
+      outline: none;
+    }
+    textarea:focus{ border-color: rgba(51,209,198,.45); }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 10px;
+      align-items:center;
+      justify-content: flex-start;
+    }
+    button{
+      cursor:pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    button:hover{ transform: translateY(-1px); border-color: rgba(51,209,198,.35); }
+
+    .preview{
+      width: 100%;
+      height: 400px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      overflow:hidden;
+    }
+
+    /* Footer */
+    .mini-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      justify-content:center;
+      margin-top: 10px;
+    }
+    footer{
+      margin-top: 10px;
+      text-align:center;
+      color: var(--muted);
+      font-size: .95rem;
+      padding-bottom: 16px;
+    }
+    footer a{ color: var(--accent); text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
+
+    @media (max-width: 640px){
+      .brand{ min-width: 0; }
+      .brand__sub{ display:none; }
+      .nav__links{ gap: 6px; }
+      .pill{ padding: 8px 10px; font-size: .93rem; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .pill, button{ transition:none; }
+      .pill:hover, button:hover{ transform:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR FIXA -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a class="brand" href="curso.HTM">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <span>
+          <span class="brand__title">Curso Interactivo de HTML</span>
+          <span class="brand__sub">Módulo 6 — Listas</span>
+        </span>
+      </a>
+
+      <div class="nav__links">
+        <a class="pill" href="#ul">Marcadores</a>
+        <a class="pill" href="#ol">Numeradas</a>
+        <a class="pill" href="#dl">Glossário</a>
+        <a class="pill pill--accent" href="#exercicio">Exercício</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="hero">
+      <span class="badge">📘 Módulo 6</span>
+      <h1>Marcadores e listas numeradas</h1>
+      <p class="subtitle">
+        Listas ajudam a organizar informação: <code>&lt;ul&gt;</code> (desordenadas), <code>&lt;ol&gt;</code> (ordenadas) e <code>&lt;dl&gt;</code> (definições).
+        Neste módulo vais aprender a criar listas simples e aninhadas.
+      </p>
+    </header>
+
+    <main>
+      <section class="card" id="ul">
+        <h2>Listas desordenadas (marcadores) — <code>&lt;ul&gt;</code></h2>
+        <p>
+          Uma lista desordenada usa <code>&lt;ul&gt;</code> e cada item é um <code>&lt;li&gt;</code>.
+          O atributo <code>type</code> é legado (funciona, mas hoje controla-se com CSS).
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div class="panel panel--light">
+            <h3 class="muted">Texto formatado (resultado)</h3>
+
+            <p><u>LISTA DESORDENADA</u></p>
+            <ul style="list-style-type: circle;">
+              <li>ITEM 1</li>
+            </ul>
+            <ul style="list-style-type: square;">
+              <li>ITEM 2</li>
+            </ul>
+            <ul style="list-style-type: disc;">
+              <li>ITEM 3</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>HTML + CSS (moderno)</h3>
+            <pre><code>&lt;ul style="list-style-type: circle;"&gt;
+  &lt;li&gt;ITEM 1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul style="list-style-type: square;"&gt;
+  &lt;li&gt;ITEM 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul style="list-style-type: disc;"&gt;
+  &lt;li&gt;ITEM 3&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+            <p class="hint" style="margin:10px 0 0;">
+              (Legado) também existe: <code>&lt;ul type="circle"&gt;</code>, <code>&lt;ul type="square"&gt;</code>, <code>&lt;ul type="disc"&gt;</code>.
+            </p>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <p class="hint">
+          Boa prática para sub-listas: coloca a lista “filha” dentro do <code>&lt;li&gt;</code> correspondente (fica mais correto e previsível).
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div class="panel panel--light">
+            <h3 class="muted">Texto formatado (resultado)</h3>
+
+            <p><u>LISTA DESORDENADA (COM SUB-ITENS)</u></p>
+            <ul>
+              <li>ITEM 1
+                <ul style="list-style-type: circle;">
+                  <li>SUB-ITEM 1</li>
+                </ul>
+              </li>
+              <li>ITEM 2
+                <ul style="list-style-type: circle;">
+                  <li>SUB-ITEM 2</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>HTML (aninhado corretamente)</h3>
+            <pre><code>&lt;ul&gt;
+  &lt;li&gt;ITEM 1
+    &lt;ul style="list-style-type: circle;"&gt;
+      &lt;li&gt;SUB-ITEM 1&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+
+  &lt;li&gt;ITEM 2
+    &lt;ul style="list-style-type: circle;"&gt;
+      &lt;li&gt;SUB-ITEM 2&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="ol">
+        <h2>Listas ordenadas (numeradas) — <code>&lt;ol&gt;</code></h2>
+        <p>
+          Uma lista ordenada usa <code>&lt;ol&gt;</code>. Podes mudar o tipo de numeração com <code>type</code>
+          e definir o ponto de partida com <code>start</code>.
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div class="panel panel--light">
+            <h3 class="muted">Texto formatado (resultado)</h3>
+
+            <p><u>LISTA ORDENADA NUMÉRICA</u></p>
+            <ol>
+              <li>Primeiro item</li>
+              <li>Segundo item</li>
+            </ol>
+
+            <p><u>LISTA ORDENADA ALFABÉTICA (A)</u></p>
+            <ol type="A">
+              <li>Primeiro item</li>
+              <li>Segundo item</li>
+            </ol>
+
+            <p><u>LISTA ORDENADA ROMANA (I)</u></p>
+            <ol type="I">
+              <li>Primeiro item</li>
+              <li>Segundo item</li>
+            </ol>
+
+            <p><u>COM VALOR INICIAL</u></p>
+            <ol start="3">
+              <li>Terceiro item</li>
+              <li>Quarto item</li>
+              <li>Quinto item</li>
+            </ol>
+          </div>
+
+          <div class="panel">
+            <h3>HTML</h3>
+            <pre><code>&lt;ol&gt;
+  &lt;li&gt;Primeiro item&lt;/li&gt;
+  &lt;li&gt;Segundo item&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ol type="A"&gt;
+  &lt;li&gt;Primeiro item&lt;/li&gt;
+  &lt;li&gt;Segundo item&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ol type="I"&gt;
+  &lt;li&gt;Primeiro item&lt;/li&gt;
+  &lt;li&gt;Segundo item&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ol start="3"&gt;
+  &lt;li&gt;Terceiro item&lt;/li&gt;
+  &lt;li&gt;Quarto item&lt;/li&gt;
+  &lt;li&gt;Quinto item&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+          </div>
+        </div>
+
+        <p class="hint">
+          Dica moderna: para começar num número e manter semântica, <code>start</code> é perfeitamente aceitável. Para estilos mais avançados, usa CSS.
+        </p>
+      </section>
+
+      <section class="card" id="dl">
+        <h2>Listas de glossário (definições) — <code>&lt;dl&gt;</code></h2>
+        <p>
+          Estas listas são úteis para termos e respetivas definições.
+          Usa-se <code>&lt;dl&gt;</code>, com <code>&lt;dt&gt;</code> (termo) e <code>&lt;dd&gt;</code> (definição).
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div class="panel panel--light">
+            <h3 class="muted">Texto formatado (resultado)</h3>
+
+            <p><u>LISTA DE GLOSSÁRIO</u></p>
+            <dl>
+              <dt><strong>HTML</strong></dt>
+              <dd>HyperText Markup Language</dd>
+
+              <dt><strong>WWW</strong></dt>
+              <dd>World Wide Web</dd>
+            </dl>
+          </div>
+
+          <div class="panel">
+            <h3>HTML</h3>
+            <pre><code>&lt;dl&gt;
+  &lt;dt&gt;&lt;strong&gt;HTML&lt;/strong&gt;&lt;/dt&gt;
+  &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+
+  &lt;dt&gt;&lt;strong&gt;WWW&lt;/strong&gt;&lt;/dt&gt;
+  &lt;dd&gt;World Wide Web&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="exercicio">
+        <h2>Exercício prático</h2>
+        <p>
+          Edita o HTML e clica em <strong>Processar</strong> para veres o resultado no preview.
+          Experimenta criar uma lista com sub-itens e uma mini lista de glossário.
+        </p>
+
+        <div class="demo" style="margin-top:12px;">
+          <div>
+            <label for="editor" class="hint" style="display:block; margin:0 0 8px;">Editor</label>
+            <textarea id="editor" spellcheck="false"></textarea>
+
+            <div class="actions">
+              <button type="button" id="btnRun">Processar</button>
+              <button type="button" id="btnClear">Limpar texto</button>
+              <button type="button" id="btnReset">Repor exemplo</button>
+            </div>
+
+            <p class="hint">
+              Dica: tenta mudar o estilo da lista com <code>list-style-type</code> (CSS) e compara com <code>type=""</code>.
+            </p>
+          </div>
+
+          <div>
+            <label class="hint" style="display:block; margin:0 0 8px;">Preview</label>
+            <iframe class="preview" id="preview" title="Pré-visualização do exercício"></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <hr class="divider" />
+      Comentários e sugestões: <a href="mailto:luisa.reis@aebatalha.ccems.pt">luisa.reis@aebatalha.ccems.pt</a>
+
+      <div class="mini-nav" aria-label="Navegação por módulos">
+        <a class="pill" href="curso.HTM">INTRO</a>
+        <a class="pill" href="MODULO 1.HTMl">MÓDULO 1</a>
+        <a class="pill" href="MODULO 2.HTMl">MÓDULO 2</a>
+        <a class="pill" href="MODULO 3.HTMl">MÓDULO 3</a>
+        <a class="pill" href="MODULO 4.HTMl">MÓDULO 4</a>
+        <a class="pill" href="MODULO 5.HTMl">MÓDULO 5</a>
+        <a class="pill pill--accent" href="MODULO 6.HTMl">MÓDULO 6</a>
+        <a class="pill" href="MODULO 7.HTMl">MÓDULO 7</a>
+        <a class="pill" href="MODULO 8.HTMl">MÓDULO 8</a>
+        <a class="pill" href="MODULO 9.HTMl">MÓDULO 9</a>
+        <a class="pill" href="MODULO 10.HTMl">MÓDULO 10</a>
+      </div>
+      <hr class="divider" />
+    </footer>
+  </div>
+
+  <script>
+    const example = `<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <title>Marcadores e listas numeradas</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; padding:16px;}
+    h1{margin:18px 0 8px;}
+    .red{color:#ef4444;}
+    .blue{color:#3b82f6;}
+    .green{color:#22c55e;}
+  </style>
+</head>
+<body>
+  <h1 class="red">MARCADORES</h1>
+  <ul>
+    <li>ITEM 1
+      <ul style="list-style-type: circle;">
+        <li>SUB-ITEM 1</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h1 class="blue">LISTAS NUMERADAS</h1>
+  <ol type="1">
+    <li>PRIMEIRO ITEM</li>
+    <li>SEGUNDO ITEM</li>
+  </ol>
+
+  <h1 class="green">LISTAS DE GLOSSÁRIO</h1>
+  <dl>
+    <dt><strong>HTML</strong></dt>
+    <dd>HyperText Markup Language</dd>
+  </dl>
+</body>
+</html>`;
+
+    const editor = document.getElementById("editor");
+    const preview = document.getElementById("preview");
+
+    function wrapIfNeeded(html) {
+      const hasHtml = /<\s*html[\s>]/i.test(html);
+      const hasBody = /<\s*body[\s>]/i.test(html);
+      if (hasHtml && hasBody) return html;
+
+      return `<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preview</title>
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; padding:16px;}</style>
+</head>
+<body>
+${html}
+</body>
+</html>`;
+    }
+
+    function run() {
+      const html = wrapIfNeeded(editor.value.trim());
+      preview.srcdoc = html;
+    }
+
+    function clearEditor() {
+      editor.value = "";
+      preview.srcdoc = "";
+      editor.focus();
+    }
+
+    function resetExample() {
+      editor.value = example;
+      run();
+    }
+
+    document.getElementById("btnRun").addEventListener("click", run);
+    document.getElementById("btnClear").addEventListener("click", clearEditor);
+    document.getElementById("btnReset").addEventListener("click", resetExample);
+
+    resetExample();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
