@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Formatos de imagem recomendados para a Web: JPEG, PNG, SVG, WebP e AVIF." />
+
+  <title>HTML – Formatos de Imagem</title>
+  <link rel="stylesheet" href="curso.css" />
+  
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">F</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Formatos de imagem para a Web</span>
+        <span aria-hidden="true">• Formatos de imagem para a Web</span>
+        <span aria-hidden="true">• Formatos de imagem para a Web</span>
+        <span aria-hidden="true">• Formatos de imagem para a Web</span>
+        <span aria-hidden="true">• Formatos de imagem para a Web</span>
+        <span aria-hidden="true">• Formatos de imagem para a Web</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER MODERNO -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card prose">
+
+      <h2 class="section-title">Que formato de imagem devo usar?</h2>
+
+      <p>
+        Escolher o formato correto de imagem é essencial para ter um site rápido, bonito e com boa qualidade. 
+        Hoje em dia já não basta escolher entre GIF e JPG — existem opções muito melhores.
+      </p>
+
+      <div class="format-grid">
+
+        <div class="format-card">
+          <h3>JPEG / JPG</h3>
+          <ul>
+            <li><strong>Melhor para:</strong> fotografias e imagens com muitas cores</li>
+            <li><strong>Vantagem:</strong> excelente compressão (ficheiros pequenos)</li>
+            <li><strong>Limitação:</strong> não suporta transparência e perde qualidade ao comprimir</li>
+          </ul>
+        </div>
+
+        <div class="format-card">
+          <h3>PNG</h3>
+          <ul>
+            <li><strong>Melhor para:</strong> logótipos, ícones, texto e imagens com transparência</li>
+            <li><strong>Vantagem:</strong> qualidade sem perdas + suporte a transparência</li>
+            <li><strong>Limitação:</strong> ficheiros maiores em fotografias</li>
+          </ul>
+        </div>
+
+        <div class="format-card">
+          <h3>SVG</h3>
+          <ul>
+            <li><strong>Melhor para:</strong> logótipos, ícones e gráficos vetoriais</li>
+            <li><strong>Vantagem:</strong> escalável infinitamente sem perder qualidade e muito leve</li>
+            <li><strong>Limitação:</strong> não é adequado para fotografias</li>
+          </ul>
+        </div>
+
+        <div class="format-card">
+          <h3>WebP</h3>
+          <ul>
+            <li><strong>Melhor para:</strong> quase tudo (fotos e gráficos)</li>
+            <li><strong>Vantagem:</strong> melhor compressão que JPEG e PNG, suporta transparência e animação</li>
+            <li><strong>Recomendação:</strong> formato preferencial em 2025/2026</li>
+          </ul>
+        </div>
+
+        <div class="format-card">
+          <h3>AVIF</h3>
+          <ul>
+            <li><strong>Melhor para:</strong> máxima compressão em fotografias</li>
+            <li><strong>Vantagem:</strong> ficheiros ainda menores que WebP com excelente qualidade</li>
+            <li><strong>Limitação:</strong> suporte ainda não é universal (mas já é muito bom)</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <h2 class="section-title">Regra prática de escolha (2025)</h2>
+
+      <ul>
+        <li><strong>Fotografias / imagens realistas:</strong> WebP (ou AVIF) → fallback para JPEG</li>
+        <li><strong>Logótipos e ícones:</strong> SVG (melhor opção)</li>
+        <li><strong>Imagens com transparência:</strong> PNG ou WebP</li>
+        <li><strong>Animações simples:</strong> GIF ou WebP animado</li>
+      </ul>
+
+      <p class="hint">
+        Dica atual: na maioria dos projetos modernos, usa <strong>WebP</strong> como formato principal 
+        e fornece JPEG/PNG como fallback para compatibilidade mais antiga.
+      </p>
+
+      <hr class="sep" />
+
+      <!-- NAVEGAÇÃO -->
+      
+
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="gifs-transparentes.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

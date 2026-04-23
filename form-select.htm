@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Formulários em HTML5: como usar SELECT e TEXTAREA com exemplos práticos e boas práticas." />
+  <title>HTML – Formulários (Select e Textarea)</title>
+
+  <link rel="stylesheet" href="curso.css" />
+
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">F</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Formulários — select e textarea</span>
+        <span aria-hidden="true">• Formulários — select e textarea</span>
+        <span aria-hidden="true">• Formulários — select e textarea</span>
+        <span aria-hidden="true">• Formulários — select e textarea</span>
+        <span aria-hidden="true">• Formulários — select e textarea</span>
+        <span aria-hidden="true">• Formulários — select e textarea</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <main>
+  <div class="container">
+
+    <section class="card">
+      <p>
+        Além do <code>&lt;input&gt;</code>, dois elementos muito importantes em formulários são:
+        <strong><code>&lt;select&gt;</code></strong> (lista de opções) e
+        <strong><code>&lt;textarea&gt;</code></strong> (texto com várias linhas).
+      </p>
+
+      <div class="note">
+        Boa prática: usa <code>&lt;label&gt;</code> ligado ao campo através de
+        <code>for</code> e <code>id</code> para melhorar a acessibilidade.
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>1) Lista de opções – <code>&lt;select&gt;</code> + <code>&lt;option&gt;</code></h3>
+      <p>
+        O <code>&lt;select&gt;</code> cria uma lista de seleção.
+        Cada opção é criada com <code>&lt;option&gt;</code>.
+      </p>
+
+      <div class="grid">
+        <div>
+          <h3>Código</h3>
+          <pre><code>&lt;label for="browser"&gt;Browser preferido&lt;/label&gt;
+&lt;select id="browser" name="browser" required&gt;
+  &lt;option value="" selected disabled&gt;Escolhe uma opção…&lt;/option&gt;
+  &lt;option value="chrome"&gt;Google Chrome&lt;/option&gt;
+  &lt;option value="firefox"&gt;Mozilla Firefox&lt;/option&gt;
+  &lt;option value="edge"&gt;Microsoft Edge&lt;/option&gt;
+  &lt;option value="safari"&gt;Safari&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </div>
+
+        <div>
+          <h3>Resultado</h3>
+          <div class="example">
+            <label for="browser_demo">Browser preferido</label>
+            <select id="browser_demo" required>
+              <option value="" selected disabled>Escolhe uma opção…</option>
+              <option>Google Chrome</option>
+              <option>Mozilla Firefox</option>
+              <option>Microsoft Edge</option>
+              <option>Safari</option>
+            </select>
+            <div class="hint">
+              <code>required</code> obriga a escolher uma opção válida.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Mostrar várias opções e permitir seleção múltipla</h3>
+      <p>
+        Com <code>size</code> defines quantas opções ficam visíveis.
+        Com <code>multiple</code> permites escolher mais do que uma.
+      </p>
+
+      <div class="grid">
+        <div>
+          <h3>Código (size + multiple)</h3>
+          <pre><code>&lt;label for="langs"&gt;Linguagens que queres aprender&lt;/label&gt;
+&lt;select id="langs" name="langs" size="4" multiple&gt;
+  &lt;option value="html"&gt;HTML&lt;/option&gt;
+  &lt;option value="css"&gt;CSS&lt;/option&gt;
+  &lt;option value="js"&gt;JavaScript&lt;/option&gt;
+  &lt;option value="py"&gt;Python&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </div>
+
+        <div>
+          <h3>Resultado</h3>
+          <div class="example">
+            <label for="langs_demo">Linguagens que queres aprender</label>
+            <select id="langs_demo" size="4" multiple>
+              <option>HTML</option>
+              <option>CSS</option>
+              <option>JavaScript</option>
+              <option>Python</option>
+              <option>C</option>
+              <option>C#</option>
+              <option>Visual C++</option>
+            </select>
+            <div class="hint">No computador: Ctrl/Shift para múltiplas opções.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warn">
+        Tem atenção que em telemóveis, a seleção múltipla pode ter comportamento diferente.
+        Para múltiplas escolhas, muitas vezes é melhor usar <code>checkbox</code>.
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>2) Texto longo – <code>&lt;textarea&gt;</code></h3>
+      <p>
+        O <code>&lt;textarea&gt;</code> é usado para mensagens ou comentários.
+        Em HTML5 podes usar <code>placeholder</code>, <code>maxlength</code> e <code>required</code>.
+      </p>
+
+      <div class="grid">
+        <div>
+          <h3>Código</h3>
+          <pre><code>&lt;label for="comentario"&gt;Comentário&lt;/label&gt;
+&lt;textarea
+  id="comentario"
+  name="comentario"
+  rows="5"
+  placeholder="Escreve aqui a tua mensagem…"
+  maxlength="300"
+  required
+&gt;&lt;/textarea&gt;</code></pre>
+        </div>
+
+        <div>
+          <h3>Resultado</h3>
+          <div class="example">
+            <label for="comentario_demo">Comentário</label>
+            <textarea id="comentario_demo" rows="5" placeholder="Escreve aqui a tua mensagem…" maxlength="300" required></textarea>
+            <div class="hint">Dica: <code>maxlength</code> limita caracteres.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        Resumo:
+        <ul>
+          <li><code>&lt;select&gt;</code> → escolhas numa lista</li>
+          <li><code>&lt;option&gt;</code> → cada opção</li>
+          <li><code>&lt;textarea&gt;</code> → texto com várias linhas</li>
+        </ul>
+      </div>
+
+      <p>
+        Um bom próximo passo é criar um formulário completo (ex.: contacto/pesquisa)
+        com validação HTML5 e layout organizado.
+      </p>
+    </section>
+
+    
+
+  </div>
+
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="form-dados.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+      </nav>
+  </main>
+
+<!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

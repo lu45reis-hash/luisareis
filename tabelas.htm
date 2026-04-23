@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Introdução às tabelas em HTML5 e boas práticas modernas." />
+  <title>HTML – Tabelas</title>
+
+  <link rel="stylesheet" href="curso.css" />
+
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">T</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Tabelas em HTML</span>
+        <span aria-hidden="true">• Tabelas em HTML</span>
+        <span aria-hidden="true">• Tabelas em HTML</span>
+        <span aria-hidden="true">• Tabelas em HTML</span>
+        <span aria-hidden="true">• Tabelas em HTML</span>
+        <span aria-hidden="true">• Tabelas em HTML</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <main id="conteudo">
+  <div class="container">
+    <article class="card">
+      
+
+      <p>
+        As <strong>tabelas</strong> em HTML servem para apresentar
+        <strong>dados tabulares</strong> (linhas e colunas),
+        como horários, listas de preços ou resultados.
+        <br>
+        <strong>Não devem ser usadas para layout</strong> — isso faz-se com CSS.
+      </p>
+
+      <h3>Estrutura básica de uma tabela</h3>
+      <ul>
+        <li><code>&lt;table&gt;</code> — cria a tabela</li>
+        <li><code>&lt;tr&gt;</code> — cria uma linha (<em>table row</em>)</li>
+        <li><code>&lt;th&gt;</code> — célula de cabeçalho</li>
+        <li><code>&lt;td&gt;</code> — célula de dados</li>
+      </ul>
+
+      <div class="grid">
+        <section>
+          <h3>Exemplo de código</h3>
+          <pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Nome&lt;/th&gt;
+    &lt;th&gt;Idade&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Ana&lt;/td&gt;
+    &lt;td&gt;16&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+        </section>
+
+        <section>
+          <h3>Resultado visual</h3>
+          <table class="example-table">
+            <tr>
+              <th>Nome</th>
+              <th>Idade</th>
+            </tr>
+            <tr>
+              <td>Ana</td>
+              <td>16</td>
+            </tr>
+          </table>
+        </section>
+      </div>
+
+      <div class="note">
+        <strong>Boa prática:</strong> usa CSS para bordas, cores e espaçamento.
+        O atributo <code>border="1"</code> ainda funciona, mas é considerado antigo.
+      </div>
+
+      <p style="margin-top:14px">
+        Vê um <a href="exemplo/tabelaex.htm">exemplo simples</a> de tabela completa.
+      </p>
+
+      
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="font.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="tab-atributos.htm">Próximo →</a>
+      </nav>
+    </article>
+  </div>
+</main>
+
+<!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

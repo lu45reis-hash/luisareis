@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Frames horizontais e verticais em HTML: conceito histórico e alternativas modernas com CSS e iframe." />
+  <title>HTML – Frames (horizontais e verticais)</title>
+
+  <link rel="stylesheet" href="curso.css" />
+
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">F</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Frames horizontais e verticais</span>
+        <span aria-hidden="true">• Frames horizontais e verticais</span>
+        <span aria-hidden="true">• Frames horizontais e verticais</span>
+        <span aria-hidden="true">• Frames horizontais e verticais</span>
+        <span aria-hidden="true">• Frames horizontais e verticais</span>
+        <span aria-hidden="true">• Frames horizontais e verticais</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <main>
+  <div class="container">
+    <article class="card">
+
+      <h3>O que são frames?</h3>
+      <p>
+        Os <strong>frames</strong> eram uma extensão antiga do HTML que permitia dividir
+        a janela do browser em várias áreas independentes.
+        Cada área (frame) carregava um documento HTML diferente.
+      </p>
+
+      <p>
+        Essa divisão podia ser:
+      </p>
+      <ul>
+        <li><strong>Vertical</strong> – usando o atributo <code>COLS</code></li>
+        <li><strong>Horizontal</strong> – usando o atributo <code>ROWS</code></li>
+      </ul>
+
+      <div class="note">
+        ⚠️ <strong>Importante:</strong>  
+        O uso de <code>&lt;frameset&gt;</code> e <code>&lt;frame&gt;</code>
+        está <strong>obsoleto em HTML5</strong> e não deve ser usado em projetos atuais.
+      </div>
+
+      <h3>Exemplo histórico (frames verticais)</h3>
+      <div class="grid">
+        <section>
+          <h3>Código antigo</h3>
+          <pre><code>&lt;html&gt;
+&lt;frameset cols="25%,75%"&gt;
+  &lt;frame src="menu.html" name="menu"&gt;
+  &lt;frame src="conteudo.html" name="conteudo"&gt;
+&lt;/frameset&gt;
+&lt;/html&gt;</code></pre>
+        </section>
+
+        <section>
+          <h3>O que fazia</h3>
+          <p>
+            Dividia o ecrã em duas colunas:
+          </p>
+          <ul>
+            <li>25% para o menu</li>
+            <li>75% para o conteúdo</li>
+          </ul>
+          <p>
+            Ao clicar num link no menu, apenas a frame do conteúdo era atualizada.
+          </p>
+        </section>
+      </div>
+
+      <h3>Frames horizontais</h3>
+      <pre><code>&lt;frameset rows="20%,80%"&gt;
+  &lt;frame src="topo.html"&gt;
+  &lt;frame src="conteudo.html"&gt;
+&lt;/frameset&gt;</code></pre>
+
+      <p>
+        Neste caso, a página era dividida horizontalmente:
+        um topo fixo e uma área principal.
+      </p>
+
+      <h3>Como se faz hoje (forma correta)</h3>
+
+      <div class="grid">
+        <section>
+          <h3>Layout com CSS Grid</h3>
+          <pre><code>.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}</code></pre>
+          <p>
+            Usado para menus laterais e estruturas fixas.
+          </p>
+        </section>
+
+        <section>
+          <h3>Uso de iframe (quando necessário)</h3>
+          <pre><code>&lt;iframe
+  src="pagina.html"
+  title="Conteúdo incorporado"
+  width="100%"
+  height="400"
+  loading="lazy"&gt;
+&lt;/iframe&gt;</code></pre>
+          <p>
+            Usado apenas para incorporar conteúdo externo ou isolado.
+          </p>
+        </section>
+      </div>
+
+      <div class="ok">
+        <strong>Resumo:</strong><br>
+        Frames clássicos - obsoletos<br>
+        Layout - CSS Grid / Flexbox<br>
+        Conteúdo embebido - iframe
+      </div>
+
+      
+
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="frames-intro.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="form.htm">Próximo →</a>
+      </nav>
+    </article>
+  </div>
+</main>
+
+<!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

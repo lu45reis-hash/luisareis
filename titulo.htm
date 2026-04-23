@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Cabeçalhos em HTML: h1 a h6, hierarquia e boas práticas." />
+
+  <title>HTML – Cabeçalhos</title>
+  <link rel="stylesheet" href="curso.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">C</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Cabeçalhos — H1 a H6</span>
+        <span aria-hidden="true">• Cabeçalhos — H1 a H6</span>
+        <span aria-hidden="true">• Cabeçalhos — H1 a H6</span>
+        <span aria-hidden="true">• Cabeçalhos — H1 a H6</span>
+        <span aria-hidden="true">• Cabeçalhos — H1 a H6</span>
+        <span aria-hidden="true">• Cabeçalhos — H1 a H6</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER PADRÃO -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card prose">
+      <h2 class="section-title">Cabeçalhos</h2>
+
+      <p>
+        Os <strong>cabeçalhos</strong> (headings) são títulos e subtítulos que organizam o conteúdo de uma página.
+        Em HTML existem seis níveis: <code>&lt;h1&gt;</code> até <code>&lt;h6&gt;</code>.
+      </p>
+
+      <p>
+        Eles servem para indicar o início de uma secção ou tópico e ajudam tanto os utilizadores como os
+        motores de pesquisa e leitores de ecrã a compreender a estrutura do documento.
+      </p>
+
+      <h3>Sintaxe</h3>
+      <div class="codeblock" aria-label="Sintaxe de cabeçalhos">
+        <code>&lt;h1&gt;Título principal&lt;/h1&gt;</code>
+      </div>
+
+      <p>
+        Onde o número vai de <strong>1 a 6</strong>. O <code>&lt;h1&gt;</code> é o mais importante (normalmente o título principal)
+        e o <code>&lt;h6&gt;</code> é o menos importante.
+      </p>
+
+      <h3>Exemplo completo</h3>
+      <div class="codeblock" aria-label="Exemplo com h1 a h6">
+        <code>
+&lt;h1&gt;Cabeçalho 1&lt;/h1&gt;
+&lt;h2&gt;Cabeçalho 2&lt;/h2&gt;
+&lt;h3&gt;Cabeçalho 3&lt;/h3&gt;
+&lt;h4&gt;Cabeçalho 4&lt;/h4&gt;
+&lt;h5&gt;Cabeçalho 5&lt;/h5&gt;
+&lt;h6&gt;Cabeçalho 6&lt;/h6&gt;
+        </code>
+      </div>
+
+      <h3>Como fica na página</h3>
+      <div class="card" style="margin-top: 12px;">
+        <h1 style="margin: 0 0 8px;">Cabeçalho 1</h1>
+        <h2 style="margin: 0 0 8px;">Cabeçalho 2</h2>
+        <h3 style="margin: 0 0 8px;">Cabeçalho 3</h3>
+        <h4 style="margin: 0 0 8px;">Cabeçalho 4</h4>
+        <h5 style="margin: 0 0 8px;">Cabeçalho 5</h5>
+        <h6 style="margin: 0;">Cabeçalho 6</h6>
+      </div>
+
+      <p class="hint" style="margin-top: 10px;">
+        Dica: usa cabeçalhos para <strong>estrutura</strong>, não apenas para “aumentar o tamanho” do texto.
+        Para estilos (tamanho/cor), usa <strong>CSS</strong>.
+      </p>
+
+      <h3>Boas práticas (muito importante)</h3>
+      <ul>
+        <li><strong>Usa um único H1</strong> por página (normalmente o título principal).</li>
+        <li><strong>Não saltes níveis</strong>: evita passar de <code>h2</code> para <code>h4</code> sem um <code>h3</code>.</li>
+        <li>Os headings devem fazer sentido como um <strong>índice</strong> do conteúdo.</li>
+        <li>Evita usar headings só para “dar estilo” (isso é trabalho do CSS).</li>
+      </ul>
+
+      <p>
+        Se quiseres ver um exemplo externo, podes abrir:
+        <a href="exemplo/titulo.htm">exemplo de cabeçalhos</a>.
+      </p>
+
+      <hr class="sep" />
+
+      <!-- NAVEGAÇÃO -->
+      
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="basico.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="paragraf.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

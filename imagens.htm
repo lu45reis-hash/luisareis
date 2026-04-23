@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Como inserir imagens em HTML: img, alt, formatos, caminhos e boas práticas." />
+
+  <title>HTML – Imagens</title>
+  <link rel="stylesheet" href="curso.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">I</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Imagens em HTML</span>
+        <span aria-hidden="true">• Imagens em HTML</span>
+        <span aria-hidden="true">• Imagens em HTML</span>
+        <span aria-hidden="true">• Imagens em HTML</span>
+        <span aria-hidden="true">• Imagens em HTML</span>
+        <span aria-hidden="true">• Imagens em HTML</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER PADRÃO -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card prose">
+      <h2 class="section-title">Imagens</h2>
+
+      <p>
+        Inserir uma imagem numa página Web é simples: basta ter o ficheiro de imagem e usar a tag
+        <code>&lt;img&gt;</code>. O browser vai carregá-la a partir do caminho indicado no atributo
+        <code>src</code>.
+      </p>
+
+      <h3>Formatos recomendados hoje</h3>
+      <ul>
+        <li><strong>JPG/JPEG</strong>: fotografias (boa compressão).</li>
+        <li><strong>PNG</strong>: imagens com transparência (ex.: logótipos, ícones).</li>
+        <li><strong>SVG</strong>: gráficos vetoriais (ótimo para logótipos e ícones, sem perder qualidade).</li>
+        <li><strong>WebP</strong>: moderno e eficiente (fotografias e imagens gerais).</li>
+      </ul>
+
+      <p class="hint">
+        Evita BMP: é pesado e não é apropriado para a Web.
+      </p>
+
+      <h3>Sintaxe básica</h3>
+      <div class="codeblock" aria-label="Sintaxe básica de img">
+        <code>&lt;img src="imagens/foto.jpg" alt="Descrição da imagem"&gt;</code>
+      </div>
+
+      <p>
+        O atributo <code>alt</code> é muito importante: é lido por leitores de ecrã e aparece se a imagem não carregar.
+      </p>
+
+      <h3>Boas práticas (recomendadas)</h3>
+      <table class="table" aria-label="Boas práticas ao usar imagens">
+        <thead>
+          <tr>
+            <th>Boa prática</th>
+            <th>Exemplo</th>
+            <th>Porquê</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Usar <code>alt</code></td>
+            <td><code>&lt;img ... alt="Logótipo"&gt;</code></td>
+            <td>Acessibilidade e fallback.</td>
+          </tr>
+          <tr>
+            <td>Definir <code>width</code> e <code>height</code></td>
+            <td><code>width="600" height="400"</code></td>
+            <td>Evita “saltos” no layout ao carregar.</td>
+          </tr>
+          <tr>
+            <td>Carregamento lazy</td>
+            <td><code>loading="lazy"</code></td>
+            <td>Melhora performance (especialmente com muitas imagens).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Exemplo completo (recomendado)</h3>
+      <div class="codeblock" aria-label="Exemplo completo de img">
+        <code>
+&lt;img
+  src="imagens/duke.png"
+  alt="Mascote Duke"
+  width="160"
+  height="160"
+  loading="lazy"&gt;
+        </code>
+      </div>
+
+      <h3>Alinhamento: hoje faz-se com CSS (não com ALIGN)</h3>
+      <p>
+        Antigamente usava-se <code>ALIGN="left/right"</code>, mas hoje isso é feito com CSS.
+        Por exemplo, para pôr uma imagem à esquerda e o texto a contornar:
+      </p>
+
+      <div class="codeblock" aria-label="Imagem à esquerda com CSS">
+        <code>
+&lt;img class="img-left" src="imagens/duke.png" alt="Mascote Duke" width="160" height="160"&gt;
+&lt;p&gt;Texto que contorna a imagem...&lt;/p&gt;
+
+/* CSS */
+.img-left { float: left; margin: 0 12px 12px 0; }
+        </code>
+      </div>
+
+      <p>
+        E para alinhar à direita:
+      </p>
+
+      <div class="codeblock" aria-label="Imagem à direita com CSS">
+        <code>
+&lt;img class="img-right" src="imagens/duke.png" alt="Mascote Duke" width="160" height="160"&gt;
+&lt;p&gt;Texto que contorna a imagem...&lt;/p&gt;
+
+/* CSS */
+.img-right { float: right; margin: 0 0 12px 12px; }
+        </code>
+      </div>
+
+      <h3>Caminhos (onde o browser “vai buscar” a imagem)</h3>
+      <p>
+        Se a imagem estiver na mesma pasta do ficheiro HTML:
+      </p>
+      <div class="codeblock" aria-label="Imagem na mesma pasta">
+        <code>&lt;img src="stego.jpg" alt="Dinossauro Stego"&gt;</code>
+      </div>
+
+      <p>
+        Se estiver numa subpasta (por exemplo, <code>imagens/</code>):
+      </p>
+      <div class="codeblock" aria-label="Imagem numa subpasta">
+        <code>&lt;img src="imagens/stego.jpg" alt="Dinossauro Stego"&gt;</code>
+      </div>
+
+      <p>
+        Se a imagem estiver noutro site (URL completa):
+      </p>
+      <div class="codeblock" aria-label="Imagem por URL">
+        <code>&lt;img src="https://exemplo.com/imagens/icone.png" alt="Ícone"&gt;</code>
+      </div>
+
+      <h3>Atenção ao tamanho e velocidade</h3>
+      <p>
+        Imagens muito pesadas tornam a página lenta. Sempre que possível, otimiza as imagens (reduz dimensões e comprime)
+        antes de as colocar no site.
+      </p>
+
+      <p>
+        Podes ver um <a href="exemplo/imagens.htm">exemplo</a> baseado em imagens e alinhamentos.
+      </p>
+
+      <hr class="sep" />
+
+            <!-- NAVEGAÇÃO -->
+      
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="blocos.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="links-ext.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

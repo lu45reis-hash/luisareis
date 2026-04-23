@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Luísa Reis">
+  <meta name="description" content="Formulários em HTML5: campos de entrada de dados, exemplos e explicações.">
+  <title>HTML – Formulários (Entrada de Dados)</title>
+
+  <link rel="stylesheet" href="curso.css">
+
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">F</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Formulários — entrada de dados</span>
+        <span aria-hidden="true">• Formulários — entrada de dados</span>
+        <span aria-hidden="true">• Formulários — entrada de dados</span>
+        <span aria-hidden="true">• Formulários — entrada de dados</span>
+        <span aria-hidden="true">• Formulários — entrada de dados</span>
+        <span aria-hidden="true">• Formulários — entrada de dados</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <main>
+  <div class="container">
+
+    <section class="card">
+      <h2>Entrada de dados em formulários</h2>
+      <p>
+        Em HTML existem <strong>três tipos principais</strong> de campos para a
+        entrada de dados:
+      </p>
+      <ul>
+        <li><code>&lt;input&gt;</code></li>
+        <li><code>&lt;select&gt;</code></li>
+        <li><code>&lt;textarea&gt;</code></li>
+      </ul>
+      <p>
+        Todos os campos possuem o atributo <strong>name</strong>,
+        que identifica o dado enviado ao servidor.
+      </p>
+    </section>
+
+    <!-- INPUT TEXT -->
+    <section class="card">
+      <h3>Campo de texto (<code>type="text"</code>)</h3>
+
+      <div class="grid">
+        <div>
+          <h4>Código</h4>
+          <pre><code>&lt;label&gt;Nome
+  &lt;input type="text" name="nome"&gt;
+&lt;/label&gt;</code></pre>
+        </div>
+
+        <div>
+          <h4>Resultado</h4>
+          <div class="example">
+            <label>Nome
+              <input type="text">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        É o campo mais comum. Permite a introdução de texto simples.
+      </p>
+    </section>
+
+    <!-- PASSWORD -->
+    <section class="card">
+      <h3>Campo de palavra-passe (<code>type="password"</code>)</h3>
+
+      <div class="grid">
+        <div>
+          <pre><code>&lt;label&gt;Senha
+  &lt;input type="password" name="senha"&gt;
+&lt;/label&gt;</code></pre>
+        </div>
+
+        <div class="example">
+          <label>Senha
+            <input type="password">
+          </label>
+        </div>
+      </div>
+
+      <p>
+        O texto introduzido é ocultado. Ideal para palavras-passe.
+      </p>
+    </section>
+
+    <!-- CHECKBOX -->
+    <section class="card">
+      <h3>Caixas de seleção (<code>checkbox</code>)</h3>
+
+      <div class="grid">
+        <div>
+          <pre><code>&lt;label&gt;
+  &lt;input type="checkbox" name="browser" value="Chrome"&gt;
+  Chrome
+&lt;/label&gt;</code></pre>
+        </div>
+
+        <div class="example">
+          <label><input type="checkbox"> Chrome</label>
+          <label><input type="checkbox"> Firefox</label>
+          <label><input type="checkbox"> Edge</label>
+        </div>
+      </div>
+
+      <p>
+        Permitem selecionar <strong>várias opções</strong>.
+      </p>
+    </section>
+
+    <!-- RADIO -->
+    <section class="card">
+      <h3>Botões de opção (<code>radio</code>)</h3>
+
+      <div class="grid">
+        <div>
+          <pre><code>&lt;label&gt;
+  &lt;input type="radio" name="browser"&gt;
+  Chrome
+&lt;/label&gt;</code></pre>
+        </div>
+
+        <div class="example">
+          <label><input type="radio" name="b"> Chrome</label>
+          <label><input type="radio" name="b"> Firefox</label>
+          <label><input type="radio" name="b"> Edge</label>
+        </div>
+      </div>
+
+      <p>
+        Apenas <strong>uma opção</strong> pode ser escolhida.
+      </p>
+    </section>
+
+    <!-- BOTÕES -->
+    <section class="card">
+      <h3>Botões de ação</h3>
+
+      <div class="grid">
+        <div>
+          <pre><code>&lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;button type="reset"&gt;Limpar&lt;/button&gt;</code></pre>
+        </div>
+
+        <div class="example">
+          <button>Enviar</button>
+          <button type="reset">Limpar</button>
+        </div>
+      </div>
+
+      <p>
+        <strong>Submit</strong> envia os dados do formulário.  
+        <strong>Reset</strong> limpa todos os campos.
+      </p>
+
+      <div class="note">
+        - Em HTML5, recomenda-se usar <code>&lt;button&gt;</code> em vez de
+        <code>&lt;input type="submit"&gt;</code>.
+      </div>
+    </section>
+
+    
+
+  </div>
+
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="form.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="form-select.htm">Próximo →</a>
+      </nav>
+  </main>
+
+<!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

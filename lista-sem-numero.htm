@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Utilização de listas não numeradas em HTML.">
+
+  <title>HTML – Listas não numeradas</title>
+  <link rel="stylesheet" href="curso.css" />
+  
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">L</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Listas não numeradas</span>
+        <span aria-hidden="true">• Listas não numeradas</span>
+        <span aria-hidden="true">• Listas não numeradas</span>
+        <span aria-hidden="true">• Listas não numeradas</span>
+        <span aria-hidden="true">• Listas não numeradas</span>
+        <span aria-hidden="true">• Listas não numeradas</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER MODERNO -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card prose">
+
+      <h2 class="section-title">O que são listas não numeradas</h2>
+
+      <p>
+        As <strong>listas não numeradas</strong> são usadas quando a ordem dos itens
+        <strong>não é relevante</strong>. Cada item é apresentado com um marcador
+        (normalmente um ponto, círculo ou quadrado).
+      </p>
+
+      <p>
+        Em HTML, este tipo de lista é criado com o elemento <code>&lt;ul&gt;</code> 
+        (<em>unordered list</em>) e cada item da lista é definido com o elemento 
+        <code>&lt;li&gt;</code>.
+      </p>
+
+      <h3>Sintaxe básica</h3>
+
+      <div class="codeblock">
+        <code>
+&lt;ul&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;Primeiro item&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;Segundo item&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;Terceiro item&lt;/li&gt;<br>
+&lt;/ul&gt;
+        </code>
+      </div>
+
+      <p><strong>Resultado no browser:</strong></p>
+      <ul>
+        <li>Primeiro item</li>
+        <li>Segundo item</li>
+        <li>Terceiro item</li>
+      </ul>
+
+      <p class="hint">
+        O browser apresenta automaticamente um marcador para cada item da lista.
+      </p>
+
+      <hr class="sep">
+
+      <h2 class="section-title">Listas hierárquicas (listas dentro de listas)</h2>
+
+      <p>
+        É possível criar listas com vários níveis, inserindo uma lista dentro de outra. 
+        Esta técnica é muito utilizada em menus, índices e estruturas de tópicos.
+      </p>
+
+      <h3>Código HTML</h3>
+
+      <div class="codeblock">
+        <code>
+&lt;ul&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;Item principal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Sub-item 1&lt;/li&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Sub-item 2&lt;/li&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br>
+&nbsp;&nbsp;&lt;/li&gt;<br>
+&nbsp;&nbsp;&lt;li&gt;Outro item principal&lt;/li&gt;<br>
+&lt;/ul&gt;
+        </code>
+      </div>
+
+      <p><strong>Resultado no browser:</strong></p>
+      <ul>
+        <li>
+          Item principal
+          <ul>
+            <li>Sub-item 1</li>
+            <li>Sub-item 2</li>
+          </ul>
+        </li>
+        <li>Outro item principal</li>
+      </ul>
+
+      <p class="hint">
+        Cada nível da lista utiliza automaticamente um tipo de marcador diferente.
+      </p>
+
+      <hr class="sep" />
+
+      <!-- NAVEGAÇÃO -->
+      
+
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="lista-definicao.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="lista-numerada.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

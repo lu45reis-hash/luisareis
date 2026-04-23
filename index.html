@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Manual de HTML: conceitos, formatação, listas, links, tabelas, formulários e recursos." />
+  <meta name="keywords" content="HTML, manual, curso, informática, páginas web, tags" />
+  <title>Manual de HTML</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --ink:#0f0e0c;
+      --ink2:#3a3730;
+      --ink3:#7a7268;
+      --paper:#faf8f3;
+      --paper2:#f0ede4;
+      --paper3:#e8e4d8;
+      --accent:#c84b11;
+      --accent2:#e8a87c;
+      --blue:#1a3a5c;
+      --blue2:#2d5f8a;
+      --radius:4px;
+    }
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'DM Sans',sans-serif;
+      background:var(--paper);
+      color:var(--ink);
+      font-size:16px;
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+
+    /* SKIP LINK */
+    .skip-link{
+      position:absolute;left:-9999px;top:0;
+      background:var(--accent);color:#fff;padding:.5rem 1rem;
+      font-size:14px;z-index:9999;
+    }
+    .skip-link:focus{left:0}
+
+    /* HEADER */
+    .site-header{
+      position:relative;
+      background:var(--ink);
+      color:var(--paper);
+      overflow:hidden;
+      min-height:420px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px, transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .header-deco{
+      position:absolute;
+      right:-20px;top:-40px;
+      font-family:'Playfair Display',serif;
+      font-size:340px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .header-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:3rem 2rem 2rem;
+      display:flex;
+      flex-direction:column;
+      gap:1.5rem;
+      flex:1;
+    }
+    .header-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .eyebrow-pill{
+      background:var(--accent);
+      color:#fff;
+      font-family:'DM Mono',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:4px 12px;
+      border-radius:2px;
+    }
+    .eyebrow-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:80px;
+    }
+    .eyebrow-date{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono',monospace;
+    }
+    .header-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(52px,8vw,96px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-2px;
+      color:var(--paper);
+    }
+    .header-title em{
+      font-style:italic;
+      color:var(--accent2);
+    }
+    .header-bottom{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:2rem;
+      margin-top:auto;
+      padding-top:2rem;
+      border-top:1px solid rgba(250,248,243,.1);
+    }
+    .header-desc{
+      max-width:520px;
+      font-size:15px;
+      color:rgba(250,248,243,.6);
+      line-height:1.7;
+    }
+    .header-meta{text-align:right;flex-shrink:0;}
+    .header-meta .by{
+      font-size:11px;
+      color:rgba(250,248,243,.35);
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      margin-bottom:4px;
+    }
+    .header-meta .author{
+      font-family:'Playfair Display',serif;
+      font-size:18px;font-weight:700;
+      color:var(--paper);
+    }
+
+    /* TICKER */
+    .ticker{
+      background:var(--accent);
+      padding:10px 0;
+      overflow:hidden;
+      white-space:nowrap;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono',monospace;
+      font-size:12px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* NAV TABS */
+    .nav-tabs{
+      background:var(--paper2);
+      border-bottom:1px solid var(--paper3);
+      position:sticky;top:0;z-index:100;
+    }
+    .nav-tabs-inner{
+      max-width:1100px;margin:0 auto;
+      display:flex;align-items:center;
+      padding:0 2rem;
+    }
+    .nav-tab{
+      display:inline-block;padding:14px 20px;
+      font-size:13px;font-weight:500;
+      color:var(--ink3);
+      text-decoration:none;
+      border-bottom:2px solid transparent;
+      transition:all .2s;white-space:nowrap;
+    }
+    .nav-tab:hover,.nav-tab.active{
+      color:var(--ink);
+      border-bottom-color:var(--accent);
+    }
+
+    /* MAIN */
+    .container{
+      max-width:1100px;margin:0 auto;
+      padding:3rem 2rem 4rem;
+    }
+
+    /* intro strip */
+    .intro{
+      display:flex;align-items:center;gap:2rem;
+      background:var(--blue);
+      color:#fff;
+      padding:2rem 2.5rem;
+      border-radius:var(--radius);
+      margin-bottom:3rem;
+      position:relative;overflow:hidden;
+    }
+    .intro::after{
+      content:'HTML';
+      position:absolute;right:2rem;top:50%;transform:translateY(-50%);
+      font-family:'Playfair Display',serif;
+      font-size:80px;font-weight:900;
+      color:rgba(255,255,255,.06);
+      pointer-events:none;
+    }
+    .dropcap{
+      font-family:'Playfair Display',serif;
+      font-size:72px;font-weight:900;line-height:1;
+      color:var(--accent2);flex-shrink:0;
+    }
+    .intro-text{font-size:15px;color:rgba(255,255,255,.8);line-height:1.8}
+
+    /* section heading */
+    .section-heading{
+      display:flex;align-items:baseline;gap:1rem;
+      margin-bottom:2rem;
+    }
+    .section-heading h2{
+      font-family:'Playfair Display',serif;
+      font-size:32px;font-weight:700;color:var(--ink);
+    }
+    .section-heading .rule{
+      flex:1;height:1px;background:var(--paper3);
+    }
+
+    /* cards grid */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:1.5rem;margin-bottom:3rem;
+    }
+    .card{
+      background:var(--paper);
+      border:1px solid var(--paper3);
+      border-radius:var(--radius);
+      padding:1.75rem;
+      transition:box-shadow .2s,transform .2s;
+    }
+    .card:hover{
+      box-shadow:0 8px 32px rgba(15,14,12,.1);
+      transform:translateY(-2px);
+    }
+    .card-label{
+      font-family:'DM Mono',monospace;
+      font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--accent);margin-bottom:10px;
+    }
+    .section-title{
+      font-family:'Playfair Display',serif;
+      font-size:22px;font-weight:700;color:var(--ink);
+      margin-bottom:1.25rem;padding-bottom:10px;
+      border-bottom:1px solid var(--paper3);
+    }
+    .card h3{
+      font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--ink3);margin:1.1rem 0 .5rem;
+    }
+    .link-list{list-style:none;}
+    .link-list li{border-bottom:1px solid var(--paper2);}
+    .link-list li:last-child{border-bottom:none}
+    .link-list a{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:6px 0;font-size:13.5px;color:var(--ink2);text-decoration:none;
+      transition:color .15s;
+    }
+    .link-list a:hover{color:var(--accent)}
+    .link-list a::after{
+      content:'→';font-size:11px;color:var(--paper3);
+      transition:color .15s,transform .15s;
+    }
+    .link-list a:hover::after{color:var(--accent);transform:translateX(3px)}
+    .muted{font-size:11px;color:var(--ink3);margin-left:4px}
+
+    /* featured card */
+    .card-featured{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+    .card-featured .section-title{color:var(--paper);border-bottom-color:rgba(250,248,243,.12)}
+    .card-featured .card-label{color:var(--accent2)}
+    .card-featured h3{color:rgba(250,248,243,.4)}
+    .card-featured .link-list li{border-bottom-color:rgba(250,248,243,.07)}
+    .card-featured .link-list a{color:rgba(250,248,243,.75)}
+    .card-featured .link-list a:hover{color:var(--accent2)}
+    .card-featured .link-list a::after{color:rgba(250,248,243,.15)}
+    .card-featured .link-list a:hover::after{color:var(--accent2)}
+    .card-featured .hint{font-size:12px;color:rgba(250,248,243,.35);margin-bottom:.75rem}
+
+    /* actions */
+    .actions{
+      display:flex;gap:1rem;flex-wrap:wrap;
+      padding-top:1.5rem;border-top:1px solid var(--paper3);
+    }
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:13px 24px;font-size:14px;font-weight:500;
+      text-decoration:none;border-radius:var(--radius);
+      transition:all .2s;
+    }
+    .btn-primary{background:var(--accent);color:#fff;}
+    .btn-primary:hover{background:#a83d0e}
+    .btn-secondary{
+      background:transparent;color:var(--ink);
+      border:1px solid var(--paper3);
+    }
+    .btn-secondary:hover{background:var(--paper2);border-color:var(--ink3)}
+
+    /* footer */
+    .site-footer{
+      background:var(--ink);color:rgba(250,248,243,.45);
+      font-size:13px;padding:2.5rem 2rem;margin-top:3rem;
+    }
+    .footer-inner{
+      max-width:1100px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:1rem;
+    }
+    .footer-brand{
+      font-family:'Playfair Display',serif;
+      font-size:20px;font-weight:700;color:var(--paper);
+    }
+    .footer-copy p{margin:0;line-height:1.7}
+
+    @media(max-width:600px){
+      .header-bottom{flex-direction:column;align-items:flex-start}
+      .header-meta{text-align:left}
+      .header-deco{font-size:200px}
+      .intro{flex-direction:column;gap:1rem}
+      .footer-inner{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="header-deco" aria-hidden="true">H</div>
+
+    <div class="header-inner">
+      <div class="header-eyebrow">
+        <span class="eyebrow-pill">Módulo Web</span>
+        <span class="eyebrow-line" aria-hidden="true"></span>
+        <span class="eyebrow-date">Atualização: Dez 2025</span>
+      </div>
+
+      <h1 class="header-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <div class="header-bottom">
+        <p class="header-desc">
+          Aprende os passos e comandos da linguagem HTML para criar páginas completas,
+          com imagens, tabelas, formulários e links — do básico ao avançado.
+        </p>
+        <div class="header-meta">
+          <p class="by">Autora</p>
+          <p class="author">Luísa Reis</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Mensagem em destaque">
+      <div class="ticker-track">
+        <span>HTML — HyperText Markup Language</span>
+        <span aria-hidden="true">• Páginas Web Estáticas</span>
+        <span aria-hidden="true">• Tabelas &amp; Formulários</span>
+        <span aria-hidden="true">• Links &amp; Imagens</span>
+        <span aria-hidden="true">• CSS &amp; JavaScript</span>
+        <span aria-hidden="true">• HTML — HyperText Markup Language</span>
+        <span aria-hidden="true">• Páginas Web Estáticas</span>
+        <span aria-hidden="true">• Tabelas &amp; Formulários</span>
+        <span aria-hidden="true">• Links &amp; Imagens</span>
+        <span aria-hidden="true">• CSS &amp; JavaScript</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-tabs" aria-label="Navegação rápida">
+    <div class="nav-tabs-inner">
+      <a class="nav-tab active" href="#basico">Básico</a>
+      <a class="nav-tab" href="#avancado">Avançado</a>
+      <a class="nav-tab" href="#graficos">Recursos gráficos</a>
+      <a class="nav-tab" href="#mais">Mais recursos</a>
+    </div>
+  </nav>
+
+  <main id="conteudo" class="container">
+
+    <div class="intro" aria-label="Introdução">
+      <span class="dropcap" aria-hidden="true">E</span>
+      <p class="intro-text">
+        Este manual mostra os passos e comandos da linguagem HTML necessários para criar uma página
+        completa, com imagens, tabelas e links para outras páginas da rede.
+      </p>
+    </div>
+
+    <div class="section-heading">
+      <h2>Índice</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+
+    <section class="grid" aria-label="Índice do manual">
+
+      <article class="card" id="basico">
+        <p class="card-label">Secção 01</p>
+        <h2 class="section-title">Básico</h2>
+
+        <h3>Conceito</h3>
+        <ul class="link-list">
+          <li><a href="conceito.htm">A linguagem HTML</a></li>
+          <li><a href="basico.htm">Estrutura básica de uma Home Page</a></li>
+        </ul>
+
+        <h3>Formatação</h3>
+        <ul class="link-list">
+          <li><a href="titulo.htm">Cabeçalhos</a></li>
+          <li><a href="paragraf.htm">Parágrafos e quebras de linha</a></li>
+          <li><a href="texto.htm">Texto</a></li>
+          <li><a href="blocos.htm">Blocos</a></li>
+          <li><a href="imagens.htm">Imagens</a></li>
+        </ul>
+
+        <h3>Ligações</h3>
+        <ul class="link-list">
+          <li><a href="links-ext.htm">Links externos</a></li>
+          <li><a href="links-int.htm">Links internos</a></li>
+          <li><a href="links-name.htm">Ligações no mesmo documento</a></li>
+        </ul>
+
+        <h3>Listas</h3>
+        <ul class="link-list">
+          <li><a href="lista-definicao.htm">Lista de definição</a></li>
+          <li><a href="lista-sem-numero.htm">Não numerada</a></li>
+          <li><a href="lista-numerada.htm">Numerada</a></li>
+        </ul>
+      </article>
+
+      <article class="card" id="avancado">
+        <p class="card-label">Secção 02</p>
+        <h2 class="section-title">Avançado</h2>
+
+        <h3>Cores &amp; Arte</h3>
+        <ul class="link-list">
+          <li><a href="body.htm">O comando BODY</a></li>
+          <li><a href="background.htm">Papel de parede</a></li>
+          <li><a href="font.htm">Tipos e tamanhos de fonte</a></li>
+        </ul>
+
+        <h3>Tabelas</h3>
+        <ul class="link-list">
+          <li><a href="tabelas.htm">Tabelas simples</a></li>
+          <li><a href="tab-atributos.htm">Atributos</a></li>
+          <li><a href="tab-complexas.htm">Tabelas complexas</a></li>
+        </ul>
+
+        <h3>Frames</h3>
+        <ul class="link-list">
+          <li><a href="frames-intro.htm">Introdução</a></li>
+          <li><a href="frames.htm">Horizontais e verticais</a></li>
+          <li><a href="FRAMES%20NO%20FRONTPAGE.doc">Exemplo no FrontPage</a></li>
+        </ul>
+
+        <h3>Formulários</h3>
+        <ul class="link-list">
+          <li><a href="form.htm">Conceito</a></li>
+          <li><a href="form-dados.htm">Entrada de dados</a></li>
+          <li><a href="form-select.htm">Select e textarea</a></li>
+        </ul>
+        <h3>Páginas Web Dinâmicas</h3>
+        <ul class="link-list">
+          <li><a href="tutorial_programacao_web.html">Introdução às páginas Web Dinâmicas</a></li>
+          <li><a href="inscricao_curso_informatica.html"> Exemplo de um formulário</a></li>
+          <li><a href="explicacao_formulario.html"> Explicação do formulário</a></li>
+        </ul>
+      </article>
+
+      <article class="card card-featured" id="graficos">
+        <p class="card-label">Secção 03</p>
+        <h2 class="section-title">Recursos gráficos</h2>
+        <p class="hint">Formatos e técnicas de imagem</p>
+        <ul class="link-list">
+          <li><a href="gif-x-jpg.htm">GIF ou JPG?</a></li>
+          <li><a href="gifs-transparentes.htm">GIFs transparentes</a></li>
+          <li><a href="gifs-animados.htm">GIFs animados</a></li>
+          <li><a href="mapas.htm">Imagens clicáveis</a></li>
+        </ul>
+      </article>
+
+      <article class="card" id="mais">
+        <p class="card-label">Secção 04</p>
+        <h2 class="section-title">Mais recursos</h2>
+
+        <h3>Curiosidades</h3>
+        <ul class="link-list">
+          <li><a href="refresh.htm">Mudança automática de página</a></li>
+          <li><a href="css/css_1.htm">Folhas de estilo CSS</a></li>
+          <li>
+            <a href="exemplos_javascript/index.html">
+              JavaScript <span class="muted">(exemplos)</span>
+            </a>
+          </li>
+        </ul>
+      </article>
+
+    </section>
+
+    <section class="actions" aria-label="Atalhos">
+      <a class="btn btn-primary" href="curso/Curso.htm">&#9654; Exemplos e exercícios práticos</a>
+      <a class="btn btn-secondary" href="guia/A.htm">Guia de referência HTML</a>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p>2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

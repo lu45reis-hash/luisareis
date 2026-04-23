@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Atributos (e principalmente CSS) para controlar a apresentação de tabelas em HTML5." />
+  <title>HTML – Tabelas (estilo e boas práticas)</title>
+
+  <link rel="stylesheet" href="curso.css" />
+
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">T</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Tabelas — estilo e boas práticas</span>
+        <span aria-hidden="true">• Tabelas — estilo e boas práticas</span>
+        <span aria-hidden="true">• Tabelas — estilo e boas práticas</span>
+        <span aria-hidden="true">• Tabelas — estilo e boas práticas</span>
+        <span aria-hidden="true">• Tabelas — estilo e boas práticas</span>
+        <span aria-hidden="true">• Tabelas — estilo e boas práticas</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <main id="conteudo">
+    <div class="container">
+      <article class="card">
+        
+
+        <p>
+          Em HTML antigo, era comum usar atributos no <code>&lt;table&gt;</code> como
+          <code>align</code>, <code>width</code>, <code>height</code>, <code>border</code> e <code>bgcolor</code>.
+          Hoje, muitos destes são <strong>obsoletos</strong> e a recomendação é:
+          <strong>HTML para estrutura</strong> e <strong>CSS para aparência</strong>.
+        </p>
+
+        <h3>O que “controla” uma tabela hoje</h3>
+        <ul>
+          <li><strong>Largura e alinhamento</strong>: <code>width</code>, <code>max-width</code>, <code>margin</code> no CSS</li>
+          <li><strong>Bordas</strong>: <code>border</code>, <code>border-collapse</code>, <code>border-radius</code></li>
+          <li><strong>Espaçamento</strong>: <code>padding</code> em <code>th</code>/<code>td</code></li>
+          <li><strong>Cores e destaque</strong>: <code>background</code>, “zebra stripes”, hover</li>
+          <li><strong>Semântica</strong>: <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>scope</code> em <code>&lt;th&gt;</code></li>
+        </ul>
+
+        <div class="grid">
+          <section>
+            <h3>Exemplo antigo (não recomendado)</h3>
+            <pre><code>&lt;table align="right" width="50%" border="5" bgcolor="#FF8080"&gt;
+  ...
+&lt;/table&gt;</code></pre>
+
+            <div class="note">
+              <strong>Porquê evitar?</strong> Mistura conteúdo com apresentação, dificulta manutenção
+              e não é a forma moderna de construir páginas.
+            </div>
+          </section>
+
+          <section>
+            <h3>Exemplo moderno (recomendado)</h3>
+            <pre><code>&lt;table class="minha-tabela"&gt;
+  &lt;caption&gt;Exemplo de tabela&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Coluna 1&lt;/th&gt;
+      &lt;th scope="col"&gt;Coluna 2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Linha 1&lt;/td&gt;
+      &lt;td&gt;Linha 1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+/* CSS */
+.minha-tabela{ width: 100%; border-collapse: collapse; }
+.minha-tabela th, .minha-tabela td{ padding: 10px 12px; border: 1px solid #ddd; }</code></pre>
+          </section>
+        </div>
+
+        <h3>Resultado (exemplo com estilo)</h3>
+        <table class="example-table">
+          <caption>Exemplo de tabela (HTML semântico + CSS)</caption>
+          <thead>
+            <tr>
+              <th scope="col">Linha / Coluna</th>
+              <th scope="col">Coluna 1</th>
+              <th scope="col">Coluna 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Linha 1</th>
+              <td>Valor A</td>
+              <td>Valor B</td>
+            </tr>
+            <tr>
+              <th scope="row">Linha 2</th>
+              <td>Valor C</td>
+              <td>Valor D</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:14px">
+          Vê um <a href="exemplo/tabelaex1.htm">exemplo</a> 
+
+        
+      
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="tabelas.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="tab-complexas.htm">Próximo →</a>
+      </nav>
+    </article>
+    </div>
+  </main>
+
+  <!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

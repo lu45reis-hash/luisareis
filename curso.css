@@ -1,0 +1,359 @@
+/* =====================================================================
+   curso.css — Design System unificado · Manual de HTML
+   Paleta editorial: papel/tinta/laranja-terracota · 2025
+   ===================================================================== */
+
+/* ---------- Fontes (Google Fonts) ------------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap');
+
+/* ---------- Reset e variáveis --------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Paleta */
+  --ink:       #0f0e0c;
+  --ink2:      #3a3730;
+  --ink3:      #7a7268;
+  --paper:     #faf8f3;
+  --paper2:    #f0ede4;
+  --paper3:    #e4e0d6;
+  --accent:    #c84b11;
+  --accent2:   #e8a87c;
+  --blue:      #1a3a5c;
+  --blue2:     #2d5f8a;
+  --ok:        #166534;
+  --ok-bg:     rgba(22,101,52,.09);
+  --warn:      #92400e;
+  --warn-bg:   rgba(146,64,14,.10);
+  --info-bg:   rgba(26,58,92,.08);
+  --radius:    6px;
+  /* Tipografia */
+  --serif:     'Playfair Display', Georgia, serif;
+  --sans:      'DM Sans', system-ui, sans-serif;
+  --mono:      'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+html  { scroll-behavior: smooth; background: var(--paper); }
+body  {
+  font-family: var(--sans);
+  background:  var(--paper);
+  color:       var(--ink);
+  font-size:   16px;
+  line-height: 1.65;
+  overflow-x:  hidden;
+}
+img   { max-width: 100%; height: auto; display: block; }
+code  { font-family: var(--mono); font-size: .92em; }
+a     { color: var(--blue2); text-decoration: none; }
+a:hover { color: var(--accent); text-decoration: underline; }
+a:focus-visible {
+  outline: 3px solid var(--accent2);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ---------- Skip link ----------------------------------------------- */
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--accent); color: #fff;
+  padding: .5rem 1rem; font-size: 14px; z-index: 9999;
+}
+.skip-link:focus { left: 0; }
+
+/* ---------- Container centrado -------------------------------------- */
+.container {
+  width: min(1060px, calc(100% - 32px));
+  margin-inline: auto;
+  padding-block: 2rem;
+}
+
+/* ======================================================================
+   HEADER UNIFICADO (usado em todas as páginas internas)
+   ====================================================================== */
+.site-header {
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom: 2px solid var(--accent);
+}
+
+
+
+
+
+
+.header-brand 
+.header-brand 
+.header-brand 
+
+/* Ticker (barra laranja que diz o tema da lição) */
+.ticker {
+  background: var(--accent);
+  overflow: hidden; white-space: nowrap;
+  border-top: 1px solid rgba(250,248,243,.12);
+}
+.ticker-track {
+  display: inline-flex; gap: 3rem;
+  padding: 8px 1rem;
+  animation: scroll-x 20s linear infinite;
+  font-family: var(--mono); font-size: 12px;
+  color: #fff; letter-spacing: .08em; text-transform: uppercase;
+}
+@keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
+
+/* ======================================================================
+   NAVEGAÇÃO STICKY
+   ====================================================================== */
+.nav-strip {
+  background: var(--paper2);
+  border-bottom: 1px solid var(--paper3);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-strip-inner {
+  max-width: 1060px; margin-inline: auto;
+  display: flex; align-items: center; gap: .25rem;
+  padding: 0 1rem; overflow-x: auto;
+}
+.nav-crumb {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .75rem .75rem;
+  font-size: 13px; font-weight: 500; color: var(--ink3);
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.nav-crumb:hover, .nav-crumb.active {
+  color: var(--ink); border-bottom-color: var(--accent);
+  text-decoration: none;
+}
+.nav-crumb-sep { color: var(--paper3); font-size: 16px; user-select: none; }
+
+/* ======================================================================
+   CONTEÚDO PRINCIPAL
+   ====================================================================== */
+
+/* Card (contentor da lição) */
+.card {
+  background: #fff;
+  border: 1px solid var(--paper3);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(15,14,12,.07);
+}
+.card + .card { margin-top: 1.5rem; }
+
+/* Título da secção */
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 700; color: var(--ink);
+  margin-bottom: 1.25rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--paper3);
+}
+
+/* Conteúdo de prosa */
+.prose p, .prose ul, .prose ol, .prose dl { margin-bottom: .85rem; }
+.prose ul, .prose ol { padding-left: 1.4rem; }
+.prose li { margin-bottom: .3rem; }
+.prose h2 { font-family: var(--serif); font-size: 22px; margin: 1.6rem 0 .75rem; color: var(--ink); }
+.prose h3 { font-size: 15px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink2); margin: 1.4rem 0 .6rem; }
+.prose h4 { font-size: 15px; font-weight: 600; color: var(--ink2); margin: 1.2rem 0 .5rem; }
+.prose code { background: var(--paper2); padding: 2px 6px; border-radius: 3px; border: 1px solid var(--paper3); }
+.prose dt { font-weight: 700; margin-top: .75rem; }
+.prose dd { padding-left: 1.2rem; color: var(--ink2); }
+
+/* Headings fora de .prose */
+h3 { font-size: 15px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink2); margin: 1.4rem 0 .6rem; }
+h4 { font-size: 15px; font-weight: 600; color: var(--ink2); margin: 1.2rem 0 .5rem; }
+
+/* Bloco de código */
+.codeblock, pre {
+  background: #0f0e0c;
+  color: #e8e4d8;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  overflow: auto;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.6;
+  border: 1px solid rgba(255,255,255,.06);
+  margin: .75rem 0 1rem;
+}
+.codeblock code, pre code { font-family: inherit; font-size: inherit; background: none; border: none; padding: 0; }
+
+/* Hint / nota */
+.hint {
+  font-size: 13.5px; color: var(--ink3);
+  margin: .5rem 0 .75rem;
+}
+
+/* Callout boxes */
+.callout {
+  padding: .9rem 1.1rem;
+  border-radius: var(--radius);
+  margin: 1rem 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.callout-info  { background: var(--info-bg); border: 1px solid rgba(26,58,92,.2); color: var(--blue); }
+.callout-warn  { background: var(--warn-bg); border: 1px solid rgba(146,64,14,.25); color: var(--warn); }
+.callout-ok    { background: var(--ok-bg);   border: 1px solid rgba(22,101,52,.25); color: var(--ok); }
+
+/* Aliases (páginas que usam .note / .ok) */
+.note { background: var(--warn-bg); border: 1px solid rgba(146,64,14,.25); color: var(--warn); padding: .9rem 1.1rem; border-radius: var(--radius); margin: 1rem 0; font-size: 14px; }
+.ok   { background: var(--ok-bg);   border: 1px solid rgba(22,101,52,.25); color: var(--ok);   padding: .9rem 1.1rem; border-radius: var(--radius); margin: 1rem 0; font-size: 14px; }
+
+/* Separador */
+.sep, hr { border: 0; border-top: 1px solid var(--paper3); margin: 1.5rem 0; }
+
+/* Tabela */
+.table-wrap { overflow: auto; border-radius: var(--radius); border: 1px solid var(--paper3); margin: .75rem 0 1rem; }
+.table, table.table {
+  width: 100%; border-collapse: collapse;
+  background: #fff;
+}
+.table th, .table td,
+table.table th, table.table td {
+  padding: .65rem 1rem;
+  border-bottom: 1px solid var(--paper2);
+  text-align: left; font-size: 14px;
+  vertical-align: top;
+}
+.table thead th, table.table thead th {
+  background: var(--paper2); font-weight: 600;
+  font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink2);
+}
+.table tbody tr:last-child td,
+table.table tbody tr:last-child td { border-bottom: 0; }
+.table tbody tr:nth-child(even) { background: rgba(240,237,228,.4); }
+caption { caption-side: top; text-align: left; padding: .6rem 1rem; font-weight: 600; font-size: 14px; background: var(--paper2); }
+
+/* Aside */
+.aside {
+  background: var(--paper2);
+  border: 1px solid var(--paper3);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+.aside-title {
+  font-family: var(--serif); font-size: 16px; font-weight: 700;
+  color: var(--ink); margin-bottom: .75rem;
+}
+
+/* Layout 2 colunas (conteúdo + aside) */
+.content-with-aside {
+  display: grid;
+  grid-template-columns: 1.55fr .85fr;
+  gap: 1.25rem;
+  align-items: start;
+  margin-top: .75rem;
+}
+
+/* Grid 2 colunas genérico */
+.grid, .grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: .75rem;
+}
+.panel, .box {
+  background: var(--paper2);
+  border: 1px solid var(--paper3);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+}
+
+/* Link list (lista de links do índice) */
+.link-list { list-style: none; padding: 0; }
+.link-list li { border-bottom: 1px solid var(--paper2); }
+.link-list li:last-child { border-bottom: none; }
+.link-list a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .45rem 0; font-size: 14px; color: var(--ink2);
+  text-decoration: none; transition: color .15s;
+}
+.link-list a:hover { color: var(--accent); text-decoration: none; }
+.link-list a::after {
+  content: '→'; font-size: 11px; color: var(--paper3);
+  transition: color .15s, transform .15s;
+}
+.link-list a:hover::after { color: var(--accent); transform: translateX(3px); }
+.muted { font-size: 11px; color: var(--ink3); margin-left: 4px; }
+
+/* Botões */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: .7rem 1.3rem; font-size: 14px; font-weight: 500;
+  border-radius: var(--radius); text-decoration: none;
+  border: 1px solid transparent; cursor: pointer;
+  transition: all .2s;
+}
+.btn-primary  { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #a83d0e; text-decoration: none; color: #fff; }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--paper3); }
+.btn-secondary:hover { background: var(--paper2); border-color: var(--ink3); text-decoration: none; }
+
+/* Actions row */
+.actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  padding-top: 1.25rem; border-top: 1px solid var(--paper3);
+  margin-top: 1.25rem;
+}
+
+/* ======================================================================
+   NAVEGAÇÃO ENTRE LIÇÕES (pager)
+   ====================================================================== */
+.pager, .navegacao {
+  display: flex; gap: .75rem;
+  align-items: center; justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--paper3);
+}
+
+.pager-btn, .navegacao a {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .6rem 1rem;
+  border: 1px solid var(--paper3);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink2); font-size: 13.5px; font-weight: 500;
+  text-decoration: none; transition: all .15s;
+}
+.pager-btn:hover, .navegacao a:hover {
+  background: var(--paper2); border-color: var(--ink3);
+  color: var(--ink); text-decoration: none;
+}
+.pager-btn img, .navegacao img {
+  width: 22px; height: 22px; display: inline; margin: 0;
+}
+
+/* ======================================================================
+   FOOTER
+   ====================================================================== */
+.site-footer {
+  background: var(--ink); color: rgba(250,248,243,.45);
+  font-size: 13px; padding: 1.75rem 1rem; margin-top: 2.5rem;
+}
+.footer-inner {
+  max-width: 1060px; margin-inline: auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--paper); }
+.footer-copy p { margin: 0; line-height: 1.7; }
+.site-footer .muted { color: rgba(250,248,243,.4); opacity: 1; }
+.site-footer a { color: rgba(250,248,243,.55); }
+.site-footer a:hover { color: var(--paper); }
+
+/* ======================================================================
+   RESPONSIVO
+   ====================================================================== */
+@media (max-width: 700px) {
+  .content-with-aside, .grid, .grid-2 { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .card { padding: 1.25rem; }
+}

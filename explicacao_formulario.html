@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como foi criado o Formulário </title>
+
+<style>
+:root {
+  --bg:       #0c0f1a;
+  --bg2:      #131726;
+  --bg3:      #1a2035;
+  --border:   #232d45;
+  --blue:     #4a7cff;
+  --blue-l:   rgba(74,124,255,.12);
+  --teal:     #2dd4bf;
+  --amber:    #fbbf24;
+  --green:    #34d399;
+  --red:      #f87171;
+  --purple:   #a78bfa;
+  --text:     #e8eaf2;
+  --muted:    #7a85a3;
+  --mono:     'JetBrains Mono', monospace;
+  --serif:    'Fraunces', Georgia, serif;
+  --sans:     'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── Sidebar nav ── */
+.layout { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 230px; min-width: 230px;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto; padding: 2rem 0;
+  display: flex; flex-direction: column;
+}
+.sidebar-brand {
+  padding: 0 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.sidebar-brand .back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  text-decoration: none; text-transform: uppercase; letter-spacing: .07em;
+  margin-bottom: .5rem;
+}
+.sidebar-brand .back-link:hover { color: var(--blue); }
+.sidebar-brand h1 { font-family: var(--serif); font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.sidebar-brand p  { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+.sidebar-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); padding: .75rem 1.25rem .25rem; }
+.nav-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: .4rem 1.25rem; font-size: 12.5px; color: var(--muted);
+  text-decoration: none; border-left: 2px solid transparent;
+  transition: all .15s; cursor: pointer;
+}
+.nav-link:hover { color: var(--text); background: var(--bg3); }
+.nav-link.active { color: var(--blue); border-left-color: var(--blue); background: var(--blue-l); font-weight: 600; }
+.nav-link .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+/* ── Main content ── */
+.main { flex: 1; padding: 3rem 3.5rem; max-width: 860px; overflow-x: hidden; }
+
+/* ── Hero ── */
+.hero { margin-bottom: 3rem; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--blue); margin-bottom: 1rem;
+}
+.hero-eyebrow::before { content:''; display:inline-block; width:24px; height:2px; background:var(--blue); border-radius:1px; }
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700; line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.hero h1 em { font-style: italic; color: var(--blue); }
+.hero p { font-size: 15px; color: var(--muted); max-width: 580px; line-height: 1.75; }
+
+/* ── Section ── */
+.section { margin-bottom: 3.5rem; scroll-margin-top: 2rem; }
+.section-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.section-num {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--blue-l); border: 1px solid rgba(74,124,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--blue);
+  flex-shrink: 0;
+}
+.section-header h2 { font-family: var(--serif); font-size: 22px; font-weight: 700; }
+
+p { font-size: 14px; color: #b0bdd6; margin-bottom: .85rem; line-height: 1.8; }
+strong { color: var(--text); font-weight: 600; }
+code {
+  font-family: var(--mono); font-size: 12px;
+  background: var(--bg3); color: #93c5fd;
+  padding: 2px 7px; border-radius: 5px;
+  border: 1px solid var(--border);
+}
+
+/* ── Code blocks ── */
+.code-block {
+  background: #080b14;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1rem 0 1.25rem;
+}
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .6rem 1rem; background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+}
+.code-lang { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.code-dots { display: flex; gap: 5px; }
+.code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #ff5f57; }
+.dot-y { background: #febc2e; }
+.dot-g { background: #28c840; }
+pre {
+  padding: 1.1rem 1.25rem;
+  font-family: var(--mono); font-size: 12.5px;
+  line-height: 1.75; overflow-x: auto;
+  color: #c9d1d9;
+}
+.kw   { color: #ff79c6; }
+.str  { color: #a8e89c; }
+.cm   { color: #546e7a; font-style: italic; }
+.fn   { color: #82aaff; }
+.num  { color: #f78c6c; }
+.attr { color: #ffd580; }
+.tag  { color: #ff79c6; }
+.val  { color: #a8e89c; }
+
+/* ── Info / note boxes ── */
+.callout {
+  border-radius: 10px; padding: .9rem 1.1rem;
+  margin: 1rem 0; font-size: 13px; line-height: 1.7;
+  display: flex; gap: .75rem; align-items: flex-start;
+}
+.callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.callout.info   { background: var(--blue-l); border: 1px solid rgba(74,124,255,.25); color: #93c5fd; }
+.callout.tip    { background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.25); color: #6ee7b7; }
+.callout.warn   { background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.25); color: #fde68a; }
+.callout.danger { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.25); color: #fca5a5; }
+
+/* ── Feature grid ── */
+.feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.feat-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1rem 1.1rem;
+  transition: border-color .2s;
+}
+.feat-card:hover { border-color: var(--blue); }
+.feat-icon { font-size: 22px; margin-bottom: .5rem; }
+.feat-card h3 { font-size: 13px; font-weight: 600; margin-bottom: .25rem; color: var(--text); }
+.feat-card p  { font-size: 12px; color: var(--muted); margin: 0; line-height: 1.5; }
+
+/* ── Step flow ── */
+.flow { display: flex; flex-direction: column; gap: 0; margin: 1rem 0; }
+.flow-item { display: flex; gap: 1rem; }
+.flow-line-wrap { display: flex; flex-direction: column; align-items: center; }
+.flow-circle {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: var(--blue-l); border: 2px solid var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--blue);
+}
+.flow-vline { width: 2px; flex: 1; min-height: 20px; background: var(--border); margin: 4px 0; }
+.flow-content { padding-bottom: 1.5rem; flex: 1; }
+.flow-content h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: .35rem; margin-top: 6px; }
+.flow-content p  { font-size: 13px; color: var(--muted); margin: 0; }
+
+/* ── Table ── */
+.table-wrap { overflow-x: auto; margin: 1rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: .6rem .9rem; background: var(--bg3); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-bottom: 1px solid var(--border); }
+td { padding: .55rem .9rem; border-bottom: 1px solid var(--border); color: #9aa3be; vertical-align: top; }
+td code { font-size: 11.5px; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+
+/* ── Color chip ── */
+.chip { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; margin: 2px; }
+.chip-blue   { background: rgba(74,124,255,.15);  color: #93c5fd; border: 1px solid rgba(74,124,255,.3); }
+.chip-green  { background: rgba(52,211,153,.12);  color: #6ee7b7; border: 1px solid rgba(52,211,153,.3); }
+.chip-amber  { background: rgba(251,191,36,.12);  color: #fde68a; border: 1px solid rgba(251,191,36,.3); }
+.chip-purple { background: rgba(167,139,250,.12); color: #c4b5fd; border: 1px solid rgba(167,139,250,.3); }
+
+/* ── Divider ── */
+hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .main { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ── Sidebar ── -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <a class="back-link" href="inscricao_curso_informatica.html">
+      ← Voltar ao formulário
+    </a>
+    <a class="back-link" href="index.html">
+      ← Índice
+    </a>
+
+    <h1>Como foi criado o formulário</h1>
+    <p>Guia técnico completo</p>
+  </div>
+
+  <div class="sidebar-label">Conteúdo</div>
+  <a class="nav-link active" href="#visao-geral"><span class="dot"></span>Visão geral</a>
+  <a class="nav-link" href="#estrutura-html"><span class="dot"></span>Estrutura HTML</a>
+  <a class="nav-link" href="#css-variaveis"><span class="dot"></span>CSS e Variáveis</a>
+  <a class="nav-link" href="#tipografia"><span class="dot"></span>Tipografia e Cor</a>
+  <a class="nav-link" href="#form-elementos"><span class="dot"></span>Elementos do formulário</a>
+  <a class="nav-link" href="#lista-cursos"><span class="dot"></span>Lista de cursos</a>
+  <a class="nav-link" href="#radio-cards"><span class="dot"></span>Radio cards</a>
+  <a class="nav-link" href="#multi-step"><span class="dot"></span>Formulário multi-passo</a>
+  <a class="nav-link" href="#validacao"><span class="dot"></span>Validação</a>
+  <a class="nav-link" href="#javascript"><span class="dot"></span>JavaScript</a>
+  <a class="nav-link" href="#sucesso"><span class="dot"></span>Ecrã de sucesso</a>
+  <a class="nav-link" href="#responsivo"><span class="dot"></span>Design responsivo</a>
+</nav>
+
+<!-- ── Main ── -->
+<main class="main">
+
+  <!-- Hero -->
+  <div class="hero" id="visao-geral">
+    <div class="hero-eyebrow">Documentação técnica</div>
+    <h1>Como foi criado o <em>formulário</em> de inscrição</h1>
+    <p>Este documento explica passo a passo todas as técnicas, decisões de design e código utilizados para construir o formulário de inscrição em cursos de informática.</p>
+  </div>
+
+  <!-- Visão Geral -->
+  <div class="section">
+    <p>O formulário foi construído com tecnologias web padrão — <strong>HTML5</strong>, <strong>CSS3</strong> e <strong>JavaScript puro</strong> — sem qualquer framework ou biblioteca externa. É um único ficheiro <code>.html</code> autónomo que funciona diretamente no browser.</p>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">📄</div>
+        <h3>HTML5 semântico</h3>
+        <p>Estrutura com elementos nativos de formulário.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🎨</div>
+        <h3>CSS3 moderno</h3>
+        <p>Variáveis CSS, Grid, Flexbox e animações.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <h3>JavaScript puro</h3>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📱</div>
+        <h3>Responsivo</h3>
+        <p>Adapta-se a ecrãs de desktop, tablet e mobile.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 1. Estrutura HTML -->
+  <div class="section" id="estrutura-html">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>Estrutura HTML</h2>
+    </div>
+    <p>O ficheiro começa com a declaração <code>&lt;!DOCTYPE html&gt;</code> e o atributo <code>lang="pt"</code> para indicar ao browser que o conteúdo está em português. O <code>&lt;head&gt;</code> carrega a fonte do Google Fonts e toda a folha de estilos CSS.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">HTML — Estrutura base</span></div>
+      <pre><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"pt"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span>Inscrição em Curso de Formação<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">href</span>=<span class="val">"https://fonts.googleapis.com/css2?family=..."</span> <span class="attr">rel</span>=<span class="val">"stylesheet"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;style&gt;</span> <span class="cm">/* CSS aqui */</span> <span class="tag">&lt;/style&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+  <span class="tag">&lt;header</span> <span class="attr">class</span>=<span class="val">"page-header"</span><span class="tag">&gt;</span><span class="cm">...título...</span><span class="tag">&lt;/header&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"card"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"card-header"</span><span class="tag">&gt;</span><span class="cm">...cabeçalho azul...</span><span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"card-body"</span><span class="tag">&gt;</span>
+      <span class="cm">&lt;!-- Barra de progresso --&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"steps"</span><span class="tag">&gt;</span><span class="cm">...</span><span class="tag">&lt;/div&gt;</span>
+      <span class="tag">&lt;form</span> <span class="attr">id</span>=<span class="val">"main-form"</span> <span class="attr">novalidate</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"step-1"</span><span class="tag">&gt;</span><span class="cm">...dados pessoais...</span><span class="tag">&lt;/div&gt;</span>
+        <span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"step-2"</span> <span class="attr">class</span>=<span class="val">"hidden"</span><span class="tag">&gt;</span><span class="cm">...curso...</span><span class="tag">&lt;/div&gt;</span>
+        <span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"step-3"</span> <span class="attr">class</span>=<span class="val">"hidden"</span><span class="tag">&gt;</span><span class="cm">...confirmação...</span><span class="tag">&lt;/div&gt;</span>
+      <span class="tag">&lt;/form&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"success-screen"</span><span class="tag">&gt;</span><span class="cm">...ecrã final...</span><span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;script&gt;</span><span class="cm">/* JavaScript aqui */</span><span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;/body&gt;</span></pre>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">💡</span>
+      <span>O atributo <code>novalidate</code> no <code>&lt;form&gt;</code> desativa a validação nativa do browser, permitindo-nos criar mensagens de erro personalizadas com CSS e JavaScript.</span>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 2. CSS e Variáveis -->
+  <div class="section" id="css-variaveis">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>CSS e Variáveis</h2>
+    </div>
+    <p>Todo o sistema de cores e espaçamentos é definido com <strong>CSS Custom Properties</strong> (variáveis CSS) no seletor <code>:root</code>. Isto permite alterar a aparência do formulário inteiro mudando apenas um valor.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">CSS — Variáveis de design</span></div>
+      <pre><span class="fn">:root</span> {
+  <span class="cm">/* Cores base */</span>
+  <span class="attr">--bg</span>:       <span class="num">#f4f6fb</span>;   <span class="cm">/* fundo da página */</span>
+  <span class="attr">--surface</span>:  <span class="num">#ffffff</span>;   <span class="cm">/* fundo do card */</span>
+  <span class="attr">--primary</span>:  <span class="num">#2563eb</span>;   <span class="cm">/* azul principal */</span>
+  <span class="attr">--primary-d</span>:<span class="num">#1d4ed8</span>;   <span class="cm">/* azul escuro (hover) */</span>
+  <span class="attr">--primary-l</span>:<span class="num">#eff6ff</span>;   <span class="cm">/* azul muito claro (fundo) */</span>
+  <span class="attr">--success</span>:  <span class="num">#16a34a</span>;   <span class="cm">/* verde */</span>
+  <span class="attr">--danger</span>:   <span class="num">#dc2626</span>;   <span class="cm">/* vermelho de erro */</span>
+  <span class="attr">--text</span>:     <span class="num">#111827</span>;   <span class="cm">/* texto principal */</span>
+  <span class="attr">--muted</span>:    <span class="num">#6b7280</span>;   <span class="cm">/* texto secundário */</span>
+  <span class="attr">--border</span>:   <span class="num">#e5e7eb</span>;   <span class="cm">/* bordas */</span>
+
+  <span class="cm">/* Layout */</span>
+  <span class="attr">--radius</span>:   <span class="num">12px</span>;
+  <span class="attr">--shadow</span>:   <span class="num">0 4px 24px rgba(0,0,0,.08)</span>;
+}</pre>
+    </div>
+
+    <p>O layout do formulário usa <strong>CSS Grid</strong> para organizar campos lado a lado:</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">CSS — Grelha de campos</span></div>
+      <pre><span class="cm">/* Grelha de 2 colunas para os campos */</span>
+<span class="fn">.form-row</span> {
+  <span class="attr">display</span>: <span class="kw">grid</span>;
+  <span class="attr">grid-template-columns</span>: <span class="num">1fr 1fr</span>;  <span class="cm">/* 2 colunas iguais */</span>
+  <span class="attr">gap</span>: <span class="num">1rem</span>;
+}
+
+<span class="cm">/* Classe para campo que ocupa as 2 colunas */</span>
+<span class="fn">.form-full</span> {
+  <span class="attr">grid-column</span>: <span class="num">1 / -1</span>;  <span class="cm">/* da coluna 1 até à última */</span>
+}</pre>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 3. Tipografia e Cor -->
+  <div class="section" id="tipografia">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>Tipografia e Paleta de Cor</h2>
+    </div>
+    <p>A fonte usada é a <strong>Plus Jakarta Sans</strong>, carregada do Google Fonts. É uma fonte moderna, legível e adequada para formulários. A fonte monoespaçada <strong>DM Mono</strong> é usada para a referência de inscrição.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">HTML — Carregar fontes</span></div>
+      <pre><span class="tag">&lt;link</span> <span class="attr">href</span>=<span class="val">"https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"</span>
+      <span class="attr">rel</span>=<span class="val">"stylesheet"</span><span class="tag">&gt;</span></pre>
+    </div>
+
+    <p>A paleta usa apenas 5 cores principais:</p>
+    <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin: .75rem 0 1.25rem;">
+      <span class="chip chip-blue">Azul — #2563eb (principal)</span>
+      <span class="chip chip-green">Verde — #16a34a (sucesso)</span>
+      <span class="chip" style="background:rgba(220,38,38,.15);color:#fca5a5;border:1px solid rgba(220,38,38,.3)">Vermelho — #dc2626 (erro)</span>
+      <span class="chip chip-amber">Cinzento — #6b7280 (texto secundário)</span>
+      <span class="chip chip-purple">Gradiente — cabeçalho do card</span>
+    </div>
+
+    <p>O cabeçalho azul do card usa um gradiente CSS:</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">CSS — Gradiente do cabeçalho</span></div>
+      <pre><span class="fn">.card-header</span> {
+  <span class="attr">background</span>: <span class="kw">linear-gradient</span>(
+    <span class="num">135deg</span>,
+    <span class="num">#1e40af</span> <span class="num">0%</span>,     <span class="cm">/* azul escuro */</span>
+    <span class="num">#2563eb</span> <span class="num">60%</span>,    <span class="cm">/* azul médio */</span>
+    <span class="num">#0ea5e9</span> <span class="num">100%</span>    <span class="cm">/* azul claro / ciano */</span>
+  );
+}</pre>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 4. Elementos do formulário -->
+  <div class="section" id="form-elementos">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>Elementos do Formulário</h2>
+    </div>
+    <p>Cada campo segue sempre a mesma estrutura: um <code>&lt;div class="form-group"&gt;</code> que agrupa a etiqueta, o campo e a mensagem de erro.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">HTML — Estrutura de um campo</span></div>
+      <pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"form-group"</span><span class="tag">&gt;</span>
+  <span class="cm">&lt;!-- Etiqueta com asterisco de obrigatório --&gt;</span>
+  <span class="tag">&lt;label&gt;</span>
+    Email <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="val">"req"</span><span class="tag">&gt;</span>*<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;/label&gt;</span>
+
+  <span class="cm">&lt;!-- Campo de input --&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"email"</span>
+         <span class="attr">id</span>=<span class="val">"email"</span>
+         <span class="attr">placeholder</span>=<span class="val">"ex: luisa@email.com"</span>
+         <span class="attr">autocomplete</span>=<span class="val">"email"</span><span class="tag">&gt;</span>
+
+  <span class="cm">&lt;!-- Mensagem de erro — oculta por defeito --&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="val">"field-error"</span> <span class="attr">id</span>=<span class="val">"err-email"</span><span class="tag">&gt;</span>
+    Introduz um email válido.
+  <span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre>
+    </div>
+
+    <p>O estilo dos campos muda com <code>:focus</code> para dar feedback visual ao utilizador:</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">CSS — Estados dos campos</span></div>
+      <pre><span class="cm">/* Estado normal */</span>
+<span class="fn">input</span>, <span class="fn">select</span>, <span class="fn">textarea</span> {
+  <span class="attr">border</span>: <span class="num">1.5px solid</span> <span class="kw">var(--border)</span>;
+  <span class="attr">background</span>: <span class="num">#f9fafb</span>;
+  <span class="attr">transition</span>: border-color <span class="num">.2s</span>, box-shadow <span class="num">.2s</span>;
+}
+
+<span class="cm">/* Quando o campo está ativo / em foco */</span>
+<span class="fn">input:focus</span> {
+  <span class="attr">border-color</span>: <span class="kw">var(--primary)</span>;
+  <span class="attr">background</span>: <span class="kw">var(--surface)</span>;
+  <span class="attr">box-shadow</span>: <span class="num">0 0 0 3px rgba(37,99,235,.12)</span>;
+}
+
+<span class="cm">/* Quando há erro de validação */</span>
+<span class="fn">input.error</span> {
+  <span class="attr">border-color</span>: <span class="kw">var(--danger)</span>;
+  <span class="attr">background</span>: <span class="kw">var(--danger-l)</span>;
+}</pre>
+    </div>
+
+    <div class="callout tip">
+      <span class="callout-icon">✅</span>
+      <span>O atributo <code>autocomplete</code> nos campos de texto ajuda o browser a preencher automaticamente dados do utilizador, melhorando a usabilidade.</span>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 5. Lista de cursos -->
+  <div class="section" id="lista-cursos">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2>Lista de Cursos — <code>&lt;select&gt;</code> com <code>&lt;optgroup&gt;</code></h2>
+    </div>
+    <p>A lista pendente de cursos usa o elemento nativo <code>&lt;select&gt;</code> do HTML. Para organizar os 22 cursos em categorias, usa-se o elemento <code>&lt;optgroup&gt;</code> que cria grupos visuais dentro da lista.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">HTML — Select com optgroup</span></div>
+      <pre><span class="tag">&lt;select</span> <span class="attr">id</span>=<span class="val">"curso"</span> <span class="attr">onchange</span>=<span class="val">"atualizarCurso()"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">""</span><span class="tag">&gt;</span>— Seleciona um curso —<span class="tag">&lt;/option&gt;</span>
+
+  <span class="cm">&lt;!-- Grupo 1 —&gt;</span>
+  <span class="tag">&lt;optgroup</span> <span class="attr">label</span>=<span class="val">"🌐 Desenvolvimento Web"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"web-fund"</span><span class="tag">&gt;</span>Fundamentos de HTML, CSS e JavaScript<span class="tag">&lt;/option&gt;</span>
+    <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"web-php"</span><span class="tag">&gt;</span>Desenvolvimento Web com PHP e MySQL<span class="tag">&lt;/option&gt;</span>
+    <span class="cm">&lt;!-- mais opções... --&gt;</span>
+  <span class="tag">&lt;/optgroup&gt;</span>
+
+  <span class="cm">&lt;!-- Grupo 2 --&gt;</span>
+  <span class="tag">&lt;optgroup</span> <span class="attr">label</span>=<span class="val">"🖥 Sistemas e Redes"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"sys-linux"</span><span class="tag">&gt;</span>Administração de Sistemas Linux<span class="tag">&lt;/option&gt;</span>
+    <span class="cm">&lt;!-- mais opções... --&gt;</span>
+  <span class="tag">&lt;/optgroup&gt;</span>
+<span class="tag">&lt;/select&gt;</span></pre>
+    </div>
+
+    <p>Quando o utilizador escolhe um curso, a função <code>atualizarCurso()</code> em JavaScript consulta um objeto com todos os dados e mostra um cartão informativo dinâmico:</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">JavaScript — Objeto de dados dos cursos</span></div>
+      <pre><span class="kw">const</span> <span class="fn">cursos</span> = {
+  <span class="str">'web-fund'</span>: {
+    titulo: <span class="str">'Fundamentos de HTML, CSS e JavaScript'</span>,
+    horas:  <span class="str">'60h'</span>,
+    nivel:  <span class="str">'Iniciante'</span>,
+    preco:  <span class="str">'290€'</span>,
+    desc:   <span class="str">'Aprende as tecnologias base da web moderna...'</span>
+  },
+  <span class="str">'web-php'</span>: { <span class="cm">/* ... */</span> },
+  <span class="cm">// 22 cursos no total</span>
+};
+
+<span class="kw">function</span> <span class="fn">atualizarCurso</span>() {
+  <span class="kw">const</span> val  = document.<span class="fn">getElementById</span>(<span class="str">'curso'</span>).value;
+  <span class="kw">const</span> prev = document.<span class="fn">getElementById</span>(<span class="str">'course-preview'</span>);
+
+  <span class="kw">if</span> (!val || !cursos[val]) {
+    prev.classList.<span class="fn">remove</span>(<span class="str">'show'</span>);
+    <span class="kw">return</span>;
+  }
+  <span class="kw">const</span> c = cursos[val];
+  document.<span class="fn">getElementById</span>(<span class="str">'prev-titulo'</span>).textContent = c.titulo;
+  document.<span class="fn">getElementById</span>(<span class="str">'prev-meta'</span>).innerHTML =
+    <span class="str">`&lt;span class="chip"&gt;${c.horas}&lt;/span&gt;`</span> +
+    <span class="str">`&lt;span class="chip green"&gt;${c.nivel}&lt;/span&gt;`</span> +
+    <span class="str">`&lt;span class="chip amber"&gt;💶 ${c.preco}&lt;/span&gt;`</span>;
+  document.<span class="fn">getElementById</span>(<span class="str">'prev-desc'</span>).textContent = c.desc;
+  prev.classList.<span class="fn">add</span>(<span class="str">'show'</span>);
+}</pre>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">💡</span>
+      <span>O cartão de pré-visualização do curso usa a classe CSS <code>.course-preview</code> com <code>display: none</code> por defeito. Quando o utilizador seleciona um curso, o JavaScript adiciona a classe <code>.show</code> que muda o display para <code>flex</code>.</span>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 6. Radio Cards -->
+  <div class="section" id="radio-cards">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <h2>Radio Cards — Seleção Visual</h2>
+    </div>
+    <p>Os botões de seleção de turno e modalidade usam uma técnica chamada <strong>radio card</strong>: um <code>&lt;label&gt;</code> estilizado como cartão que envolve um <code>&lt;input type="radio"&gt;</code> invisível. Clicar no cartão ativa o radio button.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">HTML — Radio card</span></div>
+      <pre><span class="tag">&lt;label</span> <span class="attr">class</span>=<span class="val">"radio-card"</span>
+       <span class="attr">onclick</span>=<span class="val">"selectRadio(this,'turno')"</span><span class="tag">&gt;</span>
+
+  <span class="cm">&lt;!-- Input oculto com display:none no CSS --&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"radio"</span> <span class="attr">name</span>=<span class="val">"turno"</span> <span class="attr">value</span>=<span class="val">"Manhã"</span><span class="tag">&gt;</span>
+
+  <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="val">"rc-title"</span><span class="tag">&gt;</span>🌅 Manhã<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="val">"rc-sub"</span><span class="tag">&gt;</span>09h00 – 13h00<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;/label&gt;</span></pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">CSS — Estilo do radio card</span></div>
+      <pre><span class="fn">.radio-card</span> {
+  <span class="attr">border</span>: <span class="num">1.5px solid</span> <span class="kw">var(--border)</span>;
+  <span class="attr">border-radius</span>: <span class="num">8px</span>;
+  <span class="attr">padding</span>: <span class="num">.75rem 1rem</span>;
+  <span class="attr">cursor</span>: pointer;
+  <span class="attr">transition</span>: <span class="kw">all</span> <span class="num">.15s</span>;
+}
+<span class="fn">.radio-card:hover</span> {
+  <span class="attr">border-color</span>: <span class="kw">var(--primary)</span>;
+  <span class="attr">background</span>: <span class="kw">var(--primary-l)</span>;
+}
+<span class="cm">/* Classe adicionada pelo JavaScript quando selecionado */</span>
+<span class="fn">.radio-card.selected</span> {
+  <span class="attr">border-color</span>: <span class="kw">var(--primary)</span>;
+  <span class="attr">background</span>: <span class="kw">var(--primary-l)</span>;
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">JavaScript — Selecionar radio card</span></div>
+      <pre><span class="kw">function</span> <span class="fn">selectRadio</span>(el, name) {
+  <span class="cm">// Remove a seleção de todos os cards com o mesmo name</span>
+  document.<span class="fn">querySelectorAll</span>(<span class="str">`[name="${name}"]`</span>)
+    .<span class="fn">forEach</span>(r => r.<span class="fn">closest</span>(<span class="str">'.radio-card'</span>)
+    .classList.<span class="fn">remove</span>(<span class="str">'selected'</span>));
+
+  <span class="cm">// Marca o card clicado como selecionado</span>
+  el.classList.<span class="fn">add</span>(<span class="str">'selected'</span>);
+
+  <span class="cm">// Ativa o input radio dentro do card</span>
+  el.<span class="fn">querySelector</span>(<span class="str">'input'</span>).checked = <span class="kw">true</span>;
+}</pre>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 7. Multi-step -->
+  <div class="section" id="multi-step">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <h2>Formulário Multi-Passo</h2>
+    </div>
+    <p>O formulário divide-se em 3 passos. Cada passo é um <code>&lt;div&gt;</code> independente dentro do <code>&lt;form&gt;</code>. Apenas um passo fica visível de cada vez — os restantes têm a classe <code>hidden</code> que aplica <code>display: none</code>.</p>
+
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-line-wrap"><div class="flow-circle">1</div><div class="flow-vline"></div></div>
+        <div class="flow-content">
+          <h3>Dados Pessoais</h3>
+          <p>Nome, apelido, email, telemóvel, data de nascimento, NIF, habilitações e situação profissional.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-line-wrap"><div class="flow-circle">2</div><div class="flow-vline"></div></div>
+        <div class="flow-content">
+          <h3>Escolha do Curso</h3>
+          <p>Lista pendente de cursos, turno, modalidade, data de início e informações adicionais.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-line-wrap"><div class="flow-circle">3</div><div class="flow-vline" style="background:transparent"></div></div>
+        <div class="flow-content">
+          <h3>Revisão e Confirmação</h3>
+          <p>Resumo de todos os dados inseridos, aceitação dos termos e botão de submissão final.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">JavaScript — Avançar para o passo seguinte</span></div>
+      <pre><span class="kw">function</span> <span class="fn">nextStep</span>(from) {
+  <span class="cm">// Valida o passo atual antes de avançar</span>
+  <span class="kw">if</span> (from === <span class="num">1</span> && !<span class="fn">validateStep1</span>()) <span class="kw">return</span>;
+  <span class="kw">if</span> (from === <span class="num">2</span> && !<span class="fn">validateStep2</span>()) <span class="kw">return</span>;
+  <span class="kw">if</span> (from === <span class="num">2</span>) <span class="fn">preencherResumo</span>(); <span class="cm">// preenche o passo 3</span>
+
+  <span class="cm">// Esconde o passo atual</span>
+  document.<span class="fn">getElementById</span>(<span class="str">'step-'</span> + from)
+    .classList.<span class="fn">add</span>(<span class="str">'hidden'</span>);
+
+  <span class="cm">// Mostra o passo seguinte</span>
+  document.<span class="fn">getElementById</span>(<span class="str">'step-'</span> + (from+<span class="num">1</span>))
+    .classList.<span class="fn">remove</span>(<span class="str">'hidden'</span>);
+
+  <span class="cm">// Atualiza a barra de progresso</span>
+  document.<span class="fn">getElementById</span>(<span class="str">'step-ind-'</span> + from)
+    .classList.<span class="fn">replace</span>(<span class="str">'active'</span>, <span class="str">'done'</span>);
+  document.<span class="fn">getElementById</span>(<span class="str">'step-ind-'</span> + (from+<span class="num">1</span>))
+    .classList.<span class="fn">add</span>(<span class="str">'active'</span>);
+
+  <span class="cm">// Faz scroll para o topo</span>
+  window.<span class="fn">scrollTo</span>({ top: <span class="num">0</span>, behavior: <span class="str">'smooth'</span> });
+}</pre>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 8. Validação -->
+  <div class="section" id="validacao">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <h2>Validação dos Campos</h2>
+    </div>
+    <p>A validação é feita em JavaScript no momento em que o utilizador tenta avançar de passo. A função <code>val()</code> é um auxiliar reutilizável que verifica um campo e mostra ou esconde a mensagem de erro.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">JavaScript — Função de validação reutilizável</span></div>
+      <pre><span class="cm">// val(id, errId, função_de_validação)</span>
+<span class="kw">function</span> <span class="fn">val</span>(id, errId, check) {
+  <span class="kw">const</span> el = document.<span class="fn">getElementById</span>(id);
+  <span class="kw">const</span> ok = <span class="fn">check</span>(el.value);       <span class="cm">// chama a função de teste</span>
+
+  <span class="cm">// Adiciona/remove classe .error no campo</span>
+  el.classList.<span class="fn">toggle</span>(<span class="str">'error'</span>, !ok);
+
+  <span class="cm">// Mostra/esconde a mensagem de erro</span>
+  document.<span class="fn">getElementById</span>(errId)
+    .classList.<span class="fn">toggle</span>(<span class="str">'show'</span>, !ok);
+
+  <span class="kw">return</span> ok;
+}
+
+<span class="cm">// Validação do Passo 1</span>
+<span class="kw">function</span> <span class="fn">validateStep1</span>() {
+  <span class="kw">let</span> ok = <span class="kw">true</span>;
+  ok &amp;= <span class="fn">val</span>(<span class="str">'nome'</span>,    <span class="str">'err-nome'</span>,
+    v => v.trim().length > <span class="num">1</span>);
+  ok &amp;= <span class="fn">val</span>(<span class="str">'email'</span>,   <span class="str">'err-email'</span>,
+    v => <span class="str">/^[^\s@]+@[^\s@]+\.[^\s@]+$/</span>.<span class="fn">test</span>(v));
+  ok &amp;= <span class="fn">val</span>(<span class="str">'telemovel'</span>,<span class="str">'err-telemovel'</span>,
+    v => v.trim().length >= <span class="num">9</span>);
+  <span class="kw">return</span> !!ok;
+}</pre>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Campo</th><th>Regra de validação</th><th>Regex / condição</th></tr>
+        <tr><td>Nome / Apelido</td><td>Pelo menos 2 caracteres</td><td><code>v.trim().length > 1</code></td></tr>
+        <tr><td>Email</td><td>Formato de email válido</td><td><code>/^[^\s@]+@[^\s@]+\.[^\s@]+$/</code></td></tr>
+        <tr><td>Telemóvel</td><td>Pelo menos 9 dígitos</td><td><code>v.trim().length >= 9</code></td></tr>
+        <tr><td>Data de nascimento</td><td>Campo não vazio</td><td><code>v !== ''</code></td></tr>
+        <tr><td>Habilitações</td><td>Opção selecionada</td><td><code>v !== ''</code></td></tr>
+        <tr><td>Curso</td><td>Opção selecionada</td><td><code>v !== ''</code></td></tr>
+        <tr><td>Turno / Modalidade</td><td>Radio button selecionado</td><td><code>querySelector(':checked') !== null</code></td></tr>
+        <tr><td>Termos</td><td>Checkbox marcada</td><td><code>checkbox.checked === true</code></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 9. JavaScript -->
+  <div class="section" id="javascript">
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <h2>Lógica JavaScript — Resumo</h2>
+    </div>
+    <p>O JavaScript do formulário organiza-se em 5 grupos de funções:</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Função</th><th>Descrição</th></tr>
+        <tr><td><code>atualizarCurso()</code></td><td>Mostra o cartão de informação ao selecionar um curso</td></tr>
+        <tr><td><code>selectRadio(el, name)</code></td><td>Ativa visualmente um radio card</td></tr>
+        <tr><td><code>val(id, errId, check)</code></td><td>Valida um campo e mostra/esconde erro</td></tr>
+        <tr><td><code>validateStep1/2()</code></td><td>Valida todos os campos de cada passo</td></tr>
+        <tr><td><code>nextStep(from)</code></td><td>Avança para o passo seguinte após validação</td></tr>
+        <tr><td><code>prevStep(to)</code></td><td>Volta ao passo anterior</td></tr>
+        <tr><td><code>preencherResumo()</code></td><td>Preenche o passo 3 com os dados inseridos</td></tr>
+        <tr><td><code>submeterInscricao()</code></td><td>Valida termos e mostra o ecrã de sucesso</td></tr>
+        <tr><td><code>limparFormulario()</code></td><td>Reinicia todos os campos com confirmação</td></tr>
+        <tr><td><code>novaInscricao()</code></td><td>Reinicia o formulário para uma nova inscrição</td></tr>
+        <tr><td><code>imprimirPagina()</code></td><td>Chama <code>window.print()</code></td></tr>
+      </table>
+    </div>
+
+    <p>A função de resumo do passo 3 lê os valores dos campos e injeta-os nos elementos do resumo:</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">JavaScript — Preencher o resumo</span></div>
+      <pre><span class="kw">function</span> <span class="fn">preencherResumo</span>() {
+  <span class="kw">const</span> nome = document.<span class="fn">getElementById</span>(<span class="str">'nome'</span>).value
+             + <span class="str">' '</span>
+             + document.<span class="fn">getElementById</span>(<span class="str">'apelido'</span>).value;
+
+  <span class="kw">const</span> cursoEl   = document.<span class="fn">getElementById</span>(<span class="str">'curso'</span>);
+  <span class="kw">const</span> cursoNome = cursoEl.options[cursoEl.selectedIndex]?.text;
+
+  <span class="kw">const</span> turno = document
+    .<span class="fn">querySelector</span>(<span class="str">'input[name="turno"]:checked'</span>)?.value || <span class="str">'—'</span>;
+
+  <span class="kw">const</span> nasc = document.<span class="fn">getElementById</span>(<span class="str">'nascimento'</span>).value;
+
+  <span class="cm">// Injeta nos elementos do resumo</span>
+  document.<span class="fn">getElementById</span>(<span class="str">'sum-nome'</span>).textContent   = nome;
+  document.<span class="fn">getElementById</span>(<span class="str">'sum-email'</span>).textContent  = email;
+  document.<span class="fn">getElementById</span>(<span class="str">'sum-nasc'</span>).textContent   =
+    nasc ? <span class="kw">new</span> <span class="fn">Date</span>(nasc).<span class="fn">toLocaleDateString</span>(<span class="str">'pt-PT'</span>) : <span class="str">'—'</span>;
+  document.<span class="fn">getElementById</span>(<span class="str">'sum-curso'</span>).textContent  = cursoNome;
+  document.<span class="fn">getElementById</span>(<span class="str">'sum-turno'</span>).textContent  = turno;
+}</pre>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 10. Ecrã de Sucesso -->
+  <div class="section" id="sucesso">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <h2>Ecrã de Sucesso e Referência</h2>
+    </div>
+    <p>Após a submissão, o formulário é ocultado e aparece um ecrã de confirmação com animação CSS e um número de referência gerado aleatoriamente.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">JavaScript — Gerar referência e mostrar sucesso</span></div>
+      <pre><span class="kw">function</span> <span class="fn">submeterInscricao</span>() {
+  <span class="cm">// Verifica os termos e condições</span>
+  <span class="kw">if</span> (!document.<span class="fn">getElementById</span>(<span class="str">'chk-termos'</span>).checked) {
+    document.<span class="fn">getElementById</span>(<span class="str">'err-termos'</span>).classList.<span class="fn">add</span>(<span class="str">'show'</span>);
+    <span class="kw">return</span>;
+  }
+
+  <span class="cm">// Gerar referência única: TA-2025-XXXXX</span>
+  <span class="kw">const</span> ref = <span class="str">'TA-'</span>
+    + <span class="kw">new</span> <span class="fn">Date</span>().<span class="fn">getFullYear</span>()
+    + <span class="str">'-'</span>
+    + String(Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * <span class="num">90000</span>) + <span class="num">10000</span>);
+
+  <span class="cm">// Preencher o ecrã de sucesso</span>
+  document.<span class="fn">getElementById</span>(<span class="str">'suc-ref'</span>).textContent  = ref;
+  document.<span class="fn">getElementById</span>(<span class="str">'suc-data'</span>).textContent =
+    <span class="kw">new</span> <span class="fn">Date</span>().<span class="fn">toLocaleString</span>(<span class="str">'pt-PT'</span>);
+
+  <span class="cm">// Esconder o formulário e mostrar o ecrã final</span>
+  document.<span class="fn">getElementById</span>(<span class="str">'main-form'</span>).classList.<span class="fn">add</span>(<span class="str">'hidden'</span>);
+  document.<span class="fn">getElementById</span>(<span class="str">'success-screen'</span>).style.display = <span class="str">'block'</span>;
+}</pre>
+    </div>
+
+    <p>O ícone de visto verde tem uma animação de entrada definida em CSS:</p>
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">CSS — Animação do ecrã de sucesso</span></div>
+      <pre><span class="fn">.check-anim</span> {
+  <span class="attr">animation</span>: <span class="kw">popIn</span> <span class="num">.4s</span> cubic-bezier(<span class="num">.34, 1.56, .64, 1</span>);
+}
+
+<span class="fn">@keyframes popIn</span> {
+  from { <span class="attr">transform</span>: <span class="kw">scale</span>(<span class="num">.5</span>); <span class="attr">opacity</span>: <span class="num">0</span>; }
+  to   { <span class="attr">transform</span>: <span class="kw">scale</span>(<span class="num">1</span>);  <span class="attr">opacity</span>: <span class="num">1</span>; }
+}
+<span class="cm">/* cubic-bezier(.34,1.56,.64,1) cria um efeito "elástico"
+   — o círculo ultrapassa ligeiramente o tamanho final
+   antes de estabilizar */</span></pre>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 11. Responsivo -->
+  <div class="section" id="responsivo">
+    <div class="section-header">
+      <div class="section-num">11</div>
+      <h2>Design Responsivo</h2>
+    </div>
+    <p>O formulário adapta-se a ecrãs pequenos com uma <strong>media query</strong> que altera o layout de 2 colunas para 1 coluna em dispositivos com largura inferior a 560px.</p>
+
+    <div class="code-block">
+      <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-lang">CSS — Media query para mobile</span></div>
+      <pre><span class="fn">@media</span> (max-width: <span class="num">560px</span>) {
+  <span class="cm">/* Grelha de 2 colunas passa para 1 */</span>
+  <span class="fn">.form-row</span> {
+    <span class="attr">grid-template-columns</span>: <span class="num">1fr</span>;
+  }
+
+  <span class="cm">/* Menos padding nos ecrãs pequenos */</span>
+  <span class="fn">.card-body</span> {
+    <span class="attr">padding</span>: <span class="num">1.25rem</span>;
+  }
+
+  <span class="cm">/* Botões a 100% de largura */</span>
+  <span class="fn">.btn-row</span> {
+    <span class="attr">justify-content</span>: stretch;
+  }
+  <span class="fn">.btn</span> {
+    <span class="attr">flex</span>: <span class="num">1</span>;
+    <span class="attr">justify-content</span>: center;
+  }
+}</pre>
+    </div>
+
+    <div class="callout tip">
+      <span class="callout-icon">✅</span>
+      <span>O título principal usa <code>clamp()</code> para escalar automaticamente o tamanho da fonte entre um mínimo e um máximo conforme a largura do ecrã: <code>font-size: clamp(22px, 4vw, 32px)</code>.</span>
+    </div>
+
+    <div class="callout warn">
+      <span class="callout-icon">⚠️</span>
+      <span>Este formulário é um protótipo <strong>frontend</strong>. Numa aplicação real, os dados seriam enviados para um servidor PHP com <code>action="processar.php" method="POST"</code>, validados novamente no servidor e guardados numa base de dados MySQL com <strong>prepared statements</strong> para evitar SQL Injection.</span>
+    </div>
+  </div>
+
+  <hr>
+  <p style="text-align:center; font-size:13px; color:var(--muted); padding-bottom:1rem">
+    Documento criado para explicar o uso de formulários em HTML5 &nbsp;·&nbsp; HTML + CSS + JavaScript
+  </p>
+
+</main>
+</div>
+
+<script>
+// Active nav link on scroll
+const links = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('.section, .hero');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) cur = s.id;
+  });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+  });
+}, { passive: true });
+</script>
+<a href="index.html">↑ Índice</a>
+</body>
+</html>

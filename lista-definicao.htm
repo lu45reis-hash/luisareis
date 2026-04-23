@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Listas de definição em HTML: dl, dt e dd, com exemplos práticos." />
+
+  <title>HTML – Listas de definição</title>
+  <link rel="stylesheet" href="curso.css" />
+  
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">L</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Listas de definição</span>
+        <span aria-hidden="true">• Listas de definição</span>
+        <span aria-hidden="true">• Listas de definição</span>
+        <span aria-hidden="true">• Listas de definição</span>
+        <span aria-hidden="true">• Listas de definição</span>
+        <span aria-hidden="true">• Listas de definição</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER MODERNO -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card prose">
+
+      <h2 class="section-title">Listas de definição</h2>
+
+      <p>
+        Em HTML existem três tipos de listas mais comuns:
+      </p>
+
+      <ul>
+        <li><strong>Listas numeradas</strong> (<code>&lt;ol&gt;</code>)</li>
+        <li><strong>Listas não numeradas</strong> (<code>&lt;ul&gt;</code>)</li>
+        <li><strong>Listas de definição</strong> (<code>&lt;dl&gt;</code>)</li>
+      </ul>
+
+      <p>
+        NOTA: A lista de definição, que é ideal para criar um pequeno
+        <strong>glossário</strong> (termo + explicação) ou uma lista de pares “conceito + descrição”.
+      </p>
+
+      <h3>Estrutura</h3>
+      <p>
+        Uma lista de definição usa:
+      </p>
+
+      <ul>
+        <li><code>&lt;dl&gt;</code> — a lista (definition list)</li>
+        <li><code>&lt;dt&gt;</code> — o termo (definition term)</li>
+        <li><code>&lt;dd&gt;</code> — a definição/descrição (definition description)</li>
+      </ul>
+
+      <div class="codeblock" aria-label="Exemplo básico de lista de definição">
+        <code>
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;Linguagem de marcação usada para estruturar páginas Web.&lt;/dd&gt;
+
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Linguagem usada para definir estilos (cores, tamanhos, layout).&lt;/dd&gt;
+&lt;/dl&gt;
+        </code>
+      </div>
+
+      <p class="hint">
+        Nota: não é para “tabular texto à direita”; hoje isso faz-se com CSS.
+        O objetivo do <code>&lt;dl&gt;</code> é representar <strong>termos e descrições</strong>.
+      </p>
+
+      <h3>Exemplo prático (glossário)</h3>
+
+      <dl aria-label="Glossário básico de Web">
+        <dt><strong>URL</strong></dt>
+        <dd>Endereço de um recurso na Internet (página, imagem, ficheiro, etc.).</dd>
+
+        <dt><strong>Link</strong></dt>
+        <dd>Hiperligação que permite saltar para outra página ou secção.</dd>
+
+        <dt><strong>Atributo</strong></dt>
+        <dd>Informação extra numa tag HTML, por exemplo <code>href</code> em <code>&lt;a&gt;</code>.</dd>
+      </dl>
+
+      <p>
+        Podes ver um <a href="exemplo/listasdefinicao.htm">exemplo</a> baseado no código desta lição.
+      </p>
+
+      <hr class="sep" />
+
+      <!-- NAVEGAÇÃO -->
+      
+
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="links-name.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="lista-sem-numero.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Como definir tipos, tamanhos e cores de letra em HTML5 (com CSS)." />
+  <title>HTML – Tipos e tamanhos de fonte</title>
+
+  <link rel="stylesheet" href="curso.css" />
+
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">T</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Tipos e tamanhos de fonte</span>
+        <span aria-hidden="true">• Tipos e tamanhos de fonte</span>
+        <span aria-hidden="true">• Tipos e tamanhos de fonte</span>
+        <span aria-hidden="true">• Tipos e tamanhos de fonte</span>
+        <span aria-hidden="true">• Tipos e tamanhos de fonte</span>
+        <span aria-hidden="true">• Tipos e tamanhos de fonte</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <main id="conteudo">
+    <div class="container">
+      <article class="card">
+        
+
+        <p>
+          Em HTML antigo usava-se a tag <code>&lt;font&gt;</code> para alterar <strong>tipo</strong>,
+          <strong>tamanho</strong> e <strong>cor</strong> do texto. Em HTML5, o <code>&lt;font&gt;</code>
+          é <strong>obsoleto</strong>. O recomendado é usar <strong>CSS</strong>.
+        </p>
+
+        <div class="grid">
+          <section class="panel">
+            <h3>Antigo (não recomendado)</h3>
+            <pre><code>&lt;font face="Arial" size="7" color="#008000"&gt;
+  Texto qualquer
+&lt;/font&gt;</code></pre>
+          </section>
+
+          <section class="panel">
+            <h3>Atual (recomendado)</h3>
+            <pre><code>/* no CSS */
+.titulo{
+  font-family: Arial, system-ui, sans-serif;
+  font-size: 2rem;
+  color: #008000;
+}
+
+/* no HTML */
+&lt;p class="titulo"&gt;Texto qualquer&lt;/p&gt;</code></pre>
+          </section>
+        </div>
+
+        <h3>O que controlas com CSS</h3>
+        <ul>
+          <li><code>font-family</code> — tipo de letra (ex.: system-ui, Arial, serif…)</li>
+          <li><code>font-size</code> — tamanho (ex.: <code>16px</code>, <code>1rem</code>, <code>2rem</code>)</li>
+          <li><code>color</code> — cor do texto</li>
+          <li><code>font-weight</code>, <code>font-style</code>, <code>text-decoration</code> — negrito, itálico, sublinhado…</li>
+        </ul>
+
+        <div class="note">
+          <strong>Boa prática:</strong> evita “pintar” cada palavra com estilos diferentes.
+          Em projetos reais, cria classes (ex.: <code>.titulo</code>, <code>.destaque</code>) e reutiliza.
+          Fica consistente e mais fácil de manter.
+        </div>
+
+        <h3>Pequeno exemplo visual</h3>
+        <div class="demo">
+          <p class="big" style="font-family: system-ui, Arial, sans-serif; color:#0f172a;">
+            Texto com aspeto moderno (system-ui)
+          </p>
+          <p class="small">
+            Podes controlar tudo com CSS: tamanho, cor, espaçamento e tipografia.
+          </p>
+        </div>
+
+        <p style="margin-top:14px">
+          Vê um <a href="exemplo/fonte.htm">exemplo</a> com estilos (idealmente atualizado com CSS).
+        </p>
+
+        
+      
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="background.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="tabelas.htm">Próximo →</a>
+      </nav>
+    </article>
+    </div>
+  </main>
+
+  <!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

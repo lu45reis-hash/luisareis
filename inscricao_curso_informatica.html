@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscrição em Curso de Formação</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #f4f6fb;
+  --surface:  #ffffff;
+  --primary:  #2563eb;
+  --primary-d:#1d4ed8;
+  --primary-l:#eff6ff;
+  --accent:   #0ea5e9;
+  --success:  #16a34a;
+  --success-l:#f0fdf4;
+  --danger:   #dc2626;
+  --danger-l: #fef2f2;
+  --text:     #111827;
+  --muted:    #6b7280;
+  --border:   #e5e7eb;
+  --radius:   12px;
+  --shadow:   0 4px 24px rgba(0,0,0,.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+
+/* ── Header ── */
+.page-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+}
+.logo-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary); color: #fff;
+  font-size: 13px; font-weight: 700; letter-spacing: .04em;
+  padding: 6px 16px; border-radius: 20px; margin-bottom: 1.25rem;
+}
+.logo-badge svg { width:16px; height:16px; }
+.page-header h1 {
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 700; color: var(--text); line-height: 1.25;
+  margin-bottom: .5rem;
+}
+.page-header p { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+/* ── Card ── */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  max-width: 680px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.card-header {
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 60%, #0ea5e9 100%);
+  padding: 1.75rem 2rem;
+  color: #fff;
+  display: flex; align-items: center; gap: 1rem;
+}
+.card-header-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.card-header-icon svg { width: 26px; height: 26px; }
+.card-header h2 { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.card-header p  { font-size: 13px; opacity: .85; }
+
+.card-body { padding: 2rem; }
+
+/* ── Progress steps ── */
+.steps {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 2rem;
+}
+.step {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+  flex: 1;
+}
+.step.active   { color: var(--primary); }
+.step.done     { color: var(--success); }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--surface); flex-shrink: 0;
+}
+.step.active .step-num { border-color: var(--primary); color: var(--primary); background: var(--primary-l); }
+.step.done   .step-num { border-color: var(--success); background: var(--success); color: #fff; }
+.step-line { flex: 1; height: 2px; background: var(--border); margin: 0 6px; }
+.step.done + .step-line,
+.step.done ~ .step .step-line { background: var(--success); }
+
+/* ── Section title ── */
+.section-title {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--primary);
+  margin: 1.5rem 0 1rem; padding-bottom: .5rem;
+  border-bottom: 2px solid var(--primary-l);
+  display: flex; align-items: center; gap: 6px;
+}
+.section-title svg { width: 15px; height: 15px; }
+
+/* ── Form elements ── */
+.form-row  { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-full { grid-column: 1 / -1; }
+
+.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: .1rem; }
+label {
+  font-size: 13px; font-weight: 600; color: #374151;
+  display: flex; align-items: center; gap: 4px;
+}
+label .req { color: var(--danger); }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  padding: 10px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #f9fafb;
+  color: var(--text);
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  width: 100%;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+input.error, select.error, textarea.error {
+  border-color: var(--danger);
+  background: var(--danger-l);
+}
+select { cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  padding-right: 36px;
+}
+textarea { resize: vertical; min-height: 80px; }
+.field-hint { font-size: 11px; color: var(--muted); }
+.field-error { font-size: 11px; color: var(--danger); display: none; }
+.field-error.show { display: block; }
+
+/* ── Course card preview ── */
+.course-preview {
+  display: none;
+  margin-top: .75rem;
+  background: var(--primary-l);
+  border: 1.5px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  gap: .5rem;
+  flex-direction: column;
+}
+.course-preview.show { display: flex; }
+.course-preview-title { font-size: 14px; font-weight: 700; color: #1d4ed8; }
+.course-meta { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip {
+  font-size: 11px; font-weight: 600; padding: 3px 10px;
+  border-radius: 20px; background: #dbeafe; color: #1e40af;
+}
+.chip.green { background: #dcfce7; color: #15803d; }
+.chip.amber { background: #fef9c3; color: #854d0e; }
+.chip.sky   { background: #e0f2fe; color: #0369a1; }
+
+/* ── Modalidade radio ── */
+.radio-group { display: flex; gap: .75rem; flex-wrap: wrap; }
+.radio-card {
+  flex: 1; min-width: 130px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px; padding: .75rem 1rem;
+  cursor: pointer; transition: all .15s;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.radio-card:hover { border-color: var(--primary); background: var(--primary-l); }
+.radio-card input { display: none; }
+.radio-card.selected { border-color: var(--primary); background: var(--primary-l); }
+.radio-card .rc-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.radio-card .rc-sub   { font-size: 11px; color: var(--muted); }
+.radio-card.selected .rc-title { color: var(--primary); }
+
+/* ── Checkbox ── */
+.check-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: #374151; cursor: pointer; line-height: 1.5;
+}
+.check-row input[type="checkbox"] {
+  width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+  accent-color: var(--primary); cursor: pointer;
+}
+
+/* ── Buttons ── */
+.btn-row {
+  display: flex; gap: .75rem; justify-content: flex-end;
+  margin-top: 1.75rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.btn {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px; font-weight: 700;
+  padding: 11px 22px; border-radius: 9px;
+  cursor: pointer; border: none; transition: all .18s;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.btn-ghost {
+  background: transparent; color: var(--muted);
+  border: 1.5px solid var(--border);
+}
+.btn-ghost:hover { background: var(--bg); color: var(--text); border-color: #9ca3af; }
+.btn-outline {
+  background: transparent; color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+.btn-outline:hover { background: var(--primary-l); }
+.btn-primary {
+  background: var(--primary); color: #fff;
+  border: 1.5px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(37,99,235,.3);
+}
+.btn-primary:hover { background: var(--primary-d); box-shadow: 0 4px 14px rgba(37,99,235,.4); transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+.btn-success {
+  background: var(--success); color: #fff;
+  border: 1.5px solid var(--success);
+  box-shadow: 0 2px 8px rgba(22,163,74,.3);
+}
+.btn-success:hover { background: #15803d; box-shadow: 0 4px 14px rgba(22,163,74,.4); transform: translateY(-1px); }
+.btn-danger-outline {
+  background: transparent; color: var(--danger);
+  border: 1.5px solid var(--danger);
+}
+.btn-danger-outline:hover { background: var(--danger-l); }
+
+/* ── Success screen ── */
+#success-screen {
+  display: none; text-align: center; padding: 2.5rem 2rem;
+}
+#success-screen .check-anim {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--success-l); border: 3px solid var(--success);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem; animation: popIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn {
+  from { transform: scale(.5); opacity: 0; }
+  to   { transform: scale(1);  opacity: 1; }
+}
+#success-screen h2 { font-size: 22px; font-weight: 700; margin-bottom: .5rem; color: var(--success); }
+#success-screen p  { font-size: 14px; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.6; }
+.summary-box {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.25rem; text-align: left;
+  margin-bottom: 1.5rem;
+}
+.summary-row { display: flex; justify-content: space-between; align-items: baseline; padding: .35rem 0; border-bottom: 1px dashed var(--border); font-size: 13px; }
+.summary-row:last-child { border-bottom: none; }
+.summary-row .sk { color: var(--muted); }
+.summary-row .sv { font-weight: 600; color: var(--text); text-align: right; max-width: 55%; }
+
+/* ── Utility ── */
+.divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+.hidden  { display: none !important; }
+
+@media (max-width: 560px) {
+  .form-row { grid-template-columns: 1fr; }
+  .card-body { padding: 1.25rem; }
+  .btn-row { justify-content: stretch; }
+  .btn { flex: 1; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="logo-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    Formulários
+  </div>
+  <h1>Inscrição em Curso de Formação</h1>
+  <p>Preenche o formulário abaixo para te inscreveres num dos nossos cursos de informática. O processo demora menos de 2 minutos.</p>
+</header>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422A12 12 0 0112 21a12 12 0 01-6.16-3.422L12 14z"/></svg>
+    </div>
+    <div>
+      <h2>Formulário de Inscrição</h2>
+      <p>Cursos de Informática &amp; Tecnologia — 2025/2026</p>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <!-- Steps -->
+    <div class="steps" id="steps-bar">
+      <div class="step active" id="step-ind-1">
+        <div class="step-num" id="sn1">1</div>
+        <span>Dados pessoais</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step-ind-2">
+        <div class="step-num" id="sn2">2</div>
+        <span>Curso</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step-ind-3">
+        <div class="step-num" id="sn3">3</div>
+        <span>Confirmação</span>
+      </div>
+    </div>
+
+    <form id="main-form" novalidate>
+
+      <!-- ======== STEP 1 — Dados pessoais ======== -->
+      <div id="step-1">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Dados Pessoais
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome <span class="req">*</span></label>
+            <input type="text" id="nome" placeholder="ex: Luisa Reis" autocomplete="given-name">
+            <span class="field-error" id="err-nome">Por favor indica o teu nome.</span>
+          </div>
+          <div class="form-group">
+            <label>Apelido <span class="req">*</span></label>
+            <input type="text" id="apelido" placeholder="ex: Reis" autocomplete="family-name">
+            <span class="field-error" id="err-apelido">Por favor indica o teu apelido.</span>
+          </div>
+          <div class="form-group">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="ex: luisa@email.com" autocomplete="email">
+            <span class="field-error" id="err-email">Introduz um email válido.</span>
+          </div>
+          <div class="form-group">
+            <label>Telemóvel <span class="req">*</span></label>
+            <input type="tel" id="telemovel" placeholder="ex: 912 345 678" autocomplete="tel">
+            <span class="field-error" id="err-telemovel">Introduz um número de contacto.</span>
+          </div>
+          <div class="form-group">
+            <label>Data de Nascimento <span class="req">*</span></label>
+            <input type="date" id="nascimento">
+            <span class="field-error" id="err-nascimento">Indica a tua data de nascimento.</span>
+          </div>
+          <div class="form-group">
+            <label>NIF</label>
+            <input type="text" id="nif" placeholder="ex: 123456789" maxlength="9">
+            <span class="field-hint">Opcional — necessário para fatura.</span>
+          </div>
+          <div class="form-group form-full">
+            <label>Habilitações académicas <span class="req">*</span></label>
+            <select id="habilitacoes">
+              <option value="">— Seleciona —</option>
+              <option>Ensino Básico (9.º ano)</option>
+              <option>Ensino Secundário (12.º ano)</option>
+              <option>Licenciatura</option>
+              <option>Mestrado</option>
+              <option>Doutoramento</option>
+              <option>Outro</option>
+            </select>
+            <span class="field-error" id="err-hab">Seleciona as tuas habilitações.</span>
+          </div>
+          <div class="form-group form-full">
+            <label>Situação profissional</label>
+            <select id="situacao">
+              <option value="">— Seleciona (opcional) —</option>
+              <option>Empregado por conta de outrem</option>
+              <option>Trabalhador independente</option>
+              <option>Desempregado</option>
+              <option>Estudante</option>
+              <option>Reformado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" onclick="limparFormulario()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+            Limpar
+          </button>
+          <button type="button" class="btn btn-primary" onclick="nextStep(1)">
+            Seguinte
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ======== STEP 2 — Curso ======== -->
+      <div id="step-2" class="hidden">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Escolha do Curso
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-full">
+            <label>Curso <span class="req">*</span></label>
+            <select id="curso" onchange="atualizarCurso()">
+              <option value="">— Seleciona um curso —</option>
+              <optgroup label="🌐 Desenvolvimento Web">
+                <option value="web-fund">Fundamentos de HTML, CSS e JavaScript</option>
+                <option value="web-php">Desenvolvimento Web com PHP e MySQL</option>
+                <option value="web-react">React.js — Desenvolvimento Frontend Moderno</option>
+                <option value="web-node">Node.js e APIs REST</option>
+                <option value="web-fullstack">Full Stack Web Development (Bootcamp)</option>
+              </optgroup>
+              <optgroup label="🖥 Sistemas e Redes">
+                <option value="sys-linux">Administração de Sistemas Linux</option>
+                <option value="sys-win">Windows Server — Administração Avançada</option>
+                <option value="sys-redes">Redes e Infraestrutura — Cisco CCNA Prep</option>
+                <option value="sys-cloud">Cloud Computing — Azure / AWS Fundamentals</option>
+              </optgroup>
+              <optgroup label="🔒 Cibersegurança">
+                <option value="sec-intro">Introdução à Cibersegurança</option>
+                <option value="sec-ethical">Ethical Hacking e Pentesting</option>
+                <option value="sec-soc">SOC Analyst — Segurança Operacional</option>
+              </optgroup>
+              <optgroup label="📊 Dados e IA">
+                <option value="data-python">Python para Análise de Dados</option>
+                <option value="data-sql">SQL e Bases de Dados Relacionais</option>
+                <option value="data-ml">Machine Learning com Python</option>
+                <option value="data-powerbi">Power BI — Business Intelligence</option>
+              </optgroup>
+              <optgroup label="📱 Mobile e Design">
+                <option value="mob-flutter">Desenvolvimento Mobile com Flutter</option>
+                <option value="mob-ux">UX/UI Design — Figma e Prototipagem</option>
+              </optgroup>
+              <optgroup label="💼 Certificações">
+                <option value="cert-comptia">CompTIA A+ — Suporte Técnico</option>
+                <option value="cert-itil">ITIL 4 Foundation</option>
+                <option value="cert-pmp">Project Management (PMI/Scrum)</option>
+              </optgroup>
+            </select>
+            <span class="field-error" id="err-curso">Por favor seleciona um curso.</span>
+            <div class="course-preview" id="course-preview">
+              <div class="course-preview-title" id="prev-titulo"></div>
+              <div class="course-meta" id="prev-meta"></div>
+              <div style="font-size:12px;color:#374151" id="prev-desc"></div>
+            </div>
+          </div>
+
+          <div class="form-group form-full">
+            <label>Turno preferencial <span class="req">*</span></label>
+            <div class="radio-group" id="turno-group">
+              <label class="radio-card" onclick="selectRadio(this,'turno')">
+                <input type="radio" name="turno" value="Manhã">
+                <span class="rc-title">🌅 Manhã</span>
+                <span class="rc-sub">09h00 – 13h00</span>
+              </label>
+              <label class="radio-card" onclick="selectRadio(this,'turno')">
+                <input type="radio" name="turno" value="Tarde">
+                <span class="rc-title">☀️ Tarde</span>
+                <span class="rc-sub">14h00 – 18h00</span>
+              </label>
+              <label class="radio-card" onclick="selectRadio(this,'turno')">
+                <input type="radio" name="turno" value="Noite">
+                <span class="rc-title">🌙 Noite</span>
+                <span class="rc-sub">19h00 – 22h30</span>
+              </label>
+              <label class="radio-card" onclick="selectRadio(this,'turno')">
+                <input type="radio" name="turno" value="Online">
+                <span class="rc-title">💻 Online</span>
+                <span class="rc-sub">Horário flexível</span>
+              </label>
+            </div>
+            <span class="field-error" id="err-turno">Seleciona um turno.</span>
+          </div>
+
+          <div class="form-group form-full">
+            <label>Modalidade <span class="req">*</span></label>
+            <div class="radio-group" id="modal-group">
+              <label class="radio-card" onclick="selectRadio(this,'modalidade')">
+                <input type="radio" name="modalidade" value="Presencial">
+                <span class="rc-title">🏫 Presencial</span>
+                <span class="rc-sub">Nas nossas instalações</span>
+              </label>
+              <label class="radio-card" onclick="selectRadio(this,'modalidade')">
+                <input type="radio" name="modalidade" value="E-learning">
+                <span class="rc-title">🌐 E-learning</span>
+                <span class="rc-sub">100% online, assíncrono</span>
+              </label>
+              <label class="radio-card" onclick="selectRadio(this,'modalidade')">
+                <input type="radio" name="modalidade" value="Híbrido">
+                <span class="rc-title">🔀 Híbrido</span>
+                <span class="rc-sub">Presencial + online</span>
+              </label>
+            </div>
+            <span class="field-error" id="err-modal">Seleciona uma modalidade.</span>
+          </div>
+
+          <div class="form-group">
+            <label>Data de início pretendida</label>
+            <input type="date" id="data-inicio">
+          </div>
+          <div class="form-group">
+            <label>Como nos conheceu?</label>
+            <select id="origem">
+              <option value="">— Seleciona (opcional) —</option>
+              <option>Pesquisa na Internet</option>
+              <option>Redes sociais</option>
+              <option>Recomendação de amigo/colega</option>
+              <option>Email / Newsletter</option>
+              <option>Cartaz / Flyer</option>
+              <option>Centro de Emprego</option>
+              <option>Outro</option>
+            </select>
+          </div>
+
+          <div class="form-group form-full">
+            <label>Observações / Pedidos especiais</label>
+            <textarea id="obs" placeholder="Dificuldades especiais, necessidades de acessibilidade, questões de financiamento IEFP, etc."></textarea>
+          </div>
+
+          <div class="form-group form-full" style="gap:.75rem">
+            <label class="check-row">
+              <input type="checkbox" id="chk-financiamento">
+              Tenho interesse em financiamento pelo IEFP / formação comparticipada
+            </label>
+            <label class="check-row">
+              <input type="checkbox" id="chk-newsletter">
+              Quero receber informação sobre novos cursos e promoções
+            </label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" onclick="prevStep(2)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            Anterior
+          </button>
+          <button type="button" class="btn btn-danger-outline" onclick="limparFormulario()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+            Limpar
+          </button>
+          <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+            Rever inscrição
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ======== STEP 3 — Confirmação ======== -->
+      <div id="step-3" class="hidden">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Revisão e Confirmação
+        </div>
+
+        <div class="summary-box" id="summary-pessoal">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--primary);margin-bottom:.75rem">Dados Pessoais</div>
+          <div class="summary-row"><span class="sk">Nome completo</span><span class="sv" id="sum-nome">—</span></div>
+          <div class="summary-row"><span class="sk">Email</span><span class="sv" id="sum-email">—</span></div>
+          <div class="summary-row"><span class="sk">Telemóvel</span><span class="sv" id="sum-tel">—</span></div>
+          <div class="summary-row"><span class="sk">Data de nascimento</span><span class="sv" id="sum-nasc">—</span></div>
+          <div class="summary-row"><span class="sk">Habilitações</span><span class="sv" id="sum-hab">—</span></div>
+        </div>
+
+        <div class="summary-box" id="summary-curso">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--primary);margin-bottom:.75rem">Curso Selecionado</div>
+          <div class="summary-row"><span class="sk">Curso</span><span class="sv" id="sum-curso">—</span></div>
+          <div class="summary-row"><span class="sk">Turno</span><span class="sv" id="sum-turno">—</span></div>
+          <div class="summary-row"><span class="sk">Modalidade</span><span class="sv" id="sum-modal">—</span></div>
+          <div class="summary-row"><span class="sk">Início pretendido</span><span class="sv" id="sum-inicio">—</span></div>
+          <div class="summary-row"><span class="sk">Financiamento IEFP</span><span class="sv" id="sum-fin">—</span></div>
+        </div>
+
+        <div class="form-group">
+          <label class="check-row" style="align-items:flex-start">
+            <input type="checkbox" id="chk-termos" style="margin-top:3px">
+            <span>Declaro que li e aceito os <strong>Termos e Condições</strong> e a <strong>Política de Privacidade</strong> da TechAcademy. Autorizo o tratamento dos meus dados pessoais para fins de gestão da inscrição. <span class="req">*</span></span>
+          </label>
+          <span class="field-error" id="err-termos">Tens de aceitar os Termos e Condições.</span>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" onclick="prevStep(3)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            Alterar dados
+          </button>
+          <button type="button" class="btn btn-outline" onclick="imprimirPagina()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Imprimir
+          </button>
+          <button type="button" class="btn btn-success" onclick="submeterInscricao()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+            Confirmar Inscrição
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- ======== SUCCESSO ======== -->
+    <div id="success-screen">
+      <div class="check-anim">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg>
+      </div>
+      <h2>Inscrição Submetida! 🙏🏻</h2>
+      <p>A tua inscrição foi registada com sucesso.<br>Receberás um email de confirmação em breve com os próximos passos.</p>
+      <div class="summary-box">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--success);margin-bottom:.75rem">Resumo da Inscrição</div>
+        <div class="summary-row"><span class="sk">Referência</span><span class="sv" id="suc-ref" style="color:var(--primary);font-family:'DM Mono',monospace">—</span></div>
+        <div class="summary-row"><span class="sk">Nome</span><span class="sv" id="suc-nome">—</span></div>
+        <div class="summary-row"><span class="sk">Curso</span><span class="sv" id="suc-curso">—</span></div>
+        <div class="summary-row"><span class="sk">Modalidade</span><span class="sv" id="suc-modal">—</span></div>
+        <div class="summary-row"><span class="sk">Data de submissão</span><span class="sv" id="suc-data">—</span></div>
+      </div>
+      <div class="btn-row" style="justify-content:center;border-top:none;padding-top:0">
+        <button class="btn btn-outline" onclick="imprimirPagina()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir comprovativo
+        </button>
+        <button class="btn btn-primary" onclick="novaInscricao()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          Nova inscrição
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /card-body -->
+</div><!-- /card -->
+
+<script>
+// ── Course data ──
+const cursos = {
+  'web-fund':     { titulo:'Fundamentos de HTML, CSS e JavaScript', horas:'60h', nivel:'Iniciante',    preco:'290€', desc:'Aprende as tecnologias base da web moderna com projetos práticos.' },
+  'web-php':      { titulo:'Desenvolvimento Web com PHP e MySQL',  horas:'80h', nivel:'Intermédio',   preco:'350€', desc:'Cria aplicações dinâmicas com base de dados e formulários.' },
+  'web-react':    { titulo:'React.js — Frontend Moderno',          horas:'70h', nivel:'Intermédio',   preco:'390€', desc:'Componentes, hooks, estado e integração com APIs REST.' },
+  'web-node':     { titulo:'Node.js e APIs REST',                  horas:'60h', nivel:'Intermédio',   preco:'350€', desc:'Construção de APIs robustas com Express, JWT e MongoDB.' },
+  'web-fullstack':{ titulo:'Full Stack Web Development (Bootcamp)',horas:'200h',nivel:'Completo',     preco:'890€', desc:'Do HTML ao deploy — formação intensiva de 5 meses.' },
+  'sys-linux':    { titulo:'Administração de Sistemas Linux',      horas:'70h', nivel:'Intermédio',   preco:'380€', desc:'Shell, gestão de utilizadores, serviços e segurança.' },
+  'sys-win':      { titulo:'Windows Server — Adm. Avançada',      horas:'60h', nivel:'Intermédio',   preco:'360€', desc:'Active Directory, GPOs, Hyper-V e PowerShell.' },
+  'sys-redes':    { titulo:'Redes e Infraestrutura — Cisco CCNA',  horas:'90h', nivel:'Intermédio',   preco:'420€', desc:'Routing, switching, VLANs e preparação para CCNA.' },
+  'sys-cloud':    { titulo:'Cloud — Azure / AWS Fundamentals',     horas:'50h', nivel:'Iniciante',    preco:'320€', desc:'Conceitos de nuvem, serviços principais e certificação.' },
+  'sec-intro':    { titulo:'Introdução à Cibersegurança',         horas:'50h', nivel:'Iniciante',    preco:'280€', desc:'Fundamentos de segurança, ameaças, criptografia e boas práticas.' },
+  'sec-ethical':  { titulo:'Ethical Hacking e Pentesting',        horas:'80h', nivel:'Avançado',     preco:'480€', desc:'Testes de intrusão, Kali Linux, Metasploit e OWASP Top 10.' },
+  'sec-soc':      { titulo:'SOC Analyst — Seg. Operacional',      horas:'70h', nivel:'Intermédio',   preco:'420€', desc:'SIEM, resposta a incidentes e monitorização de ameaças.' },
+  'data-python':  { titulo:'Python para Análise de Dados',        horas:'60h', nivel:'Iniciante',    preco:'330€', desc:'Pandas, NumPy, matplotlib e análise exploratória.' },
+  'data-sql':     { titulo:'SQL e Bases de Dados Relacionais',    horas:'50h', nivel:'Iniciante',    preco:'260€', desc:'Queries, joins, stored procedures, MySQL e PostgreSQL.' },
+  'data-ml':      { titulo:'Machine Learning com Python',         horas:'90h', nivel:'Avançado',     preco:'520€', desc:'Scikit-learn, regressão, classificação, deep learning intro.' },
+  'data-powerbi': { titulo:'Power BI — Business Intelligence',    horas:'40h', nivel:'Iniciante',    preco:'240€', desc:'Dashboards interativos, DAX, Power Query e relatórios.' },
+  'mob-flutter':  { titulo:'Desenvolvimento Mobile — Flutter',    horas:'80h', nivel:'Intermédio',   preco:'420€', desc:'Dart, widgets, navegação e publicação na App Store / Play.' },
+  'mob-ux':       { titulo:'UX/UI Design — Figma e Prototipagem', horas:'50h', nivel:'Iniciante',    preco:'280€', desc:'Research, wireframes, protótipos e design systems.' },
+  'cert-comptia': { titulo:'CompTIA A+ — Suporte Técnico',        horas:'60h', nivel:'Iniciante',    preco:'290€', desc:'Hardware, SO, troubleshooting e preparação para exame.' },
+  'cert-itil':    { titulo:'ITIL 4 Foundation',                   horas:'24h', nivel:'Todos',        preco:'190€', desc:'Gestão de serviços de TI e preparação para exame ITIL 4.' },
+  'cert-pmp':     { titulo:'Project Management (PMI/Scrum)',      horas:'40h', nivel:'Intermédio',   preco:'280€', desc:'Agile, Scrum, Kanban e fundamentos de gestão de projetos.' },
+};
+
+const nivelCor = { 'Iniciante':'green','Intermédio':'sky','Avançado':'amber','Completo':'amber','Todos':'green' };
+
+function atualizarCurso() {
+  const val = document.getElementById('curso').value;
+  const prev = document.getElementById('course-preview');
+  if (!val || !cursos[val]) { prev.classList.remove('show'); return; }
+  const c = cursos[val];
+  document.getElementById('prev-titulo').textContent = c.titulo;
+  document.getElementById('prev-meta').innerHTML =
+    `<span class="chip">${c.horas}</span>` +
+    `<span class="chip ${nivelCor[c.nivel]||'sky'}">${c.nivel}</span>` +
+    `<span class="chip amber">💶 ${c.preco}</span>`;
+  document.getElementById('prev-desc').textContent = c.desc;
+  prev.classList.add('show');
+}
+
+function selectRadio(el, name) {
+  document.querySelectorAll(`[name="${name}"]`).forEach(r => r.closest('.radio-card').classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+}
+
+// ── Validation ──
+function val(id, errId, check) {
+  const el = document.getElementById(id);
+  const ok = check(el.value);
+  el.classList.toggle('error', !ok);
+  document.getElementById(errId).classList.toggle('show', !ok);
+  return ok;
+}
+
+function validateStep1() {
+  let ok = true;
+  ok &= val('nome',    'err-nome',    v => v.trim().length > 1);
+  ok &= val('apelido', 'err-apelido', v => v.trim().length > 1);
+  ok &= val('email',   'err-email',   v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+  ok &= val('telemovel','err-telemovel', v => v.trim().length >= 9);
+  ok &= val('nascimento','err-nascimento', v => v !== '');
+  ok &= val('habilitacoes','err-hab', v => v !== '');
+  return !!ok;
+}
+
+function validateStep2() {
+  let ok = true;
+  ok &= val('curso','err-curso', v => v !== '');
+  const turno = document.querySelector('input[name="turno"]:checked');
+  document.getElementById('err-turno').classList.toggle('show', !turno);
+  if (!turno) ok = false;
+  const modal = document.querySelector('input[name="modalidade"]:checked');
+  document.getElementById('err-modal').classList.toggle('show', !modal);
+  if (!modal) ok = false;
+  return !!ok;
+}
+
+// ── Steps ──
+function nextStep(from) {
+  if (from === 1 && !validateStep1()) return;
+  if (from === 2 && !validateStep2()) return;
+  if (from === 2) preencherResumo();
+
+  document.getElementById('step-' + from).classList.add('hidden');
+  document.getElementById('step-' + (from+1)).classList.remove('hidden');
+
+  const sn = document.getElementById('sn' + from);
+  sn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg>';
+  document.getElementById('step-ind-' + from).classList.replace('active','done');
+  document.getElementById('step-ind-' + (from+1)).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function prevStep(to) {
+  document.getElementById('step-' + to).classList.add('hidden');
+  document.getElementById('step-' + (to-1)).classList.remove('hidden');
+  document.getElementById('step-ind-' + to).classList.remove('active');
+  document.getElementById('step-ind-' + (to-1)).classList.replace('done','active');
+  const sn = document.getElementById('sn' + (to-1));
+  sn.textContent = to-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function preencherResumo() {
+  const nome    = document.getElementById('nome').value + ' ' + document.getElementById('apelido').value;
+  const cursoEl = document.getElementById('curso');
+  const cursoNome = cursoEl.options[cursoEl.selectedIndex]?.text || '—';
+  const turno   = document.querySelector('input[name="turno"]:checked')?.value || '—';
+  const modal   = document.querySelector('input[name="modalidade"]:checked')?.value || '—';
+  const nasc    = document.getElementById('nascimento').value;
+  const inicio  = document.getElementById('data-inicio').value;
+  const fin     = document.getElementById('chk-financiamento').checked ? 'Sim' : 'Não';
+
+  document.getElementById('sum-nome').textContent  = nome;
+  document.getElementById('sum-email').textContent = document.getElementById('email').value;
+  document.getElementById('sum-tel').textContent   = document.getElementById('telemovel').value;
+  document.getElementById('sum-nasc').textContent  = nasc ? new Date(nasc).toLocaleDateString('pt-PT') : '—';
+  document.getElementById('sum-hab').textContent   = document.getElementById('habilitacoes').value || '—';
+  document.getElementById('sum-curso').textContent = cursoNome;
+  document.getElementById('sum-turno').textContent = turno;
+  document.getElementById('sum-modal').textContent = modal;
+  document.getElementById('sum-inicio').textContent= inicio ? new Date(inicio).toLocaleDateString('pt-PT') : 'A definir';
+  document.getElementById('sum-fin').textContent   = fin;
+}
+
+function submeterInscricao() {
+  const termos = document.getElementById('chk-termos');
+  const errT   = document.getElementById('err-termos');
+  if (!termos.checked) { errT.classList.add('show'); termos.closest('label').style.color='var(--danger)'; return; }
+  errT.classList.remove('show');
+
+  // Success screen
+  const cursoEl  = document.getElementById('curso');
+  const cursoNome= cursoEl.options[cursoEl.selectedIndex]?.text || '—';
+  const modal    = document.querySelector('input[name="modalidade"]:checked')?.value || '—';
+  const nome     = document.getElementById('nome').value + ' ' + document.getElementById('apelido').value;
+  const ref      = 'TA-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*90000)+10000);
+
+  document.getElementById('suc-ref').textContent   = ref;
+  document.getElementById('suc-nome').textContent  = nome;
+  document.getElementById('suc-curso').textContent = cursoNome;
+  document.getElementById('suc-modal').textContent = modal;
+  document.getElementById('suc-data').textContent  = new Date().toLocaleString('pt-PT');
+
+  document.getElementById('main-form').classList.add('hidden');
+  document.getElementById('steps-bar').classList.add('hidden');
+  document.getElementById('success-screen').style.display = 'block';
+
+  // mark step 3 done
+  const sn3 = document.getElementById('sn3');
+  sn3.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg>';
+  document.getElementById('step-ind-3').classList.replace('active','done');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function limparFormulario() {
+  if (!confirm('Tens a certeza que queres limpar todos os campos?')) return;
+  document.getElementById('main-form').reset();
+  document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+  document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show'));
+  document.getElementById('course-preview').classList.remove('show');
+}
+
+function novaInscricao() {
+  document.getElementById('main-form').reset();
+  document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+  document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show'));
+  document.getElementById('course-preview').classList.remove('show');
+
+  // reset steps UI
+  ['1','2','3'].forEach(n => {
+    document.getElementById('step-ind-'+n).className = 'step';
+    document.getElementById('sn'+n).textContent = n;
+  });
+  document.getElementById('step-ind-1').classList.add('active');
+
+  document.getElementById('step-1').classList.remove('hidden');
+  document.getElementById('step-2').classList.add('hidden');
+  document.getElementById('step-3').classList.add('hidden');
+  document.getElementById('main-form').classList.remove('hidden');
+  document.getElementById('steps-bar').classList.remove('hidden');
+  document.getElementById('success-screen').style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function imprimirPagina() { window.print(); }
+</script>
+<!-- Botão flutuante — explicação do formulário -->
+<style>
+  .btn-explicacao {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 20px;
+    background: #2563eb;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 4px 16px rgba(37,99,235,.4);
+    cursor: pointer;
+    transition: background .18s, transform .15s, box-shadow .18s;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .btn-explicacao:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(37,99,235,.5);
+  }
+  .btn-explicacao:active {
+    transform: scale(.97);
+  }
+  .btn-explicacao svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+</style>
+
+<!-- Botão flutuante — explicação do formulário -->
+<style>
+  .btn-explicacao {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 20px;
+    background: #2563eb;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 4px 16px rgba(37,99,235,.4);
+    cursor: pointer;
+    transition: background .18s, transform .15s, box-shadow .18s;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .btn-explicacao:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(37,99,235,.5);
+  }
+  .btn-explicacao:active {
+    transform: scale(.97);
+  }
+  .btn-explicacao svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+</style>
+
+<a class="btn-explicacao"
+   href="explicacao_formulario.html"
+   target="_blank"
+   title="Ver como foi criado este formulário">
+  <svg viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2.5">
+    <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+  </svg>
+  Como foi criado
+</a>
+
+
+</body>
+</html>

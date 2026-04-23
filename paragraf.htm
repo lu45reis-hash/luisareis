@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Parágrafos e quebras de linha em HTML: <p>, <br> e <hr>." />
+
+  <title>HTML – Parágrafos e quebras de linha</title>
+  <link rel="stylesheet" href="curso.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">P</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Parágrafos e quebras de linha</span>
+        <span aria-hidden="true">• Parágrafos e quebras de linha</span>
+        <span aria-hidden="true">• Parágrafos e quebras de linha</span>
+        <span aria-hidden="true">• Parágrafos e quebras de linha</span>
+        <span aria-hidden="true">• Parágrafos e quebras de linha</span>
+        <span aria-hidden="true">• Parágrafos e quebras de linha</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER PADRÃO -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card prose">
+      <h2 class="section-title">Parágrafo e quebra de linha</h2>
+
+      <p>
+        Em HTML, podes escrever o texto normalmente, mas há uma diferença importante:
+        o browser <strong>não interpreta</strong> a tecla <em>Enter</em> como “fim de parágrafo”.
+        Para isso, usamos <strong>tags</strong> específicas.
+      </p>
+
+      <p>
+        As tags principais para este tema são:
+        <code>&lt;p&gt;</code> (parágrafo),
+        <code>&lt;br&gt;</code> (quebra de linha) e
+        <code>&lt;hr&gt;</code> (linha horizontal/separador).
+      </p>
+
+      <h3>1) Parágrafos: <code>&lt;p&gt;</code></h3>
+      <p>
+        Usa <code>&lt;p&gt;</code> para criar parágrafos. O browser adiciona automaticamente um espaço (margem)
+        antes/depois do parágrafo — por isso não precisas de repetir <code>&lt;p&gt;</code> para “fazer linhas em branco”.
+      </p>
+
+      <div class="codeblock" aria-label="Exemplo de parágrafos com p e separador hr">
+        <code>
+&lt;h1&gt;Exemplo de parágrafos&lt;/h1&gt;
+
+&lt;p&gt;
+  Este texto está no mesmo parágrafo, mesmo que no código uses Enter.
+&lt;/p&gt;
+
+&lt;p&gt;
+  Este já é outro parágrafo.
+&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;
+  Depois do &lt;hr&gt; fica uma linha horizontal a separar conteúdos.
+&lt;/p&gt;
+        </code>
+      </div>
+
+      <p class="hint">
+        Se queres separar secções, usa <code>&lt;hr&gt;</code> ou CSS — não “empilhes” parágrafos vazios.
+      </p>
+
+      <p>
+        Vê um <a href="exemplo/paragraf.htm">exemplo</a> com estes comandos.
+      </p>
+
+      <h3>2) Quebra de linha: <code>&lt;br&gt;</code></h3>
+      <p>
+        Em algumas situações, precisas de ir para a linha seguinte <strong>sem criar um novo parágrafo</strong>
+        (sem espaço extra). Nesses casos, usa <code>&lt;br&gt;</code>.
+      </p>
+
+      <div class="codeblock" aria-label="Exemplo de quebra de linha com br">
+        <code>
+&lt;h1&gt;Exemplo de quebra de linha&lt;/h1&gt;
+
+Este texto está na primeira linha.&lt;br&gt;
+Este texto continua na linha seguinte.&lt;br&gt;
+E este na próxima, sem criar novo parágrafo.
+        </code>
+      </div>
+
+      <p>
+        Repara na diferença entre <code>&lt;p&gt;</code> e <code>&lt;br&gt;</code> neste
+        <a href="exemplo/linha.htm">exemplo</a>.
+      </p>
+
+      <hr class="sep" />
+
+      <!-- NAVEGAÇÃO -->
+      
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="titulo.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="texto.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

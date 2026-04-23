@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <title><!-- TÍTULO DA PÁGINA --></title>
+
+  <style>
+    :root{
+      --bg1: #0b1220;
+      --bg2: #0f1c34;
+      --card: rgba(255,255,255,.08);
+      --card2: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --line: rgba(255,255,255,.14);
+      --accent: #33d1c6;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+
+      --navH: 64px;
+      --maxW: 1040px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      line-height: 1.6;
+
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(51,209,198,.28), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(99,102,241,.22), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2)),
+        url("Curso Interactivo de HTML_files/NEW-2.jpe");
+      background-size: cover, cover, cover, cover;
+      background-position: center, center, center, center;
+      background-attachment: fixed;
+    }
+
+    /* ===== NAVBAR FIXA ===== */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--navH);
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background: rgba(10,16,28,.55);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav__inner{
+      width: min(var(--maxW), calc(100% - 32px));
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      text-decoration:none;
+      color: var(--text);
+      min-width: 220px;
+    }
+    .brand__dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(51,209,198,.12);
+    }
+    .brand__title{
+      font-weight: 700;
+      letter-spacing: .2px;
+      font-size: 1.02rem;
+      line-height: 1.2;
+    }
+    .brand__sub{
+      display:block;
+      font-weight: 500;
+      color: var(--muted);
+      font-size: .85rem;
+      margin-top: 2px;
+    }
+
+    .nav__links{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      text-decoration:none;
+      white-space: nowrap;
+      transition: transform .12s ease, border-color .12s ease;
+      font-size: .95rem;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(51,209,198,.35);
+    }
+
+    .pill--accent{
+      border-color: rgba(51,209,198,.35);
+      background: linear-gradient(180deg, rgba(51,209,198,.18), rgba(0,0,0,.14));
+    }
+
+    /* ===== LAYOUT ===== */
+    .container{
+      width: min(var(--maxW), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 28px;
+    }
+
+    header.hero{
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 22px 18px;
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:.5rem;
+      align-items:center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(1.7rem, 3.0vw, 2.3rem);
+      letter-spacing: .2px;
+    }
+
+    .subtitle{
+      margin: 0;
+      max-width: 80ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    main{
+      margin-top: 16px;
+      display:grid;
+      gap: 14px;
+    }
+
+    section.card{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 20px 18px;
+    }
+
+    section.card h2{
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      letter-spacing: .2px;
+    }
+
+    section.card p, section.card li{
+      color: var(--muted);
+    }
+
+    .divider{
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 16px 0;
+    }
+
+    footer{
+      margin-top: 10px;
+      text-align:center;
+      color: var(--muted);
+      font-size: .95rem;
+      padding-bottom: 16px;
+    }
+    footer a{ color: var(--accent); text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 640px){
+      .brand{ min-width: 0; }
+      .brand__sub{ display:none; }
+      .nav__links{ gap: 6px; }
+      .pill{ padding: 8px 10px; font-size: .93rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .pill{ transition:none; }
+      .pill:hover{ transform:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <span>
+          <span class="brand__title">Curso Interactivo de HTML</span>
+          <span class="brand__sub">Aprender HTML por módulos</span>
+        </span>
+      </a>
+
+      <div class="nav__links">
+        <a class="pill" href="index.html#conteudos">Conteúdos</a>
+        <a class="pill" href="index.html#exercicios">Exercícios</a>
+        <a class="pill pill--accent" href="../index.html">Sumário</a>
+        <a class="pill" href="mailto:mig_per@hotmail.com">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- HERO / TÍTULO DA PÁGINA -->
+    <header class="hero">
+      <span class="badge">📘 Módulo</span>
+      <h1><!-- TÍTULO DO MÓDULO / PÁGINA --></h1>
+      <p class="subtitle"><!-- DESCRIÇÃO / INTRO CURTA --></p>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main>
+      <section class="card" id="conteudo">
+        <h2>Conteúdo</h2>
+
+        <!-- ====== AQUI ENTRA O TEXTO/EXEMPLOS DO MÓDULO ====== -->
+        <p>Substitui este texto pelo conteúdo do teu módulo.</p>
+        <!-- =================================================== -->
+      </section>
+
+      <section class="card" id="exercicios">
+        <h2>Exercícios</h2>
+        <p>Coloca aqui os exercícios (ou links para ficheiros de exercícios).</p>
+      </section>
+    </main>
+
+    <footer>
+      <hr class="divider" />
+      Comentários e sugestões: <a href="lu45.reis@gmail.com">lu45.reis@gmail.com</a>
+      <hr class="divider" />
+    </footer>
+  </div>
+</body>
+</html>

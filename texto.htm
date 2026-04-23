@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Formatação de texto em HTML: tags semânticas e boas práticas com CSS." />
+
+  <title>HTML – Texto</title>
+  <link rel="stylesheet" href="curso.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">F</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>Formatação de texto</span>
+        <span aria-hidden="true">• Formatação de texto</span>
+        <span aria-hidden="true">• Formatação de texto</span>
+        <span aria-hidden="true">• Formatação de texto</span>
+        <span aria-hidden="true">• Formatação de texto</span>
+        <span aria-hidden="true">• Formatação de texto</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER PADRÃO -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card prose">
+      <h2 class="section-title">Formatação de texto</h2>
+
+      <p>
+        Em HTML podemos destacar partes do texto (negrito, itálico, etc.). No entanto, em HTML5,
+        recomenda-se usar <strong>tags semânticas</strong> (que explicam o significado do texto)
+        e deixar o “visual” para o <strong>CSS</strong>.
+      </p>
+
+      <h3>Tags mais usadas</h3>
+
+      <table class="table" aria-label="Principais tags de formatação de texto">
+        <thead>
+          <tr>
+            <th>Efeito / significado</th>
+            <th>Tag (recomendada)</th>
+            <th>Quando usar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ênfase (normalmente itálico)</td>
+            <td><code>&lt;em&gt;...&lt;/em&gt;</code></td>
+            <td>Para dar ênfase a uma palavra/expressão.</td>
+          </tr>
+          <tr>
+            <td>Importância (normalmente negrito)</td>
+            <td><code>&lt;strong&gt;...&lt;/strong&gt;</code></td>
+            <td>Para indicar algo importante (ex.: aviso, palavra-chave).</td>
+          </tr>
+          <tr>
+            <td>Sublinhado (visual)</td>
+            <td><code>&lt;u&gt;...&lt;/u&gt;</code></td>
+            <td>Evita usar para “decorar” (pode parecer link). Preferir CSS.</td>
+          </tr>
+          <tr>
+            <td>Pequena nota</td>
+            <td><code>&lt;small&gt;...&lt;/small&gt;</code></td>
+            <td>Rodapés, notas, detalhes menos relevantes.</td>
+          </tr>
+          <tr>
+            <td>Texto sobrescrito</td>
+            <td><code>&lt;sup&gt;...&lt;/sup&gt;</code></td>
+            <td>Expoentes: x<sup>2</sup>, notas (1), etc.</td>
+          </tr>
+          <tr>
+            <td>Texto subscrito</td>
+            <td><code>&lt;sub&gt;...&lt;/sub&gt;</code></td>
+            <td>Fórmulas: H<sub>2</sub>O, etc.</td>
+          </tr>
+          <tr>
+            <td>Código/monoespaçado</td>
+            <td><code>&lt;code&gt;...&lt;/code&gt;</code></td>
+            <td>Para mostrar comandos, tags, snippets de código.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="hint">
+        Nota: <code>&lt;b&gt;</code> e <code>&lt;i&gt;</code> ainda funcionam, mas hoje preferimos
+        <code>&lt;strong&gt;</code> e <code>&lt;em&gt;</code> por serem mais semânticos.
+      </p>
+
+      <h3>Tags antigas (evitar hoje)</h3>
+      <ul>
+        <li><code>&lt;tt&gt;</code> (typewriter) – obsoleta → usa <code>&lt;code&gt;</code> ou CSS.</li>
+        <li><code>&lt;big&gt;</code> – obsoleta → usa CSS (<code>font-size</code>).</li>
+        <li><code>&lt;blink&gt;</code> – não é suportada na maioria dos browsers → evita.</li>
+      </ul>
+
+      <h3>Exemplo (HTML + resultado esperado)</h3>
+
+      <div class="codeblock" aria-label="Exemplo de formatação de texto em HTML">
+        <code>
+Este texto está em &lt;strong&gt;negrito semântico&lt;/strong&gt;.&lt;br&gt;
+Este texto está em &lt;em&gt;itálico semântico&lt;/em&gt;.&lt;br&gt;
+Este texto está &lt;u&gt;sublinhado&lt;/u&gt; (usar com cuidado).&lt;br&gt;
+
+&lt;p&gt;
+  Fórmula: H&lt;sub&gt;2&lt;/sub&gt;O e potência: x&lt;sup&gt;2&lt;/sup&gt;.
+&lt;/p&gt;
+
+Para mostrar tags, usa &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt;.
+        </code>
+      </div>
+
+      <p>
+        Podes ver um <a href="exemplo/texto.htm">exemplo</a> (se o teu projeto ainda tiver essa pasta).
+      </p>
+
+      <h3>Forma moderna: formatar com CSS</h3>
+      <p>
+        Em projetos reais, o mais comum é usar classes e CSS para controlar o aspeto:
+      </p>
+
+      <div class="codeblock" aria-label="Exemplo de formatação com CSS">
+        <code>
+&lt;p class="aviso"&gt;Isto é um aviso.&lt;/p&gt;
+
+/* CSS */
+.aviso { font-weight: 700; }
+        </code>
+      </div>
+
+      <hr class="sep" />
+
+      <!-- NAVEGAÇÃO -->
+      
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn" href="paragraf.htm">← Anterior</a>
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="blocos.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER PADRÃO -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

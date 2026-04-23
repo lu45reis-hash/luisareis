@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="author" content="Luísa Reis" />
+  <meta name="description" content="Conceito de HTML e o que são tags." />
+
+  <title>HTML – Conceito</title>
+  <link rel="stylesheet" href="curso.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <style>
+    /* ── Header editorial (igual ao index.html) ── */
+    .site-header{
+      position:relative;
+      background:#0f0e0c;
+      color:#faf8f3;
+      overflow:hidden;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+    }
+    .site-header::before{
+      content:'';
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(250,248,243,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(250,248,243,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+    }
+    .hdr-deco{
+      position:absolute;
+      right:-10px;top:-30px;
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:260px;
+      font-weight:900;
+      line-height:1;
+      color:rgba(250,248,243,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .hdr-inner{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      width:100%;
+      padding:2rem 2rem 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      flex:1;
+    }
+    .hdr-eyebrow{
+      display:flex;align-items:center;gap:10px;
+    }
+    .hdr-pill{
+      background:#c84b11;
+      color:#fff;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      padding:3px 10px;
+      border-radius:2px;
+    }
+    .hdr-line{
+      flex:1;height:1px;
+      background:rgba(250,248,243,.15);
+      max-width:60px;
+    }
+    .hdr-back{
+      font-size:12px;
+      color:rgba(250,248,243,.4);
+      font-family:'DM Mono','Courier New',monospace;
+      text-decoration:none;
+      transition:color .15s;
+    }
+    .hdr-back:hover{color:rgba(250,248,243,.75);}
+    .hdr-title{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:clamp(36px,6vw,68px);
+      font-weight:900;
+      line-height:.95;
+      letter-spacing:-1.5px;
+      color:#faf8f3;
+    }
+    .hdr-title em{
+      font-style:italic;
+      color:#e8a87c;
+    }
+    .hdr-meta{
+      margin-top:auto;
+      padding-top:1rem;
+      border-top:1px solid rgba(250,248,243,.1);
+      font-size:13px;
+      color:rgba(250,248,243,.4);
+    }
+    .ticker{
+      background:#c84b11;
+      padding:8px 0;
+      overflow:hidden;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .ticker-track{
+      display:inline-flex;gap:3rem;
+      animation:scroll-x 22s linear infinite;
+      font-family:'DM Mono','Courier New',monospace;
+      font-size:11px;color:#fff;
+      letter-spacing:.08em;text-transform:uppercase;
+    }
+    @keyframes scroll-x{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+    @media(max-width:600px){
+      .hdr-title{font-size:clamp(30px,8vw,46px);}
+      .hdr-deco{font-size:160px;}
+    }
+  </style>
+
+  <header class="site-header">
+    <div class="hdr-deco" aria-hidden="true">A</div>
+
+    <div class="hdr-inner">
+      <div class="hdr-eyebrow">
+        <span class="hdr-pill">Manual Web</span>
+        <span class="hdr-line" aria-hidden="true"></span>
+        <a class="hdr-back" href="index.html">← Índice</a>
+      </div>
+
+      <h1 class="hdr-title">
+        Manual<br>de <em>HTML</em>
+      </h1>
+
+      <p class="hdr-meta">Luísa Reis · 2025</p>
+    </div>
+
+    <div class="ticker" role="status" aria-label="Tema da lição">
+      <div class="ticker-track">
+        <span>A linguagem HTML e as suas Tags</span>
+        <span aria-hidden="true">• A linguagem HTML e as suas Tags</span>
+        <span aria-hidden="true">• A linguagem HTML e as suas Tags</span>
+        <span aria-hidden="true">• A linguagem HTML e as suas Tags</span>
+        <span aria-hidden="true">• A linguagem HTML e as suas Tags</span>
+        <span aria-hidden="true">• A linguagem HTML e as suas Tags</span>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- HEADER PADRÃO -->
+  
+
+  <!-- CONTEÚDO -->
+  <main id="conteudo" class="container">
+    <article class="card">
+      
+
+      <div class="content-with-aside">
+        <div class="prose">
+          <p>
+            Uma página da Web é composta basicamente por textos e comandos especiais (tags) de uma
+            linguagem de marcação chamada <strong>HTML</strong>, abreviação de
+            <em>HyperText Markup Language</em>.
+          </p>
+
+          <p>
+            Esta linguagem é simples e tem como finalidade principal estruturar e formatar o conteúdo
+            apresentado, bem como criar ligações entre páginas através do conceito de hipertexto.
+          </p>
+
+          <p>
+            Tal como em qualquer linguagem, o programador deve escrever o
+            <strong>código-fonte</strong> seguindo regras de sintaxe. Este código é depois interpretado
+            pelo browser, que apresenta o resultado ao utilizador.
+          </p>
+
+          <p>
+            O código HTML pode ser escrito em qualquer editor de texto simples. No entanto, a forma mais
+            prática de criar páginas Web é utilizar um editor de código apropriado.
+          </p>
+
+          <p>
+            Existem vários editores de HTML disponíveis; contudo, nada substitui o conhecimento da
+            linguagem HTML e das boas práticas de construção de páginas Web.
+          </p>
+        </div>
+
+        <!-- ASIDE -->
+        <aside class="card aside" aria-label="Sugestões de editores HTML">
+          <h3 class="aside-title">Editores HTML (atuais)</h3>
+
+          <ul class="link-list">
+            <li>
+              <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">
+                Visual Studio Code (Microsoft)
+              </a>
+              <span class="muted">– o mais utilizado atualmente</span>
+            </li>
+
+            <li>
+              <a href="https://www.sublimetext.com/" target="_blank" rel="noopener noreferrer">
+                Sublime Text
+              </a>
+              <span class="muted">– leve e rápido</span>
+            </li>
+
+            <li>
+              <a href="https://notepad-plus-plus.org/" target="_blank" rel="noopener noreferrer">
+                Notepad++
+              </a>
+              <span class="muted">– simples, ideal para iniciantes</span>
+            </li>
+
+            <li>
+              <a href="https://brackets.io/" target="_blank" rel="noopener noreferrer">
+                Brackets
+              </a>
+              <span class="muted">– focado em HTML e CSS</span>
+            </li>
+
+            <li>
+              <a href="https://www.jetbrains.com/webstorm/" target="_blank" rel="noopener noreferrer">
+                WebStorm
+              </a>
+              <span class="muted">– editor profissional (pago)</span>
+            </li>
+          </ul>
+
+          <p class="hint">
+            Nota: deves utilizar o editor que melhor se adapta às tuas necessidades e ao teu nível.
+          </p>
+        </aside>
+      </div>
+
+      <hr class="sep" />
+
+      <!-- TAGS -->
+      <section class="prose">
+        <h2 class="section-title">O que são TAGS</h2>
+
+        <p>
+          Quando um browser exibe uma página Web, ele analisa o código HTML e procura por elementos
+          especiais chamados <strong>tags</strong>, que indicam como o conteúdo deve ser apresentado.
+        </p>
+
+        <p>
+          Por exemplo, uma tag pode definir se um texto aparece em negrito ou itálico, o tipo e o
+          tamanho da fonte, ou se um determinado texto é um link para outra página.
+        </p>
+
+        <p>
+          As tags normalmente funcionam em pares (abertura e fecho), delimitando o conteúdo afetado.
+          No entanto, existem também tags que não necessitam de fecho.
+        </p>
+
+        <p>Estrutura básica de um elemento HTML:</p>
+
+        <div class="codeblock" aria-label="Exemplo de sintaxe HTML">
+          <code>&lt;elemento&gt; Conteúdo &lt;/elemento&gt;</code>
+        </div>
+
+        <p>
+          O rótulo de fecho possui o mesmo nome do rótulo inicial, precedido por uma barra (/).
+          Alguns elementos podem ainda conter <strong>atributos</strong>.
+        </p>
+
+        <h3>Sequências de escape (entidades)</h3>
+
+        <p>
+          Para apresentar certos caracteres reservados em HTML, utilizam-se entidades especiais:
+        </p>
+
+        <table class="table" aria-label="Entidades HTML comuns">
+          <thead>
+            <tr>
+              <th>Caractere</th>
+              <th>Entidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt;</td><td><code>&amp;lt;</code></td></tr>
+            <tr><td>&gt;</td><td><code>&amp;gt;</code></td></tr>
+            <tr><td>&amp;</td><td><code>&amp;amp;</code></td></tr>
+            <tr><td>&quot;</td><td><code>&amp;quot;</code></td></tr>
+          </tbody>
+        </table>
+
+        <p>
+          Em HTML moderno, recomenda-se escrever as tags em letras minúsculas.
+        </p>
+      </section>
+
+      <!-- NAVEGAÇÃO -->
+      
+      <!-- NAVEGAÇÃO -->
+      
+    
+      <nav class="pager" aria-label="Navegação entre lições">
+        <a class="pager-btn pager-idx" href="index.html">↑ Índice</a>
+        <a class="pager-btn" href="basico.htm">Próximo →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Manual HTML</span>
+      <div class="footer-copy">
+        <p>© 2003 Luísa Reis</p>
+        <p class="muted">2025 Atualização e adaptação (Luísa Reis)</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

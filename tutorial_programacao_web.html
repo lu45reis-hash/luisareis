@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programação Web — Tutorial Interativo</title>
+
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #161b27;
+    --bg3: #1e2535;
+    --border: #2a3348;
+    --accent: #4f8ef7;
+    --accent2: #7c5cfc;
+    --green: #3ecf8e;
+    --orange: #f7a94f;
+    --red: #f75f5f;
+    --text: #e2e8f0;
+    --muted: #7d8fa8;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px; min-width: 260px; background: var(--bg2);
+    border-right: 1px solid var(--border); display: flex; flex-direction: column;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  }
+  .sidebar-logo {
+    padding: 1.5rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo h1 { font-size: 14px; font-weight: 600; color: var(--accent); letter-spacing: .04em; }
+  .sidebar-logo p { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    text-decoration: none; text-transform: uppercase; letter-spacing: .07em;
+    margin-bottom: .6rem;
+  }
+  .back-link:hover { color: var(--accent); }
+  .sidebar-group { padding: .75rem 0; border-bottom: 1px solid var(--border); }
+  .sidebar-label { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; padding: 0 1.25rem .35rem; }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: .45rem 1.25rem; font-size: 13px; color: var(--muted);
+    cursor: pointer; transition: all .15s; border-left: 2px solid transparent;
+  }
+  .nav-item:hover { color: var(--text); background: var(--bg3); }
+  .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(79,142,247,.08); font-weight: 500; }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+  /* Content */
+  .content { flex: 1; padding: 2rem 2.5rem; max-width: 860px; overflow-y: auto; }
+  .section { display: none; animation: fadeIn .2s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  h1 { font-size: 26px; font-weight: 600; margin-bottom: .35rem; }
+  h2 { font-size: 17px; font-weight: 600; margin: 1.75rem 0 .6rem; color: var(--text); }
+  h3 { font-size: 14px; font-weight: 500; margin: 1rem 0 .4rem; color: var(--muted); }
+  p { font-size: 14px; line-height: 1.75; color: #a8b8cc; margin-bottom: .75rem; }
+  strong { color: var(--text); font-weight: 600; }
+  code { font-family: var(--mono); font-size: 12.5px; background: var(--bg3); padding: 1px 6px; border-radius: 4px; color: #b8d4f8; }
+
+  .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 1.5rem; }
+
+  /* Badges */
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-right: 6px; margin-bottom: 1rem; }
+  .badge.server { background: rgba(79,142,247,.15); color: #7ab3ff; border: 1px solid rgba(79,142,247,.3); }
+  .badge.client { background: rgba(62,207,142,.12); color: #3ecf8e; border: 1px solid rgba(62,207,142,.3); }
+  .badge.db { background: rgba(247,169,79,.12); color: #f7a94f; border: 1px solid rgba(247,169,79,.3); }
+
+  /* Code blocks */
+  .code-wrap { position: relative; margin: .75rem 0; }
+  .code-label { position: absolute; top: 8px; right: 12px; font-size: 10px; color: var(--muted); font-family: var(--mono); }
+  pre {
+    background: #0d1117; border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.25rem; font-family: var(--mono); font-size: 12.5px;
+    line-height: 1.7; overflow-x: auto; color: #c9d1d9;
+  }
+  .kw  { color: #c792ea; }
+  .str { color: #a5e075; }
+  .cm  { color: #546e7a; font-style: italic; }
+  .fn  { color: #82aaff; }
+  .num { color: #f78c6c; }
+  .op  { color: #89ddff; }
+
+  /* Info / warn boxes */
+  .info-box {
+    border-left: 3px solid var(--accent); background: rgba(79,142,247,.08);
+    padding: .75rem 1rem; border-radius: 0 8px 8px 0; margin: .75rem 0;
+    font-size: 13px; color: #a0b8d8; line-height: 1.6;
+  }
+  .warn-box {
+    border-left: 3px solid var(--orange); background: rgba(247,169,79,.08);
+    padding: .75rem 1rem; border-radius: 0 8px 8px 0; margin: .75rem 0;
+    font-size: 13px; color: #c8a87a; line-height: 1.6;
+  }
+  .danger-box {
+    border-left: 3px solid var(--red); background: rgba(247,95,95,.08);
+    padding: .75rem 1rem; border-radius: 0 8px 8px 0; margin: .75rem 0;
+    font-size: 13px; color: #c88a8a; line-height: 1.6;
+  }
+
+  /* Grid */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: .75rem 0; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: .75rem 0; }
+  .card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1rem 1.1rem;
+  }
+  .card h3 { margin-top: 0; color: var(--text); font-size: 14px; }
+  .card p { font-size: 13px; margin-bottom: 0; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: .75rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: .6rem .9rem; background: var(--bg3); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-bottom: 1px solid var(--border); }
+  td { padding: .55rem .9rem; border-bottom: 1px solid var(--border); color: #a8b8cc; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+
+  /* Tabs */
+  .tab-row { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .tab-btn {
+    font-size: 12px; font-family: var(--sans); padding: 5px 14px; cursor: pointer;
+    border-radius: 6px; background: var(--bg3); border: 1px solid var(--border);
+    color: var(--muted); transition: all .15s;
+  }
+  .tab-btn:hover { color: var(--text); border-color: #3a4560; }
+  .tab-btn.active { background: rgba(79,142,247,.15); color: var(--accent); border-color: rgba(79,142,247,.4); font-weight: 600; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Operators */
+  .op-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 1.5rem; margin: .5rem 0; }
+  .op-row { display: flex; align-items: baseline; gap: .5rem; font-size: 13px; padding: .3rem 0; }
+  .op-sym { font-family: var(--mono); color: #c792ea; min-width: 44px; font-size: 13px; font-weight: 600; }
+
+  /* DB Demo */
+  .db-demo { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin: 1rem 0; }
+  .db-demo label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; margin-top: .85rem; }
+  .db-demo label:first-of-type { margin-top: 0; }
+  .db-demo input, .db-demo select {
+    width: 100%; padding: 7px 10px; background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text); font-size: 13px; font-family: var(--sans);
+    outline: none; transition: border-color .15s;
+  }
+  .db-demo input:focus { border-color: var(--accent); }
+  .db-demo input[type=number] { width: 120px; }
+  .btn-row { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; }
+  .btn {
+    padding: 7px 16px; border-radius: 6px; font-size: 13px; font-family: var(--sans);
+    font-weight: 600; cursor: pointer; border: none; transition: all .15s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #3d7de8; }
+  .btn-danger { background: rgba(247,95,95,.2); color: var(--red); border: 1px solid rgba(247,95,95,.3); }
+  .btn-danger:hover { background: rgba(247,95,95,.3); }
+  .result-box {
+    margin-top: 1rem; background: #0d1117; border: 1px solid var(--border);
+    border-radius: 8px; padding: 1rem; font-family: var(--mono); font-size: 12px;
+    min-height: 70px; color: #a8b8cc; line-height: 1.6; white-space: pre-wrap;
+  }
+  .result-ok  { color: var(--green); }
+  .result-err { color: var(--red); }
+
+  /* Hero stripe */
+  .hero { padding: .5rem 0 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+  .hero-tag { display: inline-block; font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .5rem; }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+  /* Scroll */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    .content { padding: 1.25rem; }
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+    .op-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <a class="back-link" href="index.html">← Índice</a>
+    <h1>&#x2318; Programação Web</h1>
+    <p>Tutorial Interativo</p>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-label">Fundamentos</div>
+    <div class="nav-item active" onclick="show('intro',this)"><span class="nav-dot"></span>1. Introdução à Web</div>
+    <div class="nav-item" onclick="show('scripting',this)"><span class="nav-dot"></span>2. Servidor vs Cliente</div>
+    <div class="nav-item" onclick="show('dinamicas',this)"><span class="nav-dot"></span>3. Páginas Dinâmicas</div>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-label">Variáveis e Controlo</div>
+    <div class="nav-item" onclick="show('variaveis',this)"><span class="nav-dot"></span>4a. Variáveis e Tipos</div>
+    <div class="nav-item" onclick="show('enums',this)"><span class="nav-dot"></span>4b. Enumeradores e Constantes</div>
+    <div class="nav-item" onclick="show('operadores',this)"><span class="nav-dot"></span>4c. Operadores e Decisões</div>
+    <div class="nav-item" onclick="show('ciclos',this)"><span class="nav-dot"></span>4d. Ciclos</div>
+    <div class="nav-item" onclick="show('scope',this)"><span class="nav-dot"></span>4e. Scope e Tempo de Vida</div>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-label">Objetos e Eventos</div>
+    <div class="nav-item" onclick="show('objetos',this)"><span class="nav-dot"></span>5a. Objetos da Linguagem</div>
+    <div class="nav-item" onclick="show('eventos',this)"><span class="nav-dot"></span>5b. Eventos Globais e Indiretos</div>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-label">Base de Dados</div>
+    <div class="nav-item" onclick="show('bd',this)"><span class="nav-dot"></span>&#x1f5c4; CRUD com PHP/MySQL</div>
+  </div>
+</nav>
+
+<main class="content">
+
+<!-- ====== 1. INTRO ====== -->
+<div id="intro" class="section active">
+  <div class="hero">
+    <div class="hero-tag">Módulo 1</div>
+    <h1>Introdução à Programação Web</h1>
+    <p class="subtitle">Conceitos base da arquitetura web, protocolos e tecnologias envolvidas.</p>
+  </div>
+  <p>A programação web envolve a criação de aplicações que correm num browser ou num servidor web. Combina três camadas: estrutura (HTML), apresentação (CSS) e comportamento (JavaScript/PHP).</p>
+  <h2>Arquitetura Cliente-Servidor</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>🖥 Servidor</h3>
+      <p>Processa pedidos HTTP, acede a bases de dados e gera respostas. Exemplos: Apache, Nginx, Node.js. O código nunca é visto pelo utilizador.</p>
+    </div>
+    <div class="card">
+      <h3>🌐 Browser (Cliente)</h3>
+      <p>Recebe HTML/CSS/JS, renderiza a página e interage com o utilizador. Chrome, Firefox, Safari são exemplos de clientes web.</p>
+    </div>
+  </div>
+  <h2>O ciclo HTTP</h2>
+  <div class="code-wrap">
+    <pre>1. Utilizador escreve URL no browser
+2. Browser envia <span class="kw">HTTP GET</span> ao servidor
+3. Servidor processa o pedido (PHP, Node.js, etc.)
+4. Servidor devolve resposta <span class="num">200 OK</span> + HTML/JSON
+5. Browser renderiza a página ao utilizador</pre>
+  </div>
+  <div class="info-box">O protocolo HTTP é <strong>stateless</strong> — cada pedido é independente. Para manter estado (ex: sessão de login) usa-se <strong>sessions</strong>, <strong>cookies</strong> ou <strong>tokens JWT</strong>.</div>
+  <h2>Tecnologias fundamentais</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Tecnologia</th><th>Camada</th><th>Função</th></tr>
+      <tr><td><code>HTML5</code></td><td>Estrutura</td><td>Define o conteúdo e semântica da página</td></tr>
+      <tr><td><code>CSS3</code></td><td>Apresentação</td><td>Estiliza, posiciona e anima os elementos</td></tr>
+      <tr><td><code>JavaScript</code></td><td>Comportamento (cliente)</td><td>Interatividade e manipulação do DOM</td></tr>
+      <tr><td><code>PHP / Node.js</code></td><td>Servidor</td><td>Lógica de negócio, acesso a BD</td></tr>
+      <tr><td><code>SQL</code></td><td>Dados</td><td>Gestão de bases de dados relacionais</td></tr>
+      <tr><td><code>HTTP / HTTPS</code></td><td>Protocolo</td><td>Comunicação entre cliente e servidor</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ====== 2. SCRIPTING ====== -->
+<div id="scripting" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 2</div>
+    <h1>Scripting: Servidor vs Cliente</h1>
+    <p class="subtitle">Diferenças entre código executado no servidor (PHP) e no browser (JavaScript).</p>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <span class="badge server">▲ Servidor</span>
+      <h3>PHP / Node.js / Python</h3>
+      <p>Executa no servidor. O utilizador nunca vê o código. Pode aceder a ficheiros, bases de dados e APIs privadas.</p>
+    </div>
+    <div class="card">
+      <span class="badge client">◆ Cliente</span>
+      <h3>JavaScript no browser</h3>
+      <p>Executa no browser do utilizador. Visível em "Ver código fonte". Sem acesso direto a BD.</p>
+    </div>
+  </div>
+  <h2>Exemplo PHP (Servidor)</h2>
+  <div class="code-wrap">
+    <div class="code-label">PHP</div>
+    <pre><span class="cm">// ficheiro: pagina.php — o utilizador nunca vê este código</span>
+<span class="kw">&lt;?php</span>
+  <span class="fn">$nome</span> <span class="op">=</span> <span class="str">"Maria"</span>;
+  <span class="fn">$hora</span> <span class="op">=</span> <span class="fn">date</span>(<span class="str">"H"</span>);
+  <span class="kw">if</span> (<span class="fn">$hora</span> <span class="op">&lt;</span> <span class="num">12</span>) {
+    <span class="fn">$saudacao</span> <span class="op">=</span> <span class="str">"Bom dia"</span>;
+  } <span class="kw">else</span> {
+    <span class="fn">$saudacao</span> <span class="op">=</span> <span class="str">"Boa tarde"</span>;
+  }
+<span class="kw">?&gt;</span>
+<span class="str">&lt;p&gt;</span><span class="kw">&lt;?= $saudacao ?&gt;</span>, <span class="kw">&lt;?= $nome ?&gt;</span><span class="str">!&lt;/p&gt;</span>
+
+<span class="cm">// O browser recebe APENAS: &lt;p&gt;Bom dia, Maria!&lt;/p&gt;</span></pre>
+  </div>
+  <h2>Exemplo JavaScript (Cliente)</h2>
+  <div class="code-wrap">
+    <div class="code-label">JavaScript</div>
+    <pre><span class="cm">// Executa diretamente no browser — visível no DevTools</span>
+<span class="kw">const</span> <span class="fn">nome</span> <span class="op">=</span> <span class="str">"Maria"</span>;
+<span class="kw">const</span> <span class="fn">hora</span> <span class="op">=</span> <span class="kw">new</span> <span class="fn">Date</span>().<span class="fn">getHours</span>();
+<span class="kw">const</span> <span class="fn">saudacao</span> <span class="op">=</span> hora <span class="op">&lt;</span> <span class="num">12</span> <span class="op">?</span> <span class="str">"Bom dia"</span> <span class="op">:</span> <span class="str">"Boa tarde"</span>;
+document.<span class="fn">getElementById</span>(<span class="str">"msg"</span>).textContent <span class="op">=</span> <span class="str">`${saudacao}, ${nome}!`</span>;</pre>
+  </div>
+  <h2>Comparação</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Aspeto</th><th>Servidor (PHP)</th><th>Cliente (JS)</th></tr>
+      <tr><td>Onde executa</td><td>No servidor web</td><td>No browser</td></tr>
+      <tr><td>Acesso a BD</td><td>✅ Direto</td><td>❌ Usa API/Ajax</td></tr>
+      <tr><td>Código visível</td><td>❌ Não</td><td>✅ Sim</td></tr>
+      <tr><td>Recarregar página</td><td>Sim (por defeito)</td><td>Não (manipula DOM)</td></tr>
+      <tr><td>Segurança</td><td>Alta</td><td>Baixa (exposto)</td></tr>
+      <tr><td>Velocidade de resposta</td><td>Depende do servidor</td><td>Imediata</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ====== 3. DINÂMICAS ====== -->
+<div id="dinamicas" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 3</div>
+    <h1>Técnicas de Páginas Dinâmicas</h1>
+    <p class="subtitle">Como gerar conteúdo em tempo real com PHP, AJAX e manipulação do DOM.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('din','php',this)">PHP Dinâmico</button>
+    <button class="tab-btn" onclick="showTab('din','ajax',this)">AJAX / Fetch</button>
+    <button class="tab-btn" onclick="showTab('din','dom',this)">Manipulação DOM</button>
+    <button class="tab-btn" onclick="showTab('din','form',this)">Formulário POST</button>
+  </div>
+  <div id="din-php" class="tab-content active">
+    <p>O PHP permite misturar código de servidor com HTML, gerando conteúdo dinâmico:</p>
+    <div class="code-wrap"><div class="code-label">PHP</div><pre><span class="cm">// Listar produtos de um array dinamicamente</span>
+<span class="kw">&lt;?php</span>
+<span class="fn">$produtos</span> <span class="op">=</span> [
+  [<span class="str">"nome"</span> <span class="op">=></span> <span class="str">"Maçã"</span>,   <span class="str">"preco"</span> <span class="op">=></span> <span class="num">0.50</span>],
+  [<span class="str">"nome"</span> <span class="op">=></span> <span class="str">"Banana"</span>, <span class="str">"preco"</span> <span class="op">=></span> <span class="num">0.30</span>],
+  [<span class="str">"nome"</span> <span class="op">=></span> <span class="str">"Laranja"</span>, <span class="str">"preco"</span> <span class="op">=></span> <span class="num">0.80</span>]
+];
+<span class="kw">?&gt;</span>
+<span class="str">&lt;ul&gt;</span>
+<span class="kw">&lt;?php foreach</span> (<span class="fn">$produtos</span> <span class="kw">as</span> <span class="fn">$p</span>): <span class="kw">?&gt;</span>
+  <span class="str">&lt;li&gt;</span><span class="kw">&lt;?= htmlspecialchars($p['nome']) ?&gt;</span>
+      — <span class="kw">&lt;?= number_format($p['preco'],2) ?&gt;</span>€<span class="str">&lt;/li&gt;</span>
+<span class="kw">&lt;?php endforeach; ?&gt;</span>
+<span class="str">&lt;/ul&gt;</span></pre></div>
+  </div>
+  <div id="din-ajax" class="tab-content">
+    <p>A <strong>Fetch API</strong> permite comunicar com o servidor sem recarregar a página:</p>
+    <div class="code-wrap"><div class="code-label">JavaScript</div><pre><span class="cm">// Fetch com async/await — pedido GET</span>
+<span class="kw">async function</span> <span class="fn">carregarProdutos</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> resposta <span class="op">=</span> <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'api/produtos.php'</span>);
+    <span class="kw">if</span> (<span class="op">!</span>resposta.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">'Erro HTTP: '</span> <span class="op">+</span> resposta.status);
+    <span class="kw">const</span> dados <span class="op">=</span> <span class="kw">await</span> resposta.<span class="fn">json</span>();
+
+    <span class="kw">const</span> lista <span class="op">=</span> document.<span class="fn">getElementById</span>(<span class="str">'lista'</span>);
+    dados.<span class="fn">forEach</span>(item <span class="op">=></span> {
+      <span class="kw">const</span> li <span class="op">=</span> document.<span class="fn">createElement</span>(<span class="str">'li'</span>);
+      li.textContent <span class="op">=</span> item.nome;
+      lista.<span class="fn">appendChild</span>(li);
+    });
+  } <span class="kw">catch</span> (erro) {
+    <span class="fn">console</span>.<span class="fn">error</span>(<span class="str">'Falha:'</span>, erro);
+  }
+}
+<span class="fn">carregarProdutos</span>();</pre></div>
+  </div>
+  <div id="din-dom" class="tab-content">
+    <div class="code-wrap"><div class="code-label">JavaScript</div><pre><span class="cm">// Selecionar elementos</span>
+<span class="kw">const</span> el <span class="op">=</span> document.<span class="fn">getElementById</span>(<span class="str">'titulo'</span>);
+<span class="kw">const</span> items <span class="op">=</span> document.<span class="fn">querySelectorAll</span>(<span class="str">'.item'</span>);
+
+<span class="cm">// Modificar conteúdo e estilos</span>
+el.textContent <span class="op">=</span> <span class="str">"Novo título"</span>;
+el.style.color <span class="op">=</span> <span class="str">"blue"</span>;
+el.classList.<span class="fn">add</span>(<span class="str">'destaque'</span>);
+el.classList.<span class="fn">toggle</span>(<span class="str">'ativo'</span>);
+
+<span class="cm">// Criar e inserir elementos</span>
+<span class="kw">const</span> div <span class="op">=</span> document.<span class="fn">createElement</span>(<span class="str">'div'</span>);
+div.innerHTML <span class="op">=</span> <span class="str">`&lt;strong&gt;Dinâmico!&lt;/strong&gt;`</span>;
+document.body.<span class="fn">appendChild</span>(div);
+
+<span class="cm">// Remover elemento</span>
+el.<span class="fn">remove</span>();</pre></div>
+  </div>
+  <div id="din-form" class="tab-content">
+    <div class="code-wrap"><div class="code-label">HTML + PHP</div><pre><span class="cm">&lt;!-- formulario.html --&gt;</span>
+<span class="str">&lt;form</span> <span class="fn">action</span><span class="op">=</span><span class="str">"processar.php"</span> <span class="fn">method</span><span class="op">=</span><span class="str">"POST"</span><span class="str">&gt;</span>
+  <span class="str">&lt;input</span> <span class="fn">type</span><span class="op">=</span><span class="str">"text"</span>  <span class="fn">name</span><span class="op">=</span><span class="str">"nome"</span>  <span class="fn">required</span><span class="str">&gt;</span>
+  <span class="str">&lt;input</span> <span class="fn">type</span><span class="op">=</span><span class="str">"email"</span> <span class="fn">name</span><span class="op">=</span><span class="str">"email"</span> <span class="fn">required</span><span class="str">&gt;</span>
+  <span class="str">&lt;button</span> <span class="fn">type</span><span class="op">=</span><span class="str">"submit"</span><span class="str">&gt;</span>Enviar<span class="str">&lt;/button&gt;</span>
+<span class="str">&lt;/form&gt;</span>
+
+<span class="cm">&lt;!-- processar.php --&gt;</span>
+<span class="kw">&lt;?php</span>
+<span class="kw">if</span> (<span class="fn">$_SERVER</span>[<span class="str">'REQUEST_METHOD'</span>] <span class="op">===</span> <span class="str">'POST'</span>) {
+  <span class="fn">$nome</span>  <span class="op">=</span> <span class="fn">filter_input</span>(INPUT_POST, <span class="str">'nome'</span>,  FILTER_SANITIZE_STRING);
+  <span class="fn">$email</span> <span class="op">=</span> <span class="fn">filter_input</span>(INPUT_POST, <span class="str">'email'</span>, FILTER_VALIDATE_EMAIL);
+  <span class="kw">if</span> (<span class="fn">$email</span>) {
+    <span class="fn">echo</span> <span class="str">"Olá, $nome! Email válido."</span>;
+  } <span class="kw">else</span> {
+    <span class="fn">echo</span> <span class="str">"Email inválido."</span>;
+  }
+}
+<span class="kw">?&gt;</span></pre></div>
+  </div>
+  <div class="info-box">A combinação de PHP no servidor com JavaScript no cliente (padrão AJAX/REST) é a base das <strong>Single Page Applications (SPA)</strong> modernas.</div>
+</div>
+
+<!-- ====== 4a. VARIÁVEIS ====== -->
+<div id="variaveis" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 4a</div>
+    <h1>Variáveis e Tipos de Dados</h1>
+    <p class="subtitle">Declaração, tipagem e principais tipos em PHP e JavaScript.</p>
+  </div>
+  <h2>Variáveis em PHP</h2>
+  <div class="code-wrap"><div class="code-label">PHP</div><pre><span class="cm">// O símbolo $ precede sempre o nome da variável</span>
+<span class="fn">$inteiro</span>   <span class="op">=</span> <span class="num">42</span>;
+<span class="fn">$decimal</span>   <span class="op">=</span> <span class="num">3.14</span>;
+<span class="fn">$texto</span>     <span class="op">=</span> <span class="str">"Olá, mundo"</span>;
+<span class="fn">$logico</span>    <span class="op">=</span> <span class="kw">true</span>;
+<span class="fn">$nulo</span>      <span class="op">=</span> <span class="kw">null</span>;
+<span class="fn">$lista</span>     <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+<span class="fn">$assoc</span>     <span class="op">=</span> [<span class="str">"nome"</span> <span class="op">=></span> <span class="str">"Ana"</span>, <span class="str">"idade"</span> <span class="op">=></span> <span class="num">25</span>];
+
+<span class="cm">// Verificar tipo dinamicamente</span>
+<span class="fn">echo</span> <span class="fn">gettype</span>(<span class="fn">$inteiro</span>);   <span class="cm">// integer</span>
+<span class="fn">echo</span> <span class="fn">gettype</span>(<span class="fn">$texto</span>);     <span class="cm">// string</span>
+<span class="fn">var_dump</span>(<span class="fn">$decimal</span>);        <span class="cm">// float(3.14)</span>
+
+<span class="cm">// Conversão de tipo (casting)</span>
+<span class="fn">$str</span>  <span class="op">=</span> (<span class="kw">string</span>) <span class="num">42</span>;      <span class="cm">// "42"</span>
+<span class="fn">$num</span>  <span class="op">=</span> (<span class="kw">int</span>)    <span class="str">"10px"</span>; <span class="cm">// 10</span>
+<span class="fn">$bool</span> <span class="op">=</span> (<span class="kw">bool</span>)   <span class="num">0</span>;       <span class="cm">// false</span></pre></div>
+  <h2>Variáveis em JavaScript</h2>
+  <div class="code-wrap"><div class="code-label">JavaScript</div><pre><span class="kw">let</span>   <span class="fn">contador</span> <span class="op">=</span> <span class="num">0</span>;          <span class="cm">// reatribuível, scope de bloco</span>
+<span class="kw">const</span> <span class="fn">PI</span>       <span class="op">=</span> <span class="num">3.14159</span>;   <span class="cm">// constante, não reatribuível</span>
+<span class="kw">var</span>   <span class="fn">antigo</span>   <span class="op">=</span> <span class="str">"evitar"</span>;  <span class="cm">// scope de função — evitar</span>
+
+<span class="cm">// Tipos primitivos</span>
+<span class="kw">typeof</span> <span class="num">42</span>          <span class="cm">// "number"</span>
+<span class="kw">typeof</span> <span class="str">"texto"</span>     <span class="cm">// "string"</span>
+<span class="kw">typeof</span> <span class="kw">true</span>        <span class="cm">// "boolean"</span>
+<span class="kw">typeof</span> <span class="kw">null</span>        <span class="cm">// "object" ← peculiaridade histórica</span>
+<span class="kw">typeof</span> <span class="kw">undefined</span>  <span class="cm">// "undefined"</span>
+<span class="kw">typeof</span> <span class="fn">Symbol</span>()   <span class="cm">// "symbol" (ES6+)</span>
+
+<span class="cm">// Template literals</span>
+<span class="kw">const</span> <span class="fn">msg</span> <span class="op">=</span> <span class="str">`Olá, ${nome}! Tens ${idade} anos.`</span>;</pre></div>
+  <h2>Tabela de tipos</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Tipo</th><th>PHP</th><th>JavaScript</th><th>Exemplo</th></tr>
+      <tr><td>Inteiro</td><td><code>int</code></td><td><code>number</code></td><td><code>42</code></td></tr>
+      <tr><td>Decimal</td><td><code>float</code></td><td><code>number</code></td><td><code>3.14</code></td></tr>
+      <tr><td>Texto</td><td><code>string</code></td><td><code>string</code></td><td><code>"Olá"</code></td></tr>
+      <tr><td>Booleano</td><td><code>bool</code></td><td><code>boolean</code></td><td><code>true</code> / <code>false</code></td></tr>
+      <tr><td>Nulo</td><td><code>null</code></td><td><code>null</code></td><td><code>null</code></td></tr>
+      <tr><td>Lista</td><td><code>array</code></td><td><code>Array</code></td><td><code>[1,2,3]</code></td></tr>
+      <tr><td>Objeto</td><td><code>array assoc.</code></td><td><code>Object</code></td><td><code>{a:1}</code></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ====== 4b. ENUMS ====== -->
+<div id="enums" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 4b</div>
+    <h1>Enumeradores e Constantes</h1>
+    <p class="subtitle">Valores fixos e imutáveis — constantes, define() e enum nativo (PHP 8.1+).</p>
+  </div>
+  <h2>Constantes em PHP</h2>
+  <div class="code-wrap"><div class="code-label">PHP</div><pre><span class="cm">// define() — constante global, em qualquer parte</span>
+<span class="fn">define</span>(<span class="str">'MAX_TENTATIVAS'</span>, <span class="num">3</span>);
+<span class="fn">define</span>(<span class="str">'VERSAO_APP'</span>, <span class="str">'2.1.0'</span>);
+
+<span class="cm">// const — no topo do ficheiro ou dentro de classe</span>
+<span class="kw">const</span> DB_HOST <span class="op">=</span> <span class="str">'localhost'</span>;
+
+<span class="cm">// Constantes de classe (por convenção, maiúsculas)</span>
+<span class="kw">class</span> <span class="fn">Estado</span> {
+  <span class="kw">const</span> ATIVO    <span class="op">=</span> <span class="num">1</span>;
+  <span class="kw">const</span> INATIVO  <span class="op">=</span> <span class="num">0</span>;
+  <span class="kw">const</span> PENDENTE <span class="op">=</span> <span class="num">2</span>;
+}
+<span class="fn">echo</span> <span class="fn">Estado</span>::ATIVO; <span class="cm">// 1</span></pre></div>
+  <h2>Enum nativo (PHP 8.1+)</h2>
+  <div class="code-wrap"><div class="code-label">PHP 8.1+</div><pre><span class="cm">// Enum puro</span>
+<span class="kw">enum</span> <span class="fn">Cor</span> {
+  <span class="kw">case</span> Vermelho;
+  <span class="kw">case</span> Verde;
+  <span class="kw">case</span> Azul;
+}
+
+<span class="cm">// Enum com valor (backed enum)</span>
+<span class="kw">enum</span> <span class="fn">Estado</span>: <span class="kw">string</span> {
+  <span class="kw">case</span> Ativo   <span class="op">=</span> <span class="str">'ativo'</span>;
+  <span class="kw">case</span> Inativo <span class="op">=</span> <span class="str">'inativo'</span>;
+  <span class="kw">case</span> Pendente<span class="op">=</span> <span class="str">'pendente'</span>;
+}
+
+<span class="fn">$cor</span> <span class="op">=</span> <span class="fn">Cor</span>::Vermelho;
+<span class="fn">$est</span> <span class="op">=</span> <span class="fn">Estado</span>::Ativo;
+<span class="fn">echo</span> <span class="fn">$est</span>->value; <span class="cm">// "ativo"</span>
+
+<span class="cm">// Obter pelo valor</span>
+<span class="fn">$e</span> <span class="op">=</span> <span class="fn">Estado</span>::<span class="fn">from</span>(<span class="str">'inativo'</span>); <span class="cm">// Estado::Inativo</span></pre></div>
+  <h2>Constantes em JavaScript</h2>
+  <div class="code-wrap"><div class="code-label">JavaScript</div><pre><span class="cm">// const — bloco-scoped, não reatribuível</span>
+<span class="kw">const</span> MAX <span class="op">=</span> <span class="num">100</span>;
+
+<span class="cm">// Simular enum com Object.freeze()</span>
+<span class="kw">const</span> CORES <span class="op">=</span> Object.<span class="fn">freeze</span>({
+  VERMELHO: <span class="str">'#FF0000'</span>,
+  VERDE:    <span class="str">'#00FF00'</span>,
+  AZUL:     <span class="str">'#0000FF'</span>
+});
+
+<span class="cm">// Object.freeze impede alterações</span>
+CORES.VERMELHO <span class="op">=</span> <span class="str">'outro'</span>; <span class="cm">// silenciosamente ignorado</span>
+<span class="fn">console</span>.<span class="fn">log</span>(CORES.VERMELHO); <span class="cm">// '#FF0000'</span></pre></div>
+</div>
+
+<!-- ====== 4c. OPERADORES ====== -->
+<div id="operadores" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 4c</div>
+    <h1>Operadores, Decisões e Condições</h1>
+    <p class="subtitle">Operadores aritméticos, lógicos, de comparação e estruturas de decisão.</p>
+  </div>
+  <h2>Operadores</h2>
+  <div class="grid2">
+    <div>
+      <h3>Aritméticos</h3>
+      <div class="op-row"><span class="op-sym">+</span>Adição: <code>5 + 3 = 8</code></div>
+      <div class="op-row"><span class="op-sym">-</span>Subtração: <code>5 - 3 = 2</code></div>
+      <div class="op-row"><span class="op-sym">*</span>Multiplicação: <code>5 * 3 = 15</code></div>
+      <div class="op-row"><span class="op-sym">/</span>Divisão: <code>15 / 3 = 5</code></div>
+      <div class="op-row"><span class="op-sym">%</span>Módulo: <code>7 % 3 = 1</code></div>
+      <div class="op-row"><span class="op-sym">**</span>Potência: <code>2 ** 8 = 256</code></div>
+    </div>
+    <div>
+      <h3>Comparação e Lógicos</h3>
+      <div class="op-row"><span class="op-sym">==</span>Igual (valor)</div>
+      <div class="op-row"><span class="op-sym">===</span>Idêntico (valor + tipo)</div>
+      <div class="op-row"><span class="op-sym">!=</span>Diferente de</div>
+      <div class="op-row"><span class="op-sym">&&</span>E lógico (AND)</div>
+      <div class="op-row"><span class="op-sym">||</span>Ou lógico (OR)</div>
+      <div class="op-row"><span class="op-sym">!</span>Negação (NOT)</div>
+    </div>
+  </div>
+  <h2>Estruturas de decisão</h2>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('dec','if',this)">if / else</button>
+    <button class="tab-btn" onclick="showTab('dec','switch',this)">switch</button>
+    <button class="tab-btn" onclick="showTab('dec','ternary',this)">Ternário</button>
+    <button class="tab-btn" onclick="showTab('dec','match',this)">match (PHP 8)</button>
+  </div>
+  <div id="dec-if" class="tab-content active">
+    <div class="code-wrap"><pre><span class="fn">$nota</span> <span class="op">=</span> <span class="num">75</span>;
+<span class="kw">if</span> (<span class="fn">$nota</span> <span class="op">>=</span> <span class="num">90</span>) {
+    <span class="fn">echo</span> <span class="str">"Excelente"</span>;
+} <span class="kw">elseif</span> (<span class="fn">$nota</span> <span class="op">>=</span> <span class="num">70</span>) {
+    <span class="fn">echo</span> <span class="str">"Bom"</span>;
+} <span class="kw">elseif</span> (<span class="fn">$nota</span> <span class="op">>=</span> <span class="num">50</span>) {
+    <span class="fn">echo</span> <span class="str">"Suficiente"</span>;
+} <span class="kw">else</span> {
+    <span class="fn">echo</span> <span class="str">"Reprovado"</span>;
+}</pre></div>
+  </div>
+  <div id="dec-switch" class="tab-content">
+    <div class="code-wrap"><pre><span class="kw">switch</span> (<span class="fn">$diaSemana</span>) {
+  <span class="kw">case</span> <span class="num">1</span>: <span class="fn">echo</span> <span class="str">"Segunda"</span>; <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">2</span>: <span class="fn">echo</span> <span class="str">"Terça"</span>;   <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">3</span>: <span class="fn">echo</span> <span class="str">"Quarta"</span>;  <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">4</span>: <span class="fn">echo</span> <span class="str">"Quinta"</span>;  <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">5</span>: <span class="fn">echo</span> <span class="str">"Sexta"</span>;   <span class="kw">break</span>;
+  <span class="kw">default</span>: <span class="fn">echo</span> <span class="str">"Fim de semana"</span>;
+}</pre></div>
+  </div>
+  <div id="dec-ternary" class="tab-content">
+    <div class="code-wrap"><pre><span class="cm">// Ternário: condição ? valor_true : valor_false</span>
+<span class="fn">$idade</span> <span class="op">=</span> <span class="num">20</span>;
+<span class="fn">$acesso</span> <span class="op">=</span> <span class="fn">$idade</span> <span class="op">>=</span> <span class="num">18</span> <span class="op">?</span> <span class="str">"Permitido"</span> <span class="op">:</span> <span class="str">"Negado"</span>;
+
+<span class="cm">// Em JavaScript</span>
+<span class="kw">const</span> <span class="fn">msg</span> <span class="op">=</span> score <span class="op">>=</span> <span class="num">50</span> <span class="op">?</span> <span class="str">"Passou!"</span> <span class="op">:</span> <span class="str">"Reprovou"</span>;
+
+<span class="cm">// Nullish coalescing (JS) — ?? retorna o lado direito se null/undefined</span>
+<span class="kw">const</span> <span class="fn">nome</span> <span class="op">=</span> utilizador?.nome <span class="op">??</span> <span class="str">"Anónimo"</span>;</pre></div>
+  </div>
+  <div id="dec-match" class="tab-content">
+    <div class="code-wrap"><div class="code-label">PHP 8.0+</div><pre><span class="cm">// match é mais rigoroso que switch (comparação ===)</span>
+<span class="fn">$resultado</span> <span class="op">=</span> <span class="kw">match</span>(<span class="fn">$codigoHttp</span>) {
+  <span class="num">200</span>       <span class="op">=></span> <span class="str">'OK'</span>,
+  <span class="num">301</span>, <span class="num">302</span>  <span class="op">=></span> <span class="str">'Redirecionamento'</span>,
+  <span class="num">404</span>       <span class="op">=></span> <span class="str">'Não encontrado'</span>,
+  <span class="num">500</span>       <span class="op">=></span> <span class="str">'Erro de servidor'</span>,
+  <span class="kw">default</span>   <span class="op">=></span> <span class="str">'Código desconhecido'</span>
+};
+<span class="fn">echo</span> <span class="fn">$resultado</span>;</pre></div>
+  </div>
+</div>
+
+<!-- ====== 4d. CICLOS ====== -->
+<div id="ciclos" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 4d</div>
+    <h1>Ciclos (Loops)</h1>
+    <p class="subtitle">Estruturas de repetição — for, while, foreach e métodos funcionais.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('ciclo','for',this)">for</button>
+    <button class="tab-btn" onclick="showTab('ciclo','while',this)">while / do-while</button>
+    <button class="tab-btn" onclick="showTab('ciclo','foreach',this)">foreach</button>
+    <button class="tab-btn" onclick="showTab('ciclo','jsmod',this)">JS Moderno</button>
+  </div>
+  <div id="ciclo-for" class="tab-content active">
+    <div class="code-wrap"><pre><span class="cm">// for — número definido de iterações</span>
+<span class="kw">for</span> (<span class="fn">$i</span> <span class="op">=</span> <span class="num">0</span>; <span class="fn">$i</span> <span class="op">&lt;</span> <span class="num">5</span>; <span class="fn">$i</span>++) {
+    <span class="fn">echo</span> <span class="str">"Iteração: $i &lt;br&gt;"</span>;
+}
+<span class="cm">// Saída: 0, 1, 2, 3, 4</span>
+
+<span class="cm">// Em JavaScript</span>
+<span class="kw">for</span> (<span class="kw">let</span> <span class="fn">i</span> <span class="op">=</span> <span class="num">0</span>; <span class="fn">i</span> <span class="op">&lt;</span> <span class="num">5</span>; <span class="fn">i</span>++) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">`Passo ${i}`</span>);
+}</pre></div>
+  </div>
+  <div id="ciclo-while" class="tab-content">
+    <div class="code-wrap"><pre><span class="cm">// while — enquanto a condição for verdadeira</span>
+<span class="fn">$n</span> <span class="op">=</span> <span class="num">1</span>;
+<span class="kw">while</span> (<span class="fn">$n</span> <span class="op">&lt;=</span> <span class="num">5</span>) {
+    <span class="fn">echo</span> <span class="fn">$n</span> . <span class="str">" "</span>;
+    <span class="fn">$n</span>++;
+}
+<span class="cm">// Saída: 1 2 3 4 5</span>
+
+<span class="cm">// do...while — executa PELO MENOS UMA VEZ</span>
+<span class="fn">$tentativa</span> <span class="op">=</span> <span class="num">0</span>;
+<span class="kw">do</span> {
+    <span class="fn">$tentativa</span>++;
+    <span class="fn">echo</span> <span class="str">"Tentativa $tentativa"</span>;
+    <span class="fn">$resultado</span> <span class="op">=</span> <span class="fn">tentarLigar</span>();
+} <span class="kw">while</span> (<span class="fn">$resultado</span> <span class="op">===</span> <span class="kw">false</span> <span class="op">&&</span> <span class="fn">$tentativa</span> <span class="op">&lt;</span> <span class="num">3</span>);</pre></div>
+  </div>
+  <div id="ciclo-foreach" class="tab-content">
+    <div class="code-wrap"><pre><span class="cm">// foreach — percorrer arrays e coleções</span>
+<span class="fn">$frutas</span> <span class="op">=</span> [<span class="str">"maçã"</span>, <span class="str">"banana"</span>, <span class="str">"laranja"</span>];
+<span class="kw">foreach</span> (<span class="fn">$frutas</span> <span class="kw">as</span> <span class="fn">$fruta</span>) {
+    <span class="fn">echo</span> <span class="fn">$fruta</span> . <span class="str">"&lt;br&gt;"</span>;
+}
+
+<span class="cm">// Com índice e valor</span>
+<span class="kw">foreach</span> (<span class="fn">$frutas</span> <span class="kw">as</span> <span class="fn">$indice</span> <span class="op">=></span> <span class="fn">$fruta</span>) {
+    <span class="fn">echo</span> <span class="str">"$indice: $fruta&lt;br&gt;"</span>;
+}
+
+<span class="cm">// Array associativo</span>
+<span class="fn">$pessoa</span> <span class="op">=</span> [<span class="str">"nome"</span> <span class="op">=></span> <span class="str">"Ana"</span>, <span class="str">"idade"</span> <span class="op">=></span> <span class="num">30</span>];
+<span class="kw">foreach</span> (<span class="fn">$pessoa</span> <span class="kw">as</span> <span class="fn">$chave</span> <span class="op">=></span> <span class="fn">$valor</span>) {
+    <span class="fn">echo</span> <span class="str">"$chave: $valor&lt;br&gt;"</span>;
+}</pre></div>
+  </div>
+  <div id="ciclo-jsmod" class="tab-content">
+    <div class="code-wrap"><div class="code-label">JavaScript Moderno</div><pre><span class="kw">const</span> nums <span class="op">=</span> [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>];
+
+<span class="cm">// for...of — iterar valores de array/string</span>
+<span class="kw">for</span> (<span class="kw">const</span> n <span class="kw">of</span> nums) <span class="fn">console</span>.<span class="fn">log</span>(n);
+
+<span class="cm">// for...in — iterar chaves de objeto</span>
+<span class="kw">const</span> obj <span class="op">=</span> { a: <span class="num">1</span>, b: <span class="num">2</span> };
+<span class="kw">for</span> (<span class="kw">const</span> chave <span class="kw">in</span> obj) <span class="fn">console</span>.<span class="fn">log</span>(chave, obj[chave]);
+
+<span class="cm">// Métodos funcionais</span>
+nums.<span class="fn">forEach</span>(n <span class="op">=></span> <span class="fn">console</span>.<span class="fn">log</span>(n));            <span class="cm">// iterar</span>
+<span class="kw">const</span> dobro  <span class="op">=</span> nums.<span class="fn">map</span>(n <span class="op">=></span> n <span class="op">*</span> <span class="num">2</span>);           <span class="cm">// [20,40,60,80]</span>
+<span class="kw">const</span> pares  <span class="op">=</span> nums.<span class="fn">filter</span>(n <span class="op">=></span> n <span class="op">%</span> <span class="num">2</span> <span class="op">===</span> <span class="num">0</span>);  <span class="cm">// [10,20,30,40]</span>
+<span class="kw">const</span> soma   <span class="op">=</span> nums.<span class="fn">reduce</span>((acc, n) <span class="op">=></span> acc <span class="op">+</span> n, <span class="num">0</span>); <span class="cm">// 100</span></pre></div>
+  </div>
+</div>
+
+<!-- ====== 4e. SCOPE ====== -->
+<div id="scope" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 4e</div>
+    <h1>Scope e Tempo de Vida de Variáveis</h1>
+    <p class="subtitle">Onde e por quanto tempo as variáveis existem em memória.</p>
+  </div>
+  <h2>Scope em PHP</h2>
+  <div class="code-wrap"><div class="code-label">PHP</div><pre><span class="fn">$global</span> <span class="op">=</span> <span class="str">"sou global"</span>;
+
+<span class="kw">function</span> <span class="fn">minhaFuncao</span>() {
+    <span class="cm">// $global NÃO está acessível aqui automaticamente</span>
+    <span class="fn">echo</span> <span class="fn">$global</span>; <span class="cm">// ⚠ Aviso: Undefined variable</span>
+
+    <span class="cm">// Para aceder: declarar com global</span>
+    <span class="kw">global</span> <span class="fn">$global</span>;
+    <span class="fn">echo</span> <span class="fn">$global</span>; <span class="cm">// "sou global"</span>
+
+    <span class="cm">// Variável local — só existe dentro desta função</span>
+    <span class="fn">$local</span> <span class="op">=</span> <span class="str">"apenas aqui"</span>;
+
+    <span class="cm">// Variável estática — persiste entre chamadas</span>
+    <span class="kw">static</span> <span class="fn">$contador</span> <span class="op">=</span> <span class="num">0</span>;
+    <span class="fn">$contador</span>++;
+    <span class="fn">echo</span> <span class="fn">$contador</span>; <span class="cm">// 1, 2, 3... em chamadas sucessivas</span>
+}
+<span class="fn">minhaFuncao</span>();
+<span class="fn">minhaFuncao</span>(); <span class="cm">// contador será 2</span></pre></div>
+  <h2>Scope em JavaScript</h2>
+  <div class="code-wrap"><div class="code-label">JavaScript</div><pre><span class="cm">// var — scope de função (comportamento antigo)</span>
+<span class="kw">function</span> <span class="fn">exemploVar</span>() {
+  <span class="kw">var</span> <span class="fn">x</span> <span class="op">=</span> <span class="num">1</span>;
+  <span class="kw">if</span> (<span class="kw">true</span>) {
+    <span class="kw">var</span> <span class="fn">x</span> <span class="op">=</span> <span class="num">2</span>; <span class="cm">// MESMA variável! (var ignora blocos)</span>
+  }
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">x</span>); <span class="cm">// 2</span>
+}
+
+<span class="cm">// let/const — scope de bloco {} (recomendado)</span>
+<span class="kw">let</span> <span class="fn">y</span> <span class="op">=</span> <span class="num">10</span>;
+<span class="kw">if</span> (<span class="kw">true</span>) {
+  <span class="kw">let</span> <span class="fn">y</span> <span class="op">=</span> <span class="num">20</span>; <span class="cm">// variável diferente, dentro do bloco</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">y</span>); <span class="cm">// 20</span>
+}
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">y</span>); <span class="cm">// 10 — a exterior mantém-se</span>
+
+<span class="cm">// Closure — função "fecha" sobre variáveis do scope exterior</span>
+<span class="kw">function</span> <span class="fn">criarContador</span>() {
+  <span class="kw">let</span> <span class="fn">n</span> <span class="op">=</span> <span class="num">0</span>; <span class="cm">// n persiste via closure</span>
+  <span class="kw">return</span> () <span class="op">=></span> ++<span class="fn">n</span>;
+}
+<span class="kw">const</span> <span class="fn">inc</span> <span class="op">=</span> <span class="fn">criarContador</span>();
+<span class="fn">inc</span>(); <span class="cm">// 1</span>
+<span class="fn">inc</span>(); <span class="cm">// 2</span>
+<span class="fn">inc</span>(); <span class="cm">// 3</span></pre></div>
+  <div class="warn-box">Usar <code>var</code> pode causar bugs difíceis de detetar devido ao <em>hoisting</em> e scope de função. Prefira sempre <code>let</code> e <code>const</code>.</div>
+</div>
+
+<!-- ====== 5a. OBJETOS ====== -->
+<div id="objetos" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 5a</div>
+    <h1>Objetos da Linguagem</h1>
+    <p class="subtitle">Objetos nativos do browser e de PHP — métodos e propriedades principais.</p>
+  </div>
+  <h2>Objetos globais do browser (JavaScript)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Objeto</th><th>Função</th><th>Exemplos</th></tr>
+      <tr><td><code>window</code></td><td>Objeto global do browser</td><td><code>alert()</code>, <code>setTimeout()</code>, <code>location</code></td></tr>
+      <tr><td><code>document</code></td><td>Representação do HTML (DOM)</td><td><code>getElementById()</code>, <code>querySelector()</code></td></tr>
+      <tr><td><code>navigator</code></td><td>Info do browser/dispositivo</td><td><code>userAgent</code>, <code>geolocation</code>, <code>language</code></td></tr>
+      <tr><td><code>location</code></td><td>URL e navegação atual</td><td><code>href</code>, <code>pathname</code>, <code>reload()</code></td></tr>
+      <tr><td><code>history</code></td><td>Histórico de navegação</td><td><code>back()</code>, <code>forward()</code>, <code>pushState()</code></td></tr>
+      <tr><td><code>console</code></td><td>Ferramentas de debug</td><td><code>log()</code>, <code>error()</code>, <code>table()</code></td></tr>
+      <tr><td><code>Date</code></td><td>Datas e horas</td><td><code>new Date()</code>, <code>getFullYear()</code></td></tr>
+      <tr><td><code>Math</code></td><td>Funções matemáticas</td><td><code>round()</code>, <code>random()</code>, <code>max()</code></td></tr>
+      <tr><td><code>JSON</code></td><td>Serialização de dados</td><td><code>stringify()</code>, <code>parse()</code></td></tr>
+      <tr><td><code>localStorage</code></td><td>Armazenamento local</td><td><code>setItem()</code>, <code>getItem()</code></td></tr>
+    </table>
+  </div>
+  <h2>Exemplos práticos</h2>
+  <div class="code-wrap"><div class="code-label">JavaScript</div><pre><span class="cm">// document — manipular o DOM</span>
+<span class="kw">const</span> el <span class="op">=</span> document.<span class="fn">getElementById</span>(<span class="str">'titulo'</span>);
+el.textContent <span class="op">=</span> <span class="str">"Novo título"</span>;
+el.style.color <span class="op">=</span> <span class="str">"blue"</span>;
+el.classList.<span class="fn">add</span>(<span class="str">'destaque'</span>);
+
+<span class="cm">// Math</span>
+Math.<span class="fn">round</span>(<span class="num">4.7</span>);         <span class="cm">// 5</span>
+Math.<span class="fn">floor</span>(<span class="num">4.9</span>);         <span class="cm">// 4</span>
+Math.<span class="fn">random</span>();           <span class="cm">// 0.0 a 0.999...</span>
+Math.<span class="fn">max</span>(<span class="num">3</span>, <span class="num">7</span>, <span class="num">2</span>);     <span class="cm">// 7</span>
+Math.<span class="fn">pow</span>(<span class="num">2</span>, <span class="num">10</span>);         <span class="cm">// 1024</span>
+
+<span class="cm">// Date</span>
+<span class="kw">const</span> hoje <span class="op">=</span> <span class="kw">new</span> <span class="fn">Date</span>();
+hoje.<span class="fn">getFullYear</span>();                        <span class="cm">// 2026</span>
+hoje.<span class="fn">toLocaleDateString</span>(<span class="str">'pt-PT'</span>);        <span class="cm">// "21/04/2026"</span>
+hoje.<span class="fn">toLocaleTimeString</span>(<span class="str">'pt-PT'</span>);        <span class="cm">// "14:32:05"</span>
+
+<span class="cm">// JSON</span>
+<span class="kw">const</span> obj  <span class="op">=</span> { nome: <span class="str">"Ana"</span>, idade: <span class="num">30</span> };
+<span class="kw">const</span> json <span class="op">=</span> JSON.<span class="fn">stringify</span>(obj);         <span class="cm">// '{"nome":"Ana","idade":30}'</span>
+<span class="kw">const</span> back <span class="op">=</span> JSON.<span class="fn">parse</span>(json);            <span class="cm">// objeto de volta</span></pre></div>
+</div>
+
+<!-- ====== 5b. EVENTOS ====== -->
+<div id="eventos" class="section">
+  <div class="hero">
+    <div class="hero-tag">Módulo 5b</div>
+    <h1>Eventos Globais e Indiretos</h1>
+    <p class="subtitle">addEventListener, eventos do DOM, da janela e delegação de eventos.</p>
+  </div>
+  <h2>Eventos diretos (no elemento)</h2>
+  <div class="code-wrap"><div class="code-label">JavaScript</div><pre><span class="kw">const</span> btn <span class="op">=</span> document.<span class="fn">getElementById</span>(<span class="str">'meuBotao'</span>);
+
+<span class="cm">// Adicionar listener</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (e) <span class="op">=></span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'Clicado!'</span>, e.target);
+  e.<span class="fn">preventDefault</span>(); <span class="cm">// previne comportamento padrão</span>
+});
+
+btn.<span class="fn">addEventListener</span>(<span class="str">'mouseover'</span>, () <span class="op">=></span> {
+  btn.style.background <span class="op">=</span> <span class="str">'lightblue'</span>;
+});
+btn.<span class="fn">addEventListener</span>(<span class="str">'mouseout'</span>, () <span class="op">=></span> {
+  btn.style.background <span class="op">=</span> <span class="str">''</span>;
+});
+
+<span class="cm">// Remover listener (necessita referência à função)</span>
+<span class="kw">function</span> <span class="fn">handler</span>(e) { <span class="fn">console</span>.<span class="fn">log</span>(e.type); }
+btn.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, handler);
+btn.<span class="fn">removeEventListener</span>(<span class="str">'click'</span>, handler);</pre></div>
+  <h2>Eventos globais (window / document)</h2>
+  <div class="code-wrap"><pre><span class="cm">// DOM pronto — sem esperar imagens e recursos</span>
+document.<span class="fn">addEventListener</span>(<span class="str">'DOMContentLoaded'</span>, () <span class="op">=></span> {
+  <span class="fn">inicializar</span>();
+});
+
+<span class="cm">// Página completamente carregada (imagens incluídas)</span>
+window.<span class="fn">addEventListener</span>(<span class="str">'load'</span>, () <span class="op">=></span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'Tudo carregado'</span>);
+});
+
+<span class="cm">// Redimensionar janela</span>
+window.<span class="fn">addEventListener</span>(<span class="str">'resize'</span>, () <span class="op">=></span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(window.innerWidth, window.innerHeight);
+});
+
+<span class="cm">// Tecla premida</span>
+document.<span class="fn">addEventListener</span>(<span class="str">'keydown'</span>, (e) <span class="op">=></span> {
+  <span class="kw">if</span> (e.key <span class="op">===</span> <span class="str">'Escape'</span>) <span class="fn">fecharModal</span>();
+  <span class="kw">if</span> (e.ctrlKey <span class="op">&&</span> e.key <span class="op">===</span> <span class="str">'s'</span>) { e.<span class="fn">preventDefault</span>(); <span class="fn">guardar</span>(); }
+});
+
+<span class="cm">// Antes de sair da página</span>
+window.<span class="fn">addEventListener</span>(<span class="str">'beforeunload'</span>, (e) <span class="op">=></span> {
+  e.returnValue <span class="op">=</span> <span class="str">'Tens alterações não guardadas!'</span>;
+});</pre></div>
+  <h2>Delegação de eventos (indiretos)</h2>
+  <div class="code-wrap"><pre><span class="cm">// Em vez de adicionar listener a cada item da lista,
+// adicionar ao pai — funciona para elementos futuros!</span>
+<span class="kw">const</span> lista <span class="op">=</span> document.<span class="fn">getElementById</span>(<span class="str">'minhaLista'</span>);
+
+lista.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (e) <span class="op">=></span> {
+  <span class="cm">// e.target é o elemento realmente clicado</span>
+  <span class="kw">if</span> (e.target.<span class="fn">matches</span>(<span class="str">'li.item'</span>)) {
+    e.target.classList.<span class="fn">toggle</span>(<span class="str">'selecionado'</span>);
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'Item:'</span>, e.target.textContent);
+  }
+  <span class="kw">if</span> (e.target.<span class="fn">matches</span>(<span class="str">'.btn-apagar'</span>)) {
+    e.target.closest(<span class="str">'li'</span>).<span class="fn">remove</span>();
+  }
+});</pre></div>
+  <div class="info-box">A delegação de eventos é mais eficiente do que adicionar um listener a cada elemento — especialmente em listas longas ou elementos criados dinamicamente.</div>
+  <h2>Tabela de eventos comuns</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Evento</th><th>Elemento</th><th>Quando ocorre</th></tr>
+      <tr><td><code>click</code></td><td>Qualquer</td><td>Clique do rato</td></tr>
+      <tr><td><code>dblclick</code></td><td>Qualquer</td><td>Duplo clique</td></tr>
+      <tr><td><code>submit</code></td><td>form</td><td>Envio do formulário</td></tr>
+      <tr><td><code>input</code></td><td>input, textarea</td><td>Cada caracter digitado</td></tr>
+      <tr><td><code>change</code></td><td>input, select</td><td>Após alteração confirmada</td></tr>
+      <tr><td><code>keydown / keyup</code></td><td>document</td><td>Tecla premida / solta</td></tr>
+      <tr><td><code>focus / blur</code></td><td>input</td><td>Foco ganho / perdido</td></tr>
+      <tr><td><code>load</code></td><td>window, img</td><td>Recurso carregado</td></tr>
+      <tr><td><code>DOMContentLoaded</code></td><td>document</td><td>DOM pronto</td></tr>
+      <tr><td><code>scroll</code></td><td>window</td><td>Página deslocada</td></tr>
+      <tr><td><code>mouseover / mouseout</code></td><td>Qualquer</td><td>Rato entra / sai do elemento</td></tr>
+      <tr><td><code>resize</code></td><td>window</td><td>Janela redimensionada</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ====== BD ====== -->
+<div id="bd" class="section">
+  <div class="hero">
+    <div class="hero-tag">Base de Dados</div>
+    <h1>CRUD com PHP e MySQL</h1>
+    <p class="subtitle">Create, Read, Update, Delete — as quatro operações fundamentais sobre dados.</p>
+  </div>
+  <span class="badge server">▲ Servidor</span>
+  <span class="badge db">🗄 MySQL / PDO</span>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('bd','conn',this)">Ligação</button>
+    <button class="tab-btn" onclick="showTab('bd','insert',this)">INSERT</button>
+    <button class="tab-btn" onclick="showTab('bd','select',this)">SELECT</button>
+    <button class="tab-btn" onclick="showTab('bd','update',this)">UPDATE</button>
+    <button class="tab-btn" onclick="showTab('bd','delete',this)">DELETE</button>
+  </div>
+  <div id="bd-conn" class="tab-content active">
+    <div class="code-wrap"><div class="code-label">PHP — PDO</div><pre><span class="cm">// Ligação com PDO — suporta MySQL, PostgreSQL, SQLite...</span>
+<span class="fn">$host</span> <span class="op">=</span> <span class="str">'localhost'</span>;
+<span class="fn">$bd</span>   <span class="op">=</span> <span class="str">'minha_bd'</span>;
+<span class="fn">$user</span> <span class="op">=</span> <span class="str">'root'</span>;
+<span class="fn">$pass</span> <span class="op">=</span> <span class="str">'senha'</span>;
+
+<span class="kw">try</span> {
+    <span class="fn">$pdo</span> <span class="op">=</span> <span class="kw">new</span> <span class="fn">PDO</span>(
+        <span class="str">"mysql:host=$host;dbname=$bd;charset=utf8mb4"</span>,
+        <span class="fn">$user</span>, <span class="fn">$pass</span>
+    );
+    <span class="fn">$pdo</span>-><span class="fn">setAttribute</span>(PDO::ATTR_ERRMODE,
+                     PDO::ERRMODE_EXCEPTION);
+    <span class="fn">echo</span> <span class="str">"Ligação bem-sucedida!"</span>;
+} <span class="kw">catch</span> (PDOException <span class="fn">$e</span>) {
+    <span class="fn">die</span>(<span class="str">"Erro de ligação: "</span> <span class="op">.</span> <span class="fn">$e</span>-><span class="fn">getMessage</span>());
+}
+
+<span class="cm">// Criar tabela exemplo</span>
+<span class="fn">$pdo</span>-><span class="fn">exec</span>(<span class="str">"CREATE TABLE IF NOT EXISTS utilizadores (
+  id    INT AUTO_INCREMENT PRIMARY KEY,
+  nome  VARCHAR(100) NOT NULL,
+  email VARCHAR(150) UNIQUE NOT NULL,
+  idade INT
+)"</span>);</pre></div>
+    <div class="info-box">PDO é preferível a <code>mysqli</code> porque suporta múltiplos motores de BD com a mesma sintaxe e facilita a migração de base de dados.</div>
+  </div>
+  <div id="bd-insert" class="tab-content">
+    <div class="code-wrap"><div class="code-label">PHP — INSERT</div><pre><span class="cm">// CREATE — Inserir dados com prepared statement</span>
+<span class="fn">$sql</span> <span class="op">=</span> <span class="str">"INSERT INTO utilizadores (nome, email, idade)
+         VALUES (:nome, :email, :idade)"</span>;
+
+<span class="fn">$stmt</span> <span class="op">=</span> <span class="fn">$pdo</span>-><span class="fn">prepare</span>(<span class="fn">$sql</span>);
+<span class="fn">$stmt</span>-><span class="fn">execute</span>([
+    <span class="str">':nome'</span>  <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'nome'</span>],
+    <span class="str">':email'</span> <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'email'</span>],
+    <span class="str">':idade'</span> <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'idade'</span>]
+]);
+
+<span class="fn">$idNovo</span> <span class="op">=</span> <span class="fn">$pdo</span>-><span class="fn">lastInsertId</span>();
+<span class="fn">echo</span> <span class="str">"Utilizador inserido com ID: $idNovo"</span>;</pre></div>
+    <div class="danger-box">Nunca concatenes dados do utilizador diretamente no SQL! <code>"...WHERE nome='$_POST[nome]'"</code> é vulnerável a <strong>SQL Injection</strong>. Usa sempre prepared statements com <code>:parametro</code>.</div>
+  </div>
+  <div id="bd-select" class="tab-content">
+    <div class="code-wrap"><div class="code-label">PHP — SELECT</div><pre><span class="cm">// READ — Todos os registos</span>
+<span class="fn">$stmt</span> <span class="op">=</span> <span class="fn">$pdo</span>-><span class="fn">query</span>(
+    <span class="str">"SELECT * FROM utilizadores ORDER BY nome ASC"</span>
+);
+<span class="fn">$utilizadores</span> <span class="op">=</span> <span class="fn">$stmt</span>-><span class="fn">fetchAll</span>(PDO::FETCH_ASSOC);
+
+<span class="kw">foreach</span> (<span class="fn">$utilizadores</span> <span class="kw">as</span> <span class="fn">$u</span>) {
+    <span class="fn">echo</span> <span class="fn">$u</span>[<span class="str">'nome'</span>] . <span class="str">' — '</span> . <span class="fn">$u</span>[<span class="str">'email'</span>];
+}
+
+<span class="cm">// Com filtro por ID (prepared statement)</span>
+<span class="fn">$stmt</span> <span class="op">=</span> <span class="fn">$pdo</span>-><span class="fn">prepare</span>(
+    <span class="str">"SELECT * FROM utilizadores WHERE id = :id"</span>
+);
+<span class="fn">$stmt</span>-><span class="fn">execute</span>([<span class="str">':id'</span> <span class="op">=></span> <span class="fn">$_GET</span>[<span class="str">'id'</span>]]);
+<span class="fn">$registo</span> <span class="op">=</span> <span class="fn">$stmt</span>-><span class="fn">fetch</span>(PDO::FETCH_ASSOC);
+
+<span class="cm">// Pesquisa por nome (LIKE)</span>
+<span class="fn">$stmt</span> <span class="op">=</span> <span class="fn">$pdo</span>-><span class="fn">prepare</span>(
+    <span class="str">"SELECT * FROM utilizadores WHERE nome LIKE :termo"</span>
+);
+<span class="fn">$stmt</span>-><span class="fn">execute</span>([<span class="str">':termo'</span> <span class="op">=></span> <span class="str">'%'</span> <span class="op">.</span> <span class="fn">$_GET</span>[<span class="str">'q'</span>] <span class="op">.</span> <span class="str">'%'</span>]);</pre></div>
+  </div>
+  <div id="bd-update" class="tab-content">
+    <div class="code-wrap"><div class="code-label">PHP — UPDATE</div><pre><span class="cm">// UPDATE — Atualizar um registo existente</span>
+<span class="fn">$sql</span> <span class="op">=</span> <span class="str">"UPDATE utilizadores
+         SET nome  = :nome,
+             email = :email,
+             idade = :idade
+         WHERE id  = :id"</span>;
+
+<span class="fn">$stmt</span> <span class="op">=</span> <span class="fn">$pdo</span>-><span class="fn">prepare</span>(<span class="fn">$sql</span>);
+<span class="fn">$stmt</span>-><span class="fn">execute</span>([
+    <span class="str">':nome'</span>  <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'nome'</span>],
+    <span class="str">':email'</span> <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'email'</span>],
+    <span class="str">':idade'</span> <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'idade'</span>],
+    <span class="str">':id'</span>    <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'id'</span>]
+]);
+
+<span class="fn">$alterados</span> <span class="op">=</span> <span class="fn">$stmt</span>-><span class="fn">rowCount</span>();
+<span class="fn">echo</span> <span class="str">"$alterados registo(s) atualizado(s)"</span>;</pre></div>
+  </div>
+  <div id="bd-delete" class="tab-content">
+    <div class="code-wrap"><div class="code-label">PHP — DELETE</div><pre><span class="cm">// DELETE — Eliminar um registo</span>
+<span class="fn">$stmt</span> <span class="op">=</span> <span class="fn">$pdo</span>-><span class="fn">prepare</span>(
+    <span class="str">"DELETE FROM utilizadores WHERE id = :id"</span>
+);
+<span class="fn">$stmt</span>-><span class="fn">execute</span>([<span class="str">':id'</span> <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'id'</span>]]);
+
+<span class="fn">echo</span> <span class="fn">$stmt</span>-><span class="fn">rowCount</span>() > <span class="num">0</span>
+    ? <span class="str">"Registo eliminado com sucesso."</span>
+    : <span class="str">"Nenhum registo encontrado."</span>;
+
+<span class="cm">// Alternativa: soft delete (não elimina fisicamente)</span>
+<span class="fn">$pdo</span>-><span class="fn">prepare</span>(
+    <span class="str">"UPDATE utilizadores SET ativo = 0 WHERE id = :id"</span>
+)-><span class="fn">execute</span>([<span class="str">':id'</span> <span class="op">=></span> <span class="fn">$_POST</span>[<span class="str">'id'</span>]]);</pre></div>
+    <div class="warn-box">Considera usar <strong>soft delete</strong> (marcar como inativo) em vez de apagar fisicamente — permite recuperar dados acidentalmente eliminados.</div>
+  </div>
+
+  <hr>
+  <h2>Formulário CRUD — Demonstração Interativa</h2>
+  <p>Simula as operações de base de dados (dados em memória, para fins didáticos):</p>
+  <div class="db-demo">
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="showTab('form','ins',this)">➕ Inserir</button>
+      <button class="tab-btn" onclick="showTab('form','sel',this)">🔍 Consultar</button>
+      <button class="tab-btn" onclick="showTab('form','upd',this)">✏️ Atualizar</button>
+      <button class="tab-btn" onclick="showTab('form','del',this)">🗑 Eliminar</button>
+    </div>
+
+    <div id="form-ins" class="tab-content active">
+      <label>Nome</label>
+      <input type="text" id="ins-nome" placeholder="ex: Ana Silva">
+      <label>Email</label>
+      <input type="email" id="ins-email" placeholder="ex: ana@email.com">
+      <label>Idade</label>
+      <input type="number" id="ins-idade" placeholder="ex: 28" min="1" max="120">
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="simIns()">Inserir registo</button>
+      </div>
+      <div class="result-box" id="ins-res">Preenche os campos e clica em "Inserir registo"...</div>
+    </div>
+
+    <div id="form-sel" class="tab-content">
+      <label>Filtrar por nome (deixa vazio para todos)</label>
+      <input type="text" id="sel-nome" placeholder="ex: Ana  (deixa vazio para todos)">
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="simSel()">Consultar registos</button>
+      </div>
+      <div class="result-box" id="sel-res">Clica em "Consultar registos"...</div>
+    </div>
+
+    <div id="form-upd" class="tab-content">
+      <label>ID do registo a atualizar</label>
+      <input type="number" id="upd-id" placeholder="ex: 1" min="1">
+      <label>Novo nome</label>
+      <input type="text" id="upd-nome" placeholder="ex: Maria Costa">
+      <label>Novo email</label>
+      <input type="email" id="upd-email" placeholder="ex: maria@email.com">
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="simUpd()">Atualizar registo</button>
+      </div>
+      <div class="result-box" id="upd-res">Introduz o ID e os novos dados...</div>
+    </div>
+
+    <div id="form-del" class="tab-content">
+      <label>ID do registo a eliminar</label>
+      <input type="number" id="del-id" placeholder="ex: 2" min="1">
+      <div class="btn-row">
+        <button class="btn btn-danger" onclick="simDel()">Eliminar registo</button>
+      </div>
+      <div class="result-box" id="del-res">Introduz o ID do registo a eliminar...</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ---- Navigation ----
+function show(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+function showTab(group, tab, btn) {
+  const section = btn ? btn.closest('.section, .db-demo') : document;
+  const ctx = section || document;
+  ctx.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  ctx.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById(group + '-' + tab);
+  if (el) el.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ---- In-memory DB simulation ----
+const db = [];
+let nextId = 1;
+
+function setResult(id, msg, ok) {
+  const box = document.getElementById(id);
+  box.textContent = msg;
+  box.className = 'result-box ' + (ok ? 'result-ok' : 'result-err');
+}
+
+function simIns() {
+  const nome  = document.getElementById('ins-nome').value.trim();
+  const email = document.getElementById('ins-email').value.trim();
+  const idade = parseInt(document.getElementById('ins-idade').value) || 0;
+  if (!nome || !email) { setResult('ins-res', '❌ Erro: Preenche nome e email.', false); return; }
+  const id = nextId++;
+  db.push({ id, nome, email, idade });
+  setResult('ins-res',
+    `✅ Registo inserido com sucesso!\n\n` +
+    `SQL executado:\nINSERT INTO utilizadores (nome, email, idade)\nVALUES ('${nome}', '${email}', ${idade});\n\n` +
+    `→ Novo ID gerado: ${id}\n→ Total de registos na tabela: ${db.length}`, true);
+}
+
+function simSel() {
+  const filtro = document.getElementById('sel-nome').value.trim().toLowerCase();
+  if (db.length === 0) { setResult('sel-res', 'ℹ️ A tabela está vazia. Insere registos primeiro.', false); return; }
+  const res = filtro ? db.filter(r => r.nome.toLowerCase().includes(filtro)) : [...db];
+  const sql = filtro
+    ? `SELECT * FROM utilizadores WHERE nome LIKE '%${filtro}%';`
+    : `SELECT * FROM utilizadores ORDER BY nome ASC;`;
+  if (res.length === 0) { setResult('sel-res', `⚠️ Nenhum registo encontrado para "${filtro}".`, false); return; }
+  const rows = res.map(r => `  ID:${r.id}  |  Nome: ${r.nome}  |  Email: ${r.email}  |  Idade: ${r.idade}`).join('\n');
+  setResult('sel-res',
+    `✅ ${res.length} registo(s) encontrado(s):\n\nSQL executado:\n${sql}\n\nResultado:\n${rows}`, true);
+}
+
+function simUpd() {
+  const id    = parseInt(document.getElementById('upd-id').value);
+  const nome  = document.getElementById('upd-nome').value.trim();
+  const email = document.getElementById('upd-email').value.trim();
+  if (isNaN(id) || !nome || !email) { setResult('upd-res', '❌ Erro: Preenche ID, nome e email.', false); return; }
+  const idx = db.findIndex(r => r.id === id);
+  if (idx === -1) { setResult('upd-res', `❌ Erro: Registo com ID ${id} não encontrado.`, false); return; }
+  db[idx].nome = nome; db[idx].email = email;
+  setResult('upd-res',
+    `✅ Registo ID ${id} atualizado com sucesso!\n\n` +
+    `SQL executado:\nUPDATE utilizadores\nSET nome='${nome}', email='${email}'\nWHERE id=${id};\n\n→ 1 registo(s) afetado(s)`, true);
+}
+
+function simDel() {
+  const id = parseInt(document.getElementById('del-id').value);
+  if (isNaN(id)) { setResult('del-res', '❌ Erro: Introduz um ID válido.', false); return; }
+  const idx = db.findIndex(r => r.id === id);
+  if (idx === -1) { setResult('del-res', `❌ Erro: Registo com ID ${id} não encontrado.`, false); return; }
+  db.splice(idx, 1);
+  setResult('del-res',
+    `✅ Registo ID ${id} eliminado com sucesso!\n\n` +
+    `SQL executado:\nDELETE FROM utilizadores WHERE id=${id};\n\n→ 1 registo(s) eliminado(s)\n→ Registos restantes: ${db.length}`, true);
+}
+</script>
+
+</body>
+</html>
